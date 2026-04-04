@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notices>
+  <notice id="n001">
+    <title>Mid-term Exam Schedule Published</title>
+    <date>2025-06-15</date>
+    <category>Exam</category>
+    <body>The mid-term schedule for all departments is now available on the portal. Please review your respective course timings and report any clashes immediately.</body>
+  </notice>
+  <notice id="n002">
+    <title>Guest Lecture by Industry Experts</title>
+    <date>2025-06-20</date>
+    <category>Event</category>
+    <body>Join us this Friday at the main auditorium for an exclusive tech talk on the future of web development, featuring guest speakers from leading tech firms.</body>
+  </notice>
+  <notice id="n003">
+    <title>Fall Semester Course Registration</title>
+    <date>2025-06-25</date>
+    <category>Academic</category>
+    <body>Registration for the upcoming Fall semester opens next Monday. Ensure all pending library fines and tuition fees are cleared before attempting to register.</body>
+  </notice>
+  <notice id="n004">
+    <title>Campus Wi-Fi Maintenance</title>
+    <date>2025-06-28</date>
+    <category>Administrative</category>
+    <body>The campus network infrastructure will undergo scheduled maintenance this coming Saturday from 10 PM to 2 AM. Expect intermittent connectivity issues during this window.</body>
+  </notice>
+  <notice id="n005">
+    <title>Final Project Submission Guidelines</title>
+    <date>2025-07-05</date>
+    <category>Academic</category>
+    <body>Updated guidelines for final year projects have been uploaded. Formatting requirements have changed, so carefully review the new document before submission.</body>
+  </notice>
+  <notice id="n006">
+    <title>Annual Sports Week Registration</title>
+    <date>2025-07-10</date>
+    <category>Event</category>
+    <body>Sign up for the Annual Sports Week! Forms are available at the physical education department. Competitions will be held for cricket, football, and table tennis.</body>
+  </notice>
+  <notice id="n007">
+    <title>Library Late Fee Amnesty</title>
+    <date>2025-07-15</date>
+    <category>Administrative</category>
+    <body>To encourage the return of overdue books, the library is offering a full amnesty on late fees next week. Please return any outstanding materials.</body>
+  </notice>
+  <notice id="n008">
+    <title>Release of Final Exam Admit Cards</title>
+    <date>2025-07-20</date>
+    <category>Exam</category>
+    <body>Admit cards for the final examinations can now be downloaded from the student portal. Physical copies must be printed and brought to the exam halls.</body>
+  </notice>
+</notices>

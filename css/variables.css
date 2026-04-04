@@ -1,0 +1,52 @@
+/*
+  File: variables.css
+  Made by: [Member Name] | ID: [Student ID]
+*/
+:root {
+  /* Colors */
+  --color-bg: #F8F7F4;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --color-accent: #4F46E5;
+  --color-accent-light: #EEF2FF;
+  --color-border: #E5E7EB;
+  --color-dark-band: #4F46E5; /* Updated to accent color */
+
+  /* Department Colors */
+  --dept-cs: #4F46E5;
+  --dept-biz: #D97706;
+  --dept-design: #DB2777;
+  --dept-sci: #0D9488;
+
+  /* Fonts */
+  --font-primary: 'Inter', sans-serif;
+  --font-hero: 'Playfair Display', serif;
+
+  /* Spacing Scale (multiples of 8px) */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+  --spacing-6: 48px;
+  --spacing-8: 64px;
+  --spacing-10: 80px;
+  --spacing-12: 96px;
+
+  /* Border Radius */
+  --radius-sm: 4px; /* For buttons and tags */
+  --radius-md: 6px; /* For cards */
+  --radius-circle: 50%; /* For avatars */
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Z-Index */
+  --z-index-base: 1;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal: 1040;
+}

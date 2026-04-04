@@ -1,0 +1,279 @@
+/*
+  File: components.css
+  Made by: [Member Name] | ID: [Student ID]
+*/
+
+/* Navbar */
+.navbar-omnivault {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal);
+  padding: var(--spacing-2) 0;
+}
+
+.navbar-omnivault.scrolled {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.navbar-omnivault .logo {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.navbar-omnivault .logo::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-circle);
+}
+
+.navbar-omnivault .nav-link {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.navbar-omnivault .nav-link:hover {
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.navbar-omnivault .nav-link.active {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Buttons */
+.btn-ghost {
+  border: 2px solid var(--color-accent); /* Thicker border */
+  color: var(--color-accent);
+  font-weight: 600; /* slightly heavier font as well */
+  background-color: transparent;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1) var(--spacing-2);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-accent-light);
+  text-decoration: none;
+}
+
+.btn-primary-custom {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1) var(--spacing-2);
+  transition: background-color var(--transition-fast);
+  box-shadow: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary-custom:hover {
+  background-color: #3f38c7; /* slightly darker indigo */
+  color: var(--color-surface);
+  text-decoration: none;
+}
+
+/* Footer */
+.footer-omnivault {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-omnivault .footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+  padding: var(--spacing-6) 0;
+}
+
+.footer-omnivault .footer-bottom {
+  background-color: var(--color-dark-band);
+  color: var(--color-surface);
+  padding: var(--spacing-2) 0;
+}
+
+.footer-omnivault .footer-bottom .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Page Header */
+.page-header {
+  background-color: var(--color-accent-light);
+  padding: 48px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-header .breadcrumb {
+  margin-bottom: var(--spacing-1);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.page-header .breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+.page-header .breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* Department Tags */
+.dept-tag {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dept-tag.dept-cs { background-color: #EEF2FF; color: #3730a3; } /* Darker contrast */
+.dept-tag.dept-biz { background-color: #FEF3C7; color: #b45309; }
+.dept-tag.dept-design { background-color: #FCE7F3; color: #be185d; }
+.dept-tag.dept-sci { background-color: #CCFBF1; color: #0f766e; }
+
+/* Course Card */
+.course-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3);
+  background-color: var(--color-surface);
+  box-shadow: none;
+  transition: border-color var(--transition-fast);
+}
+
+.course-card:hover {
+  border-color: var(--color-accent);
+}
+
+/* Filter Pill */
+.filter-pill {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-block;
+}
+
+.filter-pill:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.filter-pill.active {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  border-color: var(--color-accent);
+}
+
+/* Stats Band */
+.stats-band {
+  background-color: var(--color-dark-band);
+  color: var(--color-surface);
+  padding: var(--spacing-4) 0;
+}
+
+.stats-band .container {
+  text-align: center;
+}
+
+.stats-band .stat-item {
+  position: relative;
+}
+
+.stats-band .stat-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: 0;
+  height: 80%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Initials Avatar */
+.initials-avatar {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  font-weight: 700;
+  border-radius: var(--radius-circle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initials-avatar.dept-cs { background-color: var(--dept-cs); }
+.initials-avatar.dept-biz { background-color: var(--dept-biz); }
+.initials-avatar.dept-design { background-color: var(--dept-design); }
+.initials-avatar.dept-sci { background-color: var(--dept-sci); }
+
+.avatar-sm { width: 32px; height: 32px; font-size: 12px; }
+.avatar-md { width: 48px; height: 48px; font-size: 16px; }
+.avatar-lg { width: 64px; height: 64px; font-size: 24px; }
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+}
+
+/* Bootstrap Overrides */
+.btn-primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #3f38c7;
+  border-color: #3f38c7;
+  box-shadow: none !important;
+}
+
+.modal-content {
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+}

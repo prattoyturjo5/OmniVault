@@ -1,0 +1,247 @@
+<!--
+  Page: Courses
+  File: courses.html
+  Made by: [Member Name] | ID: [Student ID]
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniVault - All Courses</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="../css/pages/courses.css">
+    <style>
+        .filter-sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            padding: 32px 24px;
+            height: 100%;
+        }
+        
+        @media (max-width: 991.98px) {
+            .filter-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+                padding: 24px 16px;
+            }
+        }
+        
+        .filter-group-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .filter-check .form-check-input:checked {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-surface">
+
+    <div id="navbar-placeholder"></div>
+
+<main class="flex-shrink-0 pt-5 mt-4" id="courses-page-container">
+
+<!-- SECTION 1 — PAGE HEADER -->
+<section style="background-color: var(--color-accent-light); padding: 48px 0;">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-3">
+                <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Courses</li>
+            </ol>
+        </nav>
+        <h1 class="display-5 fw-bold mb-4 text-dark" style="font-family: Playfair Display;">All Courses</h1>
+        
+        <div class="input-group shadow-sm" style="max-width: 600px;">
+            <input type="text" class="form-control form-control-lg border-0 bg-surface px-4 shadow-none" id="catalog-search" placeholder="Search by title or instructor...">
+            <span class="input-group-text bg-surface border-0 pe-4 text-secondary">
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2 — FILTER + GRID LAYOUT -->
+<section style="background-color: var(--color-bg);">
+    <div class="container-fluid px-0">
+        <div class="d-flex flex-column flex-lg-row">
+            
+            <!-- SIDEBAR: Fixed Width -->
+            <aside class="filter-sidebar z-1">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0 fw-bold">Filter Courses</h5>
+                </div>
+
+                <!-- Department Checkboxes -->
+                <div class="mb-4">
+                    <div class="filter-group-title">DEPARTMENT</div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input dept-checkbox" type="checkbox" value="CS" id="deptCS">
+                        <label class="form-check-label text-dark small fw-medium" for="deptCS">Computer Science</label>
+                    </div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input dept-checkbox" type="checkbox" value="Business" id="deptBiz">
+                        <label class="form-check-label text-dark small fw-medium" for="deptBiz">Business</label>
+                    </div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input dept-checkbox" type="checkbox" value="Design" id="deptDes">
+                        <label class="form-check-label text-dark small fw-medium" for="deptDes">Design</label>
+                    </div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input dept-checkbox" type="checkbox" value="Science" id="deptSci">
+                        <label class="form-check-label text-dark small fw-medium" for="deptSci">Science</label>
+                    </div>
+                </div>
+
+                <hr class="border-light my-4">
+
+                <!-- Level Radio Buttons -->
+                <div class="mb-4">
+                    <div class="filter-group-title">LEVEL</div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input" type="radio" name="levelRadio" id="level-all" value="All" checked>
+                        <label class="form-check-label text-dark small fw-medium" for="level-all">All</label>
+                    </div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input" type="radio" name="levelRadio" id="level-ug" value="Undergraduate">
+                        <label class="form-check-label text-dark small fw-medium" for="level-ug">Undergraduate</label>
+                    </div>
+                    <div class="form-check filter-check mb-2">
+                        <input class="form-check-input" type="radio" name="levelRadio" id="level-pg" value="Postgraduate">
+                        <label class="form-check-label text-dark small fw-medium" for="level-pg">Postgraduate</label>
+                    </div>
+                </div>
+
+                <hr class="border-light my-4">
+
+                <!-- Duration Select Dropdown -->
+                <div class="mb-4">
+                    <div class="filter-group-title">DURATION</div>
+                    <select class="form-select form-select-sm shadow-none border bg-white" id="durationSelect">
+                        <option value="Any">Any Duration</option>
+                        <option value="Under 8">Under 8 Weeks</option>
+                        <option value="8-16">8–16 Weeks</option>
+                        <option value="16+">16+ Weeks</option>
+                    </select>
+                </div>
+                
+                <hr class="border-light my-4">
+                
+                <a href="#" id="reset-filters" class="text-accent hover-primary text-decoration-none fw-semibold small">Reset Filters</a>
+
+            </aside>
+
+            <!-- GRID AREA -->
+            <div class="flex-grow-1 p-4 py-5" style="max-width: 1400px; margin: 0 auto; width: 100%;">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p id="count-display" class="fw-semibold text-secondary mb-0">Showing 12 of 12 courses</p>
+                </div>
+                
+                <div class="row g-4" id="courses-grid">
+                    <!-- Cards will be rendered here dynamically via JS extension -->
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER (NESTED PAGES) ========== -->
+<footer class="footer-omnivault mt-auto pt-5 border-top border-light">
+  <div class="container">
+    <div class="footer-grid row">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h4 class="logo mb-3 d-flex align-items-center gap-2">
+            <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault
+        </h4>
+        <p class="text-secondary mb-4 pe-lg-4">Empowering learners since 1998.</p>
+        <div class="social-links d-flex gap-3">
+          <a href="#" class="text-secondary hover-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+          <a href="#" class="text-secondary hover-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
+          <a href="#" class="text-secondary hover-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+          <a href="#" class="text-secondary hover-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 mb-4 row">
+        <div class="col-6">
+          <h6 class="mb-3 text-dark">Quick Links</h6>
+          <ul class="list-unstyled text-secondary">
+            <li class="mb-2"><a href="../index.html" class="text-secondary text-decoration-none hover-primary">Home</a></li>
+            <li class="mb-2"><a href="./courses.html" class="text-secondary text-decoration-none hover-primary">Courses</a></li>
+            <li class="mb-2"><a href="./faculty.html" class="text-secondary text-decoration-none hover-primary">Faculty</a></li>
+            <li class="mb-2"><a href="./blog.html" class="text-secondary text-decoration-none hover-primary">Blog</a></li>
+            <li class="mb-2"><a href="./noticeboard.html" class="text-secondary text-decoration-none hover-primary">Notice Board</a></li>
+            <li class="mb-2"><a href="./events.html" class="text-secondary text-decoration-none hover-primary">Events</a></li>
+            <li class="mb-2"><a href="./faq.html" class="text-secondary text-decoration-none hover-primary">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <h6 class="mb-3 text-dark">Account</h6>
+          <ul class="list-unstyled text-secondary">
+            <li class="mb-2"><a href="./login.html" class="text-secondary text-decoration-none hover-primary">Login</a></li>
+            <li class="mb-2"><a href="./register.html" class="text-secondary text-decoration-none hover-primary">Register</a></li>
+            <li class="mb-2"><a href="./dashboard.html" class="text-secondary text-decoration-none hover-primary">Dashboard</a></li>
+            <li class="mb-2"><a href="./admin.html" class="text-secondary text-decoration-none hover-primary">Admin Panel</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-12 mb-4">
+        <h6 class="mb-3 text-dark">Contact</h6>
+        <ul class="list-unstyled text-secondary d-flex flex-column gap-3">
+          <li class="d-flex align-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> 123 University Ave, Dhaka 1212</li>
+          <li class="d-flex align-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> support@omnivault.edu</li>
+          <li class="d-flex align-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> +880 1234 567890</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom mt-3">
+    <div class="container py-3 d-flex justify-content-between align-items-center flex-wrap">
+      <div class="fs-6 opacity-75">© <span class="footer-year"></span> OmniVault. All rights reserved.</div>
+      <div class="fs-6 mt-2 mt-sm-0 d-flex gap-3">
+        <a href="#" class="text-white text-decoration-none hover-primary">Privacy Policy</a>
+        <span>·</span>
+        <a href="#" class="text-white text-decoration-none hover-primary">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JS -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/courses.js"></script>
+<script src="../js/navbar-loader.js"></script>
+</body>
+</html>

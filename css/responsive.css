@@ -1,0 +1,214 @@
+/*
+  File: responsive.css
+  Made by: [Member Name] | ID: [Student ID]
+  Desc: Global media queries and layout control handling dynamic breakpoints, plus strict Bootstrap 5 overrides enforcing UI fidelity.
+*/
+
+/* ========================================================= */
+/* BOOTSTRAP OVERRIDES (Global Rules mapping strict layout)  */
+/* ========================================================= */
+
+.modal-content {
+    border-radius: 6px !important;
+    border: 1px solid var(--color-border) !important;
+    box-shadow: none !important;
+}
+
+.accordion-button {
+    font-weight: 600 !important;
+    color: var(--color-text-primary) !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--color-accent) !important;
+    background-color: var(--color-accent-light) !important;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125) !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+    border-color: var(--color-border) !important;
+}
+
+.form-control, .form-select {
+    border-color: var(--color-border) !important;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-accent) !important;
+    box-shadow: none !important;
+}
+
+.form-control.is-invalid {
+    border-color: #EF4444 !important;
+    background-image: none !important; /* Cleanup icon overlapping */
+}
+
+.btn-primary {
+    background-color: var(--color-accent) !important;
+    border-color: var(--color-accent) !important;
+}
+
+.progress-bar {
+    background-color: var(--color-accent) !important;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--color-accent) !important;
+}
+
+.badge {
+    border-radius: 4px !important;
+}
+
+
+/* ========================================================= */
+/* MOBILE BREAKPOINT (max-width: 576px)                      */
+/* ========================================================= */
+
+@media (max-width: 576px) {
+    
+    /* Navbar Toggle Override Handled Primarily by Bootstrap Defaults (Collapse class) but strictly bounding here conceptually if needed */
+    
+    /* Hero Section Override */
+    #hero-section .row {
+        flex-direction: column !important;
+    }
+    #hero-section h1.display-3 {
+        font-size: 36px !important;
+    }
+
+    /* Stats Band 2x2 grid force */
+    .stats-band .col-md-3 {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        margin-bottom: 24px;
+    }
+    
+    /* Grids strictly single col */
+    #courses-grid > div,
+    #faculty-grid > div,
+    #blog-grid > div,
+    #events-grid .event-col {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Filters - Courses Setup */
+    .filter-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 24px;
+        padding-right: 0 !important;
+    }
+
+    /* Course Detail layout */
+    .course-detail-layout {
+        flex-direction: column !important;
+    }
+    .course-detail-sticky-card {
+        position: relative !important;
+        width: 100% !important;
+        margin-top: 24px !important;
+    }
+
+    /* Footer single column loop */
+    footer .row > div {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    footer .d-flex.justify-content-between {
+        flex-direction: column !important;
+        justify-content: center !important;
+        text-align: center;
+    }
+    
+    /* Dashboard & Admin sidebars natively hidden handled by d-none d-md-flex classes, overriding specifically for clarity */
+    .dashboard-layout .sidebar {
+        display: none !important;
+        position: absolute;
+        z-index: 1050;
+        height: 100%;
+        width: 260px;
+        left: 0;
+        top: 0;
+    }
+    .sidebar.show {
+        display: flex !important;
+    }
+}
+
+
+/* ========================================================= */
+/* TABLET BREAKPOINT (max-width: 768px)                      */
+/* Responsive flow constraints scaling to 2 columns          */
+/* ========================================================= */
+
+@media (min-width: 577px) and (max-width: 768px) {
+    /* Multi-columns force 2 per row */
+    #courses-grid > div,
+    #faculty-grid > div,
+    #blog-grid > div,
+    #events-grid .event-col {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+    
+    /* Course detail overlap fix */
+    .course-detail-layout {
+        flex-direction: column !important;
+    }
+    .course-detail-sticky-card {
+        position: relative !important;
+        width: 100% !important;
+        top: auto !important;
+        margin-top: 24px !important;
+    }
+
+    /* Dashboard Sidebar Shrink */
+    .dashboard-layout .sidebar {
+        width: 200px !important;
+        min-width: 200px !important;
+    }
+}
+
+
+/* ========================================================= */
+/* DESKTOP BREAKPOINT (min-width: 992px)                     */
+/* Explicit 3-column loops aligning global fidelity.         */
+/* ========================================================= */
+
+@media (min-width: 992px) {
+    /* 3 Column Grids mapped globally */
+    #courses-grid > div,
+    #faculty-grid > div,
+    #blog-grid > div,
+    #events-grid .event-col {
+        width: 33.333333% !important;
+        flex: 0 0 33.333333% !important;
+        max-width: 33.333333% !important;
+    }
+
+    /* Restore sidebar */
+    .dashboard-layout .sidebar {
+        width: 260px !important;
+        min-width: 260px !important;
+    }
+    
+    /* Keep filter inline */
+    .filter-sidebar {
+        width: 260px;
+        min-width: 260px;
+        border-right: 1px solid var(--color-border);
+        padding-right: 24px;
+        margin-bottom: 0;
+    }
+}

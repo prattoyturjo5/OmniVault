@@ -1,0 +1,165 @@
+<!--
+  Page: Register
+  File: register.html
+  Made by: [Member Name] | ID: [Student ID]
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniVault - Register</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-bg align-items-center justify-content-center pb-5" style="background-color: var(--color-bg); padding-top: 80px;">
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand logo" href="../index.html">
+        <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault
+    </a>
+    <button class="navbar-toggler border-0" type="button" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="./courses.html">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="./faculty.html">Faculty</a></li>
+        <li class="nav-item"><a class="nav-link" href="./blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="./noticeboard.html">Notice Board</a></li>
+        <li class="nav-item"><a class="nav-link" href="./events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="d-none d-lg-flex">
+      <a class="btn btn-ghost ms-2" href="./login.html">Login</a>
+      <a class="btn btn-primary-custom ms-2" href="./register.html">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Overlay Menu -->
+<div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(26, 26, 46, 0.98); z-index: 1050;">
+  <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3" style="background: none; border: none; line-height: 1;">&times;</button>
+  <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
+    <a class="nav-link text-white fs-4 my-2" href="../index.html">Home</a>
+    <a class="nav-link text-white fs-4 my-2" href="./about.html">About</a>
+    <a class="nav-link text-white fs-4 my-2" href="./courses.html">Courses</a>
+    <a class="nav-link text-white fs-4 my-2" href="./faculty.html">Faculty</a>
+    <a class="nav-link text-white fs-4 my-2" href="./blog.html">Blog</a>
+    <a class="nav-link text-white fs-4 my-2" href="./noticeboard.html">Notice Board</a>
+    <a class="nav-link text-white fs-4 my-2" href="./events.html">Events</a>
+    <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
+      <a class="btn btn-ghost text-white border-white" href="./login.html">Login</a>
+      <a class="btn btn-primary-custom" href="./register.html">Get Started</a>
+    </div>
+  </div>
+</div>
+<style>
+  body.menu-open .mobile-menu-overlay { display: block !important; }
+  body.menu-open { overflow: hidden; }
+</style>
+
+<!-- REGISTER CARD -->
+    <div class="container d-flex justify-content-center mt-5 mt-md-0">
+        <div class="w-100" style="max-width: 480px; z-index: 10;">
+            
+            <div id="reg-alert"></div>
+
+            <div class="card p-4 p-md-5 border" style="border-radius: var(--radius-md); border-color: var(--color-border) !important; background: var(--color-surface); box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+                
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-dark mb-2" style="font-family: Playfair Display;">Create Account</h2>
+                    <p class="text-secondary mb-0">Join OmniVault and start learning today</p>
+                </div>
+
+                <form id="register-form">
+                    
+                    <div class="mb-3">
+                        <label for="regName" class="form-label fw-semibold text-dark small">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control py-2" id="regName" placeholder="e.g. Anika Rahman">
+                        <div class="invalid-feedback fw-medium" id="regNameErr"></div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="regStudentId" class="form-label fw-semibold text-dark small">Student ID <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control py-2" id="regStudentId" placeholder="e.g. BZ4092">
+                            <div class="invalid-feedback fw-medium" id="regStudentIdErr"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="regDept" class="form-label fw-semibold text-dark small">Department <span class="text-danger">*</span></label>
+                            <select class="form-select py-2" id="regDept">
+                                <option value="" disabled selected>Select...</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Business">Business</option>
+                                <option value="Design">Design</option>
+                                <option value="Science">Science</option>
+                            </select>
+                            <div class="invalid-feedback fw-medium" id="regDeptErr"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="regEmail" class="form-label fw-semibold text-dark small">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control py-2" id="regEmail" placeholder="e.g. format@domain.com">
+                        <div class="invalid-feedback fw-medium" id="regEmailErr"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="regPassword" class="form-label fw-semibold text-dark small">Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control py-2" id="regPassword" placeholder="Minimum 6 characters">
+                        
+                        <!-- Strength Meter -->
+                        <div class="mt-2" style="background:#e9ecef; border-radius:2px; height:4px; width:100%; overflow:hidden;">
+                            <div id="strength-bar" style="height:4px; border-radius:2px; transition: width 0.3s, background 0.3s; width: 0%; background: #dc3545;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-1">
+                            <small class="text-secondary" style="font-size: 11px;" id="strength-label">Enter password</small>
+                            <small class="text-danger fw-medium d-none" style="font-size: 11px;" id="regPasswordErr"></small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="regConfirm" class="form-label fw-semibold text-dark small">Confirm Password <span class="text-danger">*</span></label>
+                        <div class="position-relative">
+                            <input type="password" class="form-control py-2" id="regConfirm" placeholder="Must match password">
+                            <span id="match-icon" class="position-absolute d-none" style="right: 12px; top: 10px; font-weight: bold;"></span>
+                            <div class="invalid-feedback fw-medium" id="regConfirmErr"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold fs-6 border-0 text-white shadow-sm mt-2">Create Account</button>
+                    
+                </form>
+
+            </div>
+
+            <div class="text-center mt-4 text-secondary small">
+                Already have an account? <a href="./login.html" class="fw-semibold text-accent text-decoration-none hover-primary">Login →</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core JS -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/validation.js"></script>
+</body>
+</html>

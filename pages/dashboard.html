@@ -1,0 +1,527 @@
+<!--
+  Page: Dashboard
+  File: dashboard.html
+  Made by: [Member Name] | ID: [Student ID]
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniVault - Student Portal</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    
+    <style>
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 72px); /* Adjusted for global navbar */
+            margin-top: 72px;           /* Adjusted for global navbar */
+            overflow: hidden;
+            background-color: var(--color-bg);
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            min-width: 260px;
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .sidebar-user {
+            padding: 32px 24px;
+            border-bottom: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .sidebar-menu {
+            padding: 24px 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            gap: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-link:hover {
+            color: var(--color-accent);
+            background-color: var(--color-accent-light);
+        }
+
+        .sidebar-link.active {
+            color: var(--color-accent);
+            background-color: var(--color-accent-light);
+            border-left-color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* Main Flow Area */
+        .main-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-dark-band);
+            font-family: Playfair Display;
+            margin-bottom: 4px;
+        }
+
+        .content-section {
+            display: none;
+            padding: 32px;
+        }
+        .content-section.active {
+            display: block;
+        }
+
+        /* Tables & Lists */
+        .dash-table th { background-color: var(--color-bg); padding: 12px 16px; border-bottom: 2px solid var(--color-border); color: var(--color-text-secondary); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .dash-table td { padding: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border); vertical-align: middle; }
+        .activity-list li { padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+        .activity-list li:last-child { border-bottom: none; }
+    </style>
+
+    <!-- AUTH GUARD -->
+    <script>
+        const activeUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
+        if (!activeUser || !activeUser.loggedIn) {
+            window.location.href = './login.html';
+        }
+    </script>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand logo" href="../index.html">
+        <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault
+    </a>
+    <button class="navbar-toggler border-0" type="button" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="./courses.html">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="./faculty.html">Faculty</a></li>
+        <li class="nav-item"><a class="nav-link" href="./blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="./noticeboard.html">Notice Board</a></li>
+        <li class="nav-item"><a class="nav-link" href="./events.html">Events</a></li>
+      </ul>
+    </div>
+    <div class="d-none d-lg-flex">
+      <a class="btn btn-ghost ms-2" href="./login.html">Login</a>
+      <a class="btn btn-primary-custom ms-2" href="./register.html">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Overlay Menu -->
+<div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(26, 26, 46, 0.98); z-index: 1050;">
+  <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3" style="background: none; border: none; line-height: 1;">&times;</button>
+  <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
+    <a class="nav-link text-white fs-4 my-2" href="../index.html">Home</a>
+    <a class="nav-link text-white fs-4 my-2" href="./about.html">About</a>
+    <a class="nav-link text-white fs-4 my-2" href="./courses.html">Courses</a>
+    <a class="nav-link text-white fs-4 my-2" href="./faculty.html">Faculty</a>
+    <a class="nav-link text-white fs-4 my-2" href="./blog.html">Blog</a>
+    <a class="nav-link text-white fs-4 my-2" href="./noticeboard.html">Notice Board</a>
+    <a class="nav-link text-white fs-4 my-2" href="./events.html">Events</a>
+    <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
+      <a class="btn btn-ghost text-white border-white" href="./login.html">Login</a>
+      <a class="btn btn-primary-custom" href="./register.html">Get Started</a>
+    </div>
+  </div>
+</div>
+<style>
+  body.menu-open .mobile-menu-overlay { display: block !important; }
+  body.menu-open { overflow: hidden; }
+</style>
+
+<div class="dashboard-layout d-flex w-100 flex-column flex-md-row">
+
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar d-none d-md-flex">
+        
+        <!-- User Identity Payload -->
+        <div class="sidebar-user">
+            <!-- Injected via Script depending on Dept -->
+            <div id="dash-avatar" class="initials-avatar avatar-lg mx-auto mb-3 text-white fw-bold d-flex align-items-center justify-content-center" style="border-radius: 50%; font-size: 24px; background-color: var(--color-accent);"></div>
+            <h5 class="fw-bold text-dark mb-1" id="dash-name">Loading...</h5>
+            <p class="text-secondary small mb-0" id="dash-dept">Loading...</p>
+        </div>
+
+        <!-- Links Box -->
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-link active" data-target="section-overview">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                Overview
+            </a>
+            <a href="#" class="sidebar-link" data-target="section-courses">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                My Courses
+            </a>
+            <a href="#" class="sidebar-link" data-target="section-profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Profile
+            </a>
+        </div>
+        
+        <!-- Danger Box -->
+        <div class="p-3 mt-auto border-top border-light">
+            <a href="#" id="btnLogout" class="sidebar-link text-danger w-100 fw-bold border-0" style="padding: 12px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- ========== MAIN AREA ========== -->
+    <div class="main-area">
+        
+        <!-- 1. OVERVIEW SECTION -->
+
+        <!-- 1. OVERVIEW SECTION -->
+        <div class="content-section active container-fluid" id="section-overview">
+            <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;" id="welcome-msg">Good morning, User! 👋</h2>
+            <p class="text-secondary fs-6 mb-4 fw-medium" id="current-date">October 15, 2025</p>
+
+            <div class="row g-3 mb-5">
+                <div class="col-xl-3 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-enrollments">0</div>
+                        <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Enrolled Courses</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-value">2</div>
+                        <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Completed</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-value">1</div>
+                        <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Certificates</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-value text-accent">3.75</div>
+                        <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Current GPA</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
+                        <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Recent Activity</h5>
+                        <ul class="list-unstyled activity-list mb-0" id="activityList">
+                            <!-- Populated statically if local is void just for placeholder ui fidelity -->
+                            <li>
+                                <span class="badge bg-light text-dark fw-medium border me-2">Today</span> Viewed Introduction to Computer Science
+                            </li>
+                            <li>
+                                <span class="badge bg-light text-dark fw-medium border me-2">2 Days Ago</span> Enrolled in Advanced Marketing Strategies
+                            </li>
+                            <li>
+                                <span class="badge bg-light text-dark fw-medium border me-2">Last Week</span> Completed Business Ethics Module 4
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
+                        <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Latest Notices</h5>
+                        <div id="notice-board-teaser">
+                            <!-- Reused from xml-parser hook natively -->
+                            <div class="text-center py-3"><div class="spinner-border spinner-border-sm text-secondary"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. MY COURSES SECTION -->
+        <div class="content-section container-fluid" id="section-courses">
+            <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Enrolled Courses</h2>
+            
+            <div id="enrolled-empty" class="empty-state text-center border bg-white p-5 shadow-sm d-none" style="border-radius: var(--radius-md);">
+                <h4 class="fw-bold text-dark mb-2">You haven't enrolled in any courses yet.</h4>
+                <p class="text-secondary mb-4">Explore our catalog and find the perfect program for you.</p>
+                <a href="./courses.html" class="btn btn-primary-custom px-4 py-2">Browse Courses →</a>
+            </div>
+
+            <div id="enrolled-table" class="bg-white border rounded shadow-sm overflow-hidden d-none">
+                <div class="table-responsive">
+                    <table class="table dash-table mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>Course Details</th>
+                                <th>Department</th>
+                                <th>Instructor</th>
+                                <th>Enrolled Date</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrolled-tbody">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. PROFILE SECTION -->
+        <div class="content-section container-fluid" id="section-profile">
+            <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Profile</h2>
+            
+            <div id="profile-alert"></div>
+            
+            <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md); max-width: 600px;">
+                <form id="profile-form" class="p-4 p-md-5">
+                    <div class="mb-4">
+                        <label for="profName" class="form-label fw-semibold text-dark">Full Name</label>
+                        <input type="text" class="form-control py-2" id="profName">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="profEmail" class="form-label fw-semibold text-dark">Email Address <span class="text-secondary small fw-normal">(contact admin to change)</span></label>
+                        <input type="email" class="form-control py-2 bg-light text-secondary border-secondary border-opacity-25" id="profEmail" readonly>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="profDept" class="form-label fw-semibold text-dark">Department</label>
+                        <select class="form-select py-2" id="profDept">
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Business">Business</option>
+                            <option value="Design">Design</option>
+                            <option value="Science">Science</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core JS -->
+<script src="../js/utils.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/xml-parser.js"></script> <!-- Included explicitly to populate #notice-board-teaser -->
+
+<!-- DASHBOARD LOGIC -->
+<script>
+$(document).ready(function() {
+
+    // ----------------------------------------------------
+    // User Initialization
+    // ----------------------------------------------------
+    const user = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+    
+    // Assign generic fallback behaviors
+    const uName = user.name || "Student User";
+    const uDept = user.department || "CS"; 
+    const uEmail = user.email || "user@omnivault.edu";
+
+    // Setup Top/Sidebar UI Details
+    const initial = window.Utils && window.Utils.getInitials ? window.Utils.getInitials(uName) : uName.substring(0,2).toUpperCase();
+    const deptClass = window.Utils && window.Utils.getDeptClass ? window.Utils.getDeptClass(uDept) : "dept-cs";
+    
+    $('#dash-name').text(uName);
+    $('#dash-dept').text(uDept);
+    // Explicit color-mapping using global CSS variable logic mapped back precisely
+    const safeDeptCode = uDept === "Computer Science" ? "CS" : uDept;
+    $('#dash-avatar').text(initial).css('background-color', `var(--dept-${safeDeptCode.toLowerCase()}, var(--color-accent))`);
+
+    // Setup Overview UI Details
+    $('#welcome-msg').text(`Good morning, ${uName}! 👋`);
+    const todayStr = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    $('#current-date').text(todayStr);
+
+    // Setup Profile Variables
+    $('#profName').val(uName);
+    $('#profEmail').val(uEmail);
+    $(`#profDept option[value="${uDept}"]`).prop('selected', true);
+
+
+    // ----------------------------------------------------
+    // Rendering 'My Courses' LocalStorage payload
+    // ----------------------------------------------------
+    function renderEnrollments() {
+        let items = [];
+        try {
+            const ls = localStorage.getItem('enrollments');
+            if (ls) items = JSON.parse(ls);
+        } catch(e) {}
+        
+        // Match specific contextual email/ID mappings safely mapping to the logged-in user generically if available. 
+        // For standard local emulation without robust tokens, mapping to users email constraint specifically solves data merging cleanly.
+        const userItems = items.filter(i => i.email === uEmail);
+
+        $('#stat-enrollments').text(userItems.length);
+
+        if (userItems.length === 0) {
+            $('#enrolled-table').addClass('d-none');
+            $('#enrolled-empty').removeClass('d-none');
+        } else {
+            $('#enrolled-empty').addClass('d-none');
+            $('#enrolled-table').removeClass('d-none');
+            
+            const $tbody = $('#enrolled-tbody');
+            $tbody.empty();
+
+            userItems.forEach(c => {
+                const trId = `course-row-${c.courseId}`;
+                const dateEnrolledStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(c.enrolledAt) : new Date(c.enrolledAt).toLocaleDateString();
+                
+                const tr = `
+                    <tr id="${trId}">
+                        <td><strong class="text-dark">${c.courseTitle}</strong><br><span class="text-secondary small">ID: ${c.courseId.toUpperCase()}</span></td>
+                        <td><span class="badge border bg-white text-dark py-1 px-2 fw-medium shadow-sm">${c.department}</span></td>
+                        <td class="text-secondary fw-medium">${c.instructor}</td>
+                        <td class="text-secondary">${dateEnrolledStr}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-danger fw-bold btn-unenroll" data-id="${c.courseId}" data-time="${c.enrolledAt}">Unenroll</button>
+                        </td>
+                    </tr>
+                `;
+                $tbody.append(tr);
+            });
+        }
+    }
+    
+    renderEnrollments();
+
+
+    // ----------------------------------------------------
+    // jQuery Interaction Engine
+    // ----------------------------------------------------
+    
+    // Sidebar Page Rendering logic
+    $('.sidebar-link').not('#btnLogout').on('click', function(e) {
+        e.preventDefault();
+        const target = $(this).data('target');
+        
+        // update active classes
+        $('.sidebar-link').removeClass('active');
+        $(this).addClass('active');
+
+        // switch section
+        $('.content-section').removeClass('active');
+        $('#' + target).addClass('active');
+    });
+
+    // Unenroll Trigger Block
+    $(document).on('click', '.btn-unenroll', function() {
+        const tgtCourse = $(this).data('id');
+        const tgtTime = $(this).data('time');
+        const $row = $(this).closest('tr');
+
+        // Execute removal
+        let items = [];
+        try {
+            const ls = localStorage.getItem('enrollments');
+            if (ls) items = JSON.parse(ls);
+        } catch(e) {}
+        
+        // Drop safely
+        items = items.filter(i => !(i.courseId === tgtCourse && i.enrolledAt === tgtTime && i.email === uEmail));
+        localStorage.setItem('enrollments', JSON.stringify(items));
+
+        // Animate Row Remove natively
+        $row.fadeOut(300, function() {
+            $(this).remove();
+            renderEnrollments();
+        });
+    });
+
+    // Save Profile Trigger
+    $('#profile-form').on('submit', function(e) {
+        e.preventDefault();
+        const nName = $('#profName').val().trim();
+        const nDept = $('#profDept').val();
+
+        if (nName) {
+            let activeObj = JSON.parse(sessionStorage.getItem('omnivault_user'));
+            activeObj.name = nName;
+            activeObj.department = nDept;
+            sessionStorage.setItem('omnivault_user', JSON.stringify(activeObj));
+            
+            // Sync top header instantly
+            $('#dash-name').text(nName);
+            $('#dash-dept').text(nDept);
+            const nvInit = window.Utils && window.Utils.getInitials ? window.Utils.getInitials(nName) : nName.substring(0,2).toUpperCase();
+            $('#dash-avatar').text(nvInit);
+
+            if (window.Utils) {
+                window.Utils.showAlert('#profile-alert', 'Profile updated successfully!', 'success');
+            }
+        }
+    });
+
+    // Logout Events
+    $('#btnLogout, #btnLogoutHeader').on('click', function(e) {
+        e.preventDefault();
+        sessionStorage.removeItem('omnivault_user');
+        window.location.href = './login.html';
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fac001",
+    "name": "Dr. Anika Rahman",
+    "department": "CS",
+    "deptLabel": "Computer Science",
+    "designation": "Associate Professor",
+    "email": "anika.r@omnivault.edu",
+    "bio": "PhD from BUET, 12 years of teaching experience in algorithms and data structures. Passionate about problem-solving.",
+    "courses": ["cs101"]
+  },
+  {
+    "id": "fac002",
+    "name": "Prof. Tariq Hassan",
+    "department": "CS",
+    "deptLabel": "Computer Science",
+    "designation": "Professor",
+    "email": "tariq.h@omnivault.edu",
+    "bio": "Specializes in complex data structures and algorithmic efficiency optimization. Has authored multiple textbooks.",
+    "courses": ["cs203"]
+  },
+  {
+    "id": "fac003",
+    "name": "Dr. Fahmida Chowdhury",
+    "department": "CS",
+    "deptLabel": "Computer Science",
+    "designation": "Assistant Professor",
+    "email": "fahmida.c@omnivault.edu",
+    "bio": "Expert in machine learning and neural networks. Heads the new AI Lab facility at OmniVault.",
+    "courses": ["cs315"]
+  },
+  {
+    "id": "fac004",
+    "name": "Dr. Jamal Islam",
+    "department": "Business",
+    "deptLabel": "Business Administration",
+    "designation": "Associate Professor",
+    "email": "jamal.i@omnivault.edu",
+    "bio": "Over a decade of corporate management experience before joining academia. Focuses on organizational behavior.",
+    "courses": ["biz101"]
+  },
+  {
+    "id": "fac005",
+    "name": "Prof. Naima Haque",
+    "department": "Business",
+    "deptLabel": "Business Administration",
+    "designation": "Professor",
+    "email": "naima.h@omnivault.edu",
+    "bio": "Certified CPA with extensive research in forensic accounting and international financial regulations.",
+    "courses": ["biz205"]
+  },
+  {
+    "id": "fac006",
+    "name": "Dr. Kamal Uddin",
+    "department": "Business",
+    "deptLabel": "Business Administration",
+    "designation": "Assistant Professor",
+    "email": "kamal.u@omnivault.edu",
+    "bio": "Researcher in digital marketing dynamics and consumer behavior analytics in emerging markets.",
+    "courses": ["biz310"]
+  },
+  {
+    "id": "fac007",
+    "name": "Ms. Sadia Hossain",
+    "department": "Design",
+    "deptLabel": "Design & Arts",
+    "designation": "Senior Lecturer",
+    "email": "sadia.h@omnivault.edu",
+    "bio": "Professional graphic designer with a focus on typography and minimalist editorial layouts.",
+    "courses": ["des101"]
+  },
+  {
+    "id": "fac008",
+    "name": "Mr. Asif Ahmed",
+    "department": "Design",
+    "deptLabel": "Design & Arts",
+    "designation": "Lecturer",
+    "email": "asif.a@omnivault.edu",
+    "bio": "Specializes in UX methodologies and interactive prototyping. Acts as an industry consultant for local startups.",
+    "courses": ["des202"]
+  },
+  {
+    "id": "fac009",
+    "name": "Ms. Nusrat Jahan",
+    "department": "Design",
+    "deptLabel": "Design & Arts",
+    "designation": "Lecturer",
+    "email": "nusrat.j@omnivault.edu",
+    "bio": "Expert in 3D modeling and animation pipelines. Former character rigger for an international animation studio.",
+    "courses": ["des305"]
+  },
+  {
+    "id": "fac010",
+    "name": "Dr. Rashedul Islam",
+    "department": "Science",
+    "deptLabel": "Natural Sciences",
+    "designation": "Professor",
+    "email": "rashedul.i@omnivault.edu",
+    "bio": "Renowned physicist dedicated to alternative energy research and practical thermodynamics.",
+    "courses": ["sci101"]
+  },
+  {
+    "id": "fac011",
+    "name": "Dr. Salma Begum",
+    "department": "Science",
+    "deptLabel": "Natural Sciences",
+    "designation": "Associate Professor",
+    "email": "salma.b@omnivault.edu",
+    "bio": "Leading researcher in organic synthesis and molecular structure analysis.",
+    "courses": ["sci202"]
+  },
+  {
+    "id": "fac012",
+    "name": "Dr. Hasan Mahmud",
+    "department": "Science",
+    "deptLabel": "Natural Sciences",
+    "designation": "Assistant Professor",
+    "email": "hasan.m@omnivault.edu",
+    "bio": "Focused on recombinant DNA and genetic regulation mechanisms. Actively involved in biotechnology research.",
+    "courses": ["sci310"]
+  }
+]
