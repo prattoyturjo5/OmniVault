@@ -5,6 +5,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Core CSS -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
@@ -24,10 +27,11 @@
         .faculty-card {
             transition: border-color 0.2s ease;
         }
+
         .faculty-card:hover {
             border-color: var(--color-accent) !important;
         }
-        
+
         /* Pills Tab override to match OmniVault Academic theme */
         .nav-pills-custom .nav-link {
             color: var(--color-text-secondary);
@@ -38,84 +42,93 @@
             background-color: transparent;
             transition: all 0.2s ease;
         }
-        
+
         .nav-pills-custom .nav-link:hover {
             color: var(--color-accent);
             background-color: var(--color-accent-light);
         }
-        
+
         .nav-pills-custom .nav-link.active {
             color: white;
             background-color: var(--color-accent);
         }
     </style>
 </head>
+
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
 
-<main class="flex-shrink-0 pt-5 mt-4" id="main-content">
+    <main class="flex-shrink-0 pt-5 mt-4" id="main-content">
 
-    <!-- SECTION 1 — PAGE HEADER -->
-    <section style="background-color: var(--color-accent-light); padding: 48px 0;">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-3">
-                    <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none hover-primary">Home</a></li>
-                    <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Faculty</li>
-                </ol>
-            </nav>
-            <h1 class="display-5 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">Our Faculty</h1>
-            <p class="fs-5 text-secondary">Meet the experts behind OmniVault's world-class curriculum.</p>
-        </div>
-    </section>
-
-    <!-- SECTION 2 — DEPARTMENT FILTER TABS -->
-    <section class="py-4" style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
-        <div class="container overflow-auto">
-            <ul class="nav nav-pills nav-pills-custom flex-nowrap align-items-center pb-2" id="facultyTabs" role="tablist" style="min-width: 600px;">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active fw-bold px-4" data-filter="All" type="button" role="tab">Our Faculty</button>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- SECTION 3 — FACULTY GRID -->
-    <section class="py-5" style="background-color: var(--color-bg);">
-        <div class="container my-3">
-            <div id="loading-spinner" class="text-center py-5">
-                <div class="spinner-border text-accent mb-3" role="status"></div>
-                <p class="text-secondary fw-semibold">Loading educators...</p>
+        <!-- SECTION 1 — PAGE HEADER -->
+        <section style="background-color: var(--color-accent-light); padding: 48px 0;">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item"><a href="../index.html"
+                                class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                        <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Faculty</li>
+                    </ol>
+                </nav>
+                <h1 class="display-5 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">Our Faculty</h1>
+                <p class="fs-5 text-secondary">Meet the experts behind OmniVault's world-class curriculum.</p>
             </div>
-            
-            <div class="row g-4" id="faculty-grid" style="display: none;">
-                <!-- Faculty cards dynamically mounted here via AJAX -->
-            </div>
-            
-            <div id="no-faculty" class="d-none text-center py-5 my-4 bg-white border rounded shadow-sm">
-                 <h4 class="fw-bold mb-2">No Profiles Found</h4>
-                 <p class="text-secondary mb-0">There are currently no staff matching this filter criteria.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECTION 4 — JOIN US BAND -->
-    <section class="py-5 text-center" style="background-color: var(--color-dark-band);">
-        <div class="container py-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <h2 class="fw-bold text-white mb-3" style="font-family: Playfair Display;">Join Our Academic Family</h2>
-                    <p class="text-white opacity-75 fs-5 mb-4 px-lg-5">We're always looking for passionate educators dedicated to shaping the next generation through rigorous theory and extensive technical application.</p>
-                    <a href="./contact.html" class="btn btn-outline-light px-5 py-2 fw-semibold" style="border-radius: 4px;">Apply Now</a>
+        <!-- SECTION 2 — DEPARTMENT FILTER TABS -->
+        <section class="py-4"
+            style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+            <div class="container overflow-auto">
+                <ul class="nav nav-pills nav-pills-custom flex-nowrap align-items-center pb-2" id="facultyTabs"
+                    role="tablist" style="min-width: 600px;">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold px-4" data-filter="All" type="button" role="tab">Our
+                            Faculty</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 3 — FACULTY GRID -->
+        <section class="py-5" style="background-color: var(--color-bg);">
+            <div class="container my-3">
+                <div id="loading-spinner" class="text-center py-5">
+                    <div class="spinner-border text-accent mb-3" role="status"></div>
+                    <p class="text-secondary fw-semibold">Loading educators...</p>
+                </div>
+
+                <div class="row g-4" id="faculty-grid" style="display: none;">
+                    <!-- Faculty cards dynamically mounted here via AJAX -->
+                </div>
+
+                <div id="no-faculty" class="d-none text-center py-5 my-4 bg-white border rounded shadow-sm">
+                    <h4 class="fw-bold mb-2">No Profiles Found</h4>
+                    <p class="text-secondary mb-0">There are currently no staff matching this filter criteria.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</main>
+        <!-- SECTION 4 — JOIN US BAND -->
+        <section class="py-5 text-center" style="background-color: var(--color-dark-band);">
+            <div class="container py-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold text-white mb-3" style="font-family: Playfair Display;">Join Our Academic
+                            Family</h2>
+                        <p class="text-white opacity-75 fs-5 mb-4 px-lg-5">We're always looking for passionate educators
+                            dedicated to shaping the next generation through rigorous theory and extensive technical
+                            application.</p>
+                        <a href="./contact.html" class="btn btn-outline-light px-5 py-2 fw-semibold"
+                            style="border-radius: 4px;">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- ========== FOOTER (NESTED PAGES) ========== -->
+    </main>
+
+    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
     <!-- jQuery CDN -->
@@ -135,62 +148,62 @@
     <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
-    
+
     <!-- PAGE LOGIC -->
     <script>
-    $(document).ready(function() {
-        let facultyData = [];
+        $(document).ready(function () {
+            let facultyData = [];
 
-        // Fetch Data
-        $.getJSON('../data/faculty.json', function(data) {
-            facultyData = data;
-            $('#loading-spinner').hide();
-            $('#faculty-grid').show();
-            renderFaculty('All');
-        }).fail(function() {
-            console.error('Failed to load faculty.json');
-            $('#loading-spinner').hide();
-            $('#no-faculty').removeClass('d-none').find('p').text('Unable to fetch staff data at this time. Please check your connection.');
-        });
+            // Fetch Data
+            $.getJSON('../data/faculty.json', function (data) {
+                facultyData = data;
+                $('#loading-spinner').hide();
+                $('#faculty-grid').show();
+                renderFaculty('All');
+            }).fail(function () {
+                console.error('Failed to load faculty.json');
+                $('#loading-spinner').hide();
+                $('#no-faculty').removeClass('d-none').find('p').text('Unable to fetch staff data at this time. Please check your connection.');
+            });
 
-        // Tab Filtering Event
-        $('.nav-pills-custom .nav-link').on('click', function(e) {
-            e.preventDefault();
-            $('.nav-pills-custom .nav-link').removeClass('active');
-            $(this).addClass('active');
-            
-            const filterDept = $(this).data('filter');
-            renderFaculty(filterDept);
-        });
+            // Tab Filtering Event
+            $('.nav-pills-custom .nav-link').on('click', function (e) {
+                e.preventDefault();
+                $('.nav-pills-custom .nav-link').removeClass('active');
+                $(this).addClass('active');
 
-        // Render Cards Function
-        function renderFaculty(filter) {
-            const $grid = $('#faculty-grid');
-            $grid.empty();
-            $('#no-faculty').addClass('d-none');
-            
-            let filtered = facultyData;
-            if (filter !== 'All') {
-                filtered = facultyData.filter(f => f.department === filter);
-            }
-            
-            if (filtered.length === 0) {
-                $('#no-faculty').removeClass('d-none');
-                return;
-            }
-            
-            filtered.forEach(staff => {
-                let initial = staff.name.substring(0,2).toUpperCase();
-                if (window.Utils) {
-                    initial = window.Utils.getInitials(staff.name);
+                const filterDept = $(this).data('filter');
+                renderFaculty(filterDept);
+            });
+
+            // Render Cards Function
+            function renderFaculty(filter) {
+                const $grid = $('#faculty-grid');
+                $grid.empty();
+                $('#no-faculty').addClass('d-none');
+
+                let filtered = facultyData;
+                if (filter !== 'All') {
+                    filtered = facultyData.filter(f => f.department === filter);
                 }
-                
-                // Construct standardized fallback map
-                const deptLower = staff.department.toLowerCase();
-                const avatarColor = `var(--dept-${deptLower})`;
-                
-                // Use Bootstrap 3/2/1 grid classes explicitly
-                const cardHtml = `
+
+                if (filtered.length === 0) {
+                    $('#no-faculty').removeClass('d-none');
+                    return;
+                }
+
+                filtered.forEach(staff => {
+                    let initial = staff.name.substring(0, 2).toUpperCase();
+                    if (window.Utils) {
+                        initial = window.Utils.getInitials(staff.name);
+                    }
+
+                    // Construct standardized fallback map
+                    const deptLower = staff.department.toLowerCase();
+                    const avatarColor = `var(--dept-${deptLower})`;
+
+                    // Use Bootstrap 3/2/1 grid classes explicitly
+                    const cardHtml = `
                     <div class="col-lg-4 col-md-6 col-12 faculty-wrapper" data-dept="${staff.department}">
                         <div class="course-card faculty-card h-100 p-4 d-flex flex-column border border-light" style="border-radius: var(--radius-md); background: var(--color-surface);">
                             
@@ -218,11 +231,12 @@
                         </div>
                     </div>
                 `;
-                $grid.append(cardHtml);
-            });
-        }
-    });
+                    $grid.append(cardHtml);
+                });
+            }
+        });
     </script>
-<script src="../js/navbar-loader.js"></script>
+    <script src="../js/navbar-loader.js"></script>
 </body>
+
 </html>

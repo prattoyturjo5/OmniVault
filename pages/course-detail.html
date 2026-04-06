@@ -5,6 +5,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,197 +15,235 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Core CSS -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/pages/course-detail.css">
 </head>
+
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
-<style>
-  body.menu-open .mobile-menu-overlay { display: block !important; }
-  body.menu-open { overflow: hidden; }
-</style>
+    <style>
+        body.menu-open .mobile-menu-overlay {
+            display: block !important;
+        }
 
-<main class="flex-shrink-0 pt-5 mt-4" id="main-content">
-    <div class="container py-5 text-center" id="loading-container">
-        <div class="spinner-border text-accent mb-3" role="status"></div>
-        <p class="text-secondary fw-semibold">Loading course data...</p>
-    </div>
+        body.menu-open {
+            overflow: hidden;
+        }
+    </style>
 
-    <!-- Error State -->
-    <div class="container py-5 text-center d-none" id="error-container">
-        <div class="display-1 text-secondary mb-4 mt-5">404</div>
-        <h2 class="fw-bold mb-3">Course Not Found</h2>
-        <p class="text-secondary mb-4">The course you are looking for might have been removed or is temporarily unavailable.</p>
-        <a href="./courses.html" class="btn btn-primary-custom px-4">Browse All Courses</a>
-    </div>
+    <main class="flex-shrink-0 pt-5 mt-4" id="main-content">
+        <div class="container py-5 text-center" id="loading-container">
+            <div class="spinner-border text-accent mb-3" role="status"></div>
+            <p class="text-secondary fw-semibold">Loading course data...</p>
+        </div>
 
-    <!-- Content State -->
-    <div id="course-content-container" class="d-none">
-        
-        <!-- SECTION 1 — BREADCRUMB -->
-        <section class="border-bottom border-light" style="background-color: var(--color-bg);">
-            <div class="container py-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none hover-primary">Home</a></li>
-                        <li class="breadcrumb-item"><a href="./courses.html" class="text-secondary text-decoration-none hover-primary">Courses</a></li>
-                        <li class="breadcrumb-item active text-dark fw-semibold" id="breadcrumb-title" aria-current="page">Course Details</li>
-                    </ol>
-                </nav>
-            </div>
-        </section>
+        <!-- Error State -->
+        <div class="container py-5 text-center d-none" id="error-container">
+            <div class="display-1 text-secondary mb-4 mt-5">404</div>
+            <h2 class="fw-bold mb-3">Course Not Found</h2>
+            <p class="text-secondary mb-4">The course you are looking for might have been removed or is temporarily
+                unavailable.</p>
+            <a href="./courses.html" class="btn btn-primary-custom px-4">Browse All Courses</a>
+        </div>
 
-        <!-- SECTION 2 — COURSE HERO -->
-        <section class="py-5" style="background-color: var(--color-surface);">
-            <div class="container my-3">
-                <div class="row g-5">
-                    
-                    <!-- LEFT COLUMN 60% -->
-                    <div class="col-lg-7">
-                        <div class="mb-3" id="hero-dept-tag">
-                            <span class="dept-tag dept-cs">CS</span>
-                        </div>
-                        <h1 class="display-5 fw-bold mb-3 text-dark" id="hero-title" style="font-family: Playfair Display;">Course Title</h1>
-                        <p class="text-secondary fw-medium mb-4" id="hero-instructor" style="font-size: 16px;">Taught by Instructor Name</p>
-                        
-                        <div class="d-flex flex-wrap gap-2 mb-4" id="hero-pills">
-                            <span class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill" id="pill-duration">16 Weeks</span>
-                            <span class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill" id="pill-credits">3 Credits</span>
-                            <span class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill" id="pill-level">Undergraduate</span>
-                        </div>
+        <!-- Content State -->
+        <div id="course-content-container" class="d-none">
 
-                        <p class="fs-5 text-secondary mb-4" id="hero-desc" style="line-height: 1.6;">Course description goes here.</p>
-                        
-                        <div class="mb-3">
-                            <button class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
-                        </div>
-                    </div>
+            <!-- SECTION 1 — BREADCRUMB -->
+            <section class="border-bottom border-light" style="background-color: var(--color-bg);">
+                <div class="container py-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="../index.html"
+                                    class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                            <li class="breadcrumb-item"><a href="./courses.html"
+                                    class="text-secondary text-decoration-none hover-primary">Courses</a></li>
+                            <li class="breadcrumb-item active text-dark fw-semibold" id="breadcrumb-title"
+                                aria-current="page">Course Details</li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
 
-                    <!-- RIGHT COLUMN 40% -->
-                    <div class="col-lg-5">
-                        <div class="card shadow-none border border-light p-4 sticky-top" style="top: 100px; border-radius: 6px; background-color: var(--color-surface);">
-                            <h4 class="fw-bold mb-4 text-dark">Course Details</h4>
-                            
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-dark">Seats Filled</span>
-                                    <span class="text-secondary small fw-bold" id="seats-text">0/0 enrolled</span>
-                                </div>
-                                <div class="progress" style="height: 8px; border-radius: 4px;">
-                                    <div class="progress-bar bg-accent" id="seats-progress" role="progressbar" style="width: 0%; background-color: var(--color-accent);" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+            <!-- SECTION 2 — COURSE HERO -->
+            <section class="py-5" style="background-color: var(--color-surface);">
+                <div class="container my-3">
+                    <div class="row g-5">
+
+                        <!-- LEFT COLUMN 60% -->
+                        <div class="col-lg-7">
+                            <div class="mb-3" id="hero-dept-tag">
+                                <span class="dept-tag dept-cs">CS</span>
                             </div>
-                            
-                            <ul class="list-group list-group-flush mb-4">
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3">
-                                    <span class="text-secondary fw-medium">Credits</span>
-                                    <span class="text-dark fw-bold" id="info-credits">3</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3">
-                                    <span class="text-secondary fw-medium">Level</span>
-                                    <span class="text-dark fw-bold" id="info-level">Undergraduate</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3 border-bottom-0">
-                                    <span class="text-secondary fw-medium">Duration</span>
-                                    <span class="text-dark fw-bold" id="info-duration">16 Weeks</span>
-                                </li>
-                            </ul>
-                            
-                            <button class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
+                            <h1 class="display-5 fw-bold mb-3 text-dark" id="hero-title"
+                                style="font-family: Playfair Display;">Course Title</h1>
+                            <p class="text-secondary fw-medium mb-4" id="hero-instructor" style="font-size: 16px;">
+                                Taught by Instructor Name</p>
+
+                            <div class="d-flex flex-wrap gap-2 mb-4" id="hero-pills">
+                                <span
+                                    class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill"
+                                    id="pill-duration">16 Weeks</span>
+                                <span
+                                    class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill"
+                                    id="pill-credits">3 Credits</span>
+                                <span
+                                    class="badge border border-secondary text-secondary bg-white px-3 py-2 fw-medium rounded-pill"
+                                    id="pill-level">Undergraduate</span>
+                            </div>
+
+                            <p class="fs-5 text-secondary mb-4" id="hero-desc" style="line-height: 1.6;">Course
+                                description goes here.</p>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn"
+                                    data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            </div>
-        </section>
+                        <!-- RIGHT COLUMN 40% -->
+                        <div class="col-lg-5">
+                            <div class="card shadow-none border border-light p-4 sticky-top"
+                                style="top: 100px; border-radius: 6px; background-color: var(--color-surface);">
+                                <h4 class="fw-bold mb-4 text-dark">Course Details</h4>
 
-        <!-- SECTION 3 & 4 (Combined row) -->
-        <section class="py-5" style="background-color: var(--color-bg);">
-            <div class="container my-4">
-                <div class="row g-5">
-                    
-                    <!-- SYLLABUS -->
-                    <div class="col-lg-8">
-                        <h3 class="fw-bold mb-4 text-dark border-bottom border-light pb-2">Syllabus</h3>
-                        <div class="accordion border-0" id="syllabusAccordion">
-                            <!-- Accordion Items Injected via JS -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-semibold text-dark">Seats Filled</span>
+                                        <span class="text-secondary small fw-bold" id="seats-text">0/0 enrolled</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px; border-radius: 4px;">
+                                        <div class="progress-bar bg-accent" id="seats-progress" role="progressbar"
+                                            style="width: 0%; background-color: var(--color-accent);" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3">
+                                        <span class="text-secondary fw-medium">Credits</span>
+                                        <span class="text-dark fw-bold" id="info-credits">3</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3">
+                                        <span class="text-secondary fw-medium">Level</span>
+                                        <span class="text-dark fw-bold" id="info-level">Undergraduate</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent border-light pt-3 border-bottom-0">
+                                        <span class="text-secondary fw-medium">Duration</span>
+                                        <span class="text-dark fw-bold" id="info-duration">16 Weeks</span>
+                                    </li>
+                                </ul>
+
+                                <button class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0"
+                                    data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- INSTRUCTOR -->
-                    <div class="col-lg-4">
-                        <h3 class="fw-bold mb-4 text-dark border-bottom border-light pb-2">Instructor</h3>
-                        <div class="card p-4 text-center shadow-none border border-light" style="border-radius: var(--radius-md); background: var(--color-surface);">
-                            <div class="initials-avatar avatar-lg mx-auto mb-3" id="inst-avatar" style="background-color: var(--color-accent); color: white;">?</div>
-                            <h5 class="fw-bold mb-1 text-dark" id="inst-name">Instructor Name</h5>
-                            <div class="text-accent small fw-semibold mb-3" id="inst-dept">Department</div>
-                            <p class="small text-secondary mb-0" id="inst-bio">Instructor biography goes here.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3 & 4 (Combined row) -->
+            <section class="py-5" style="background-color: var(--color-bg);">
+                <div class="container my-4">
+                    <div class="row g-5">
+
+                        <!-- SYLLABUS -->
+                        <div class="col-lg-8">
+                            <h3 class="fw-bold mb-4 text-dark border-bottom border-light pb-2">Syllabus</h3>
+                            <div class="accordion border-0" id="syllabusAccordion">
+                                <!-- Accordion Items Injected via JS -->
+                            </div>
                         </div>
+
+                        <!-- INSTRUCTOR -->
+                        <div class="col-lg-4">
+                            <h3 class="fw-bold mb-4 text-dark border-bottom border-light pb-2">Instructor</h3>
+                            <div class="card p-4 text-center shadow-none border border-light"
+                                style="border-radius: var(--radius-md); background: var(--color-surface);">
+                                <div class="initials-avatar avatar-lg mx-auto mb-3" id="inst-avatar"
+                                    style="background-color: var(--color-accent); color: white;">?</div>
+                                <h5 class="fw-bold mb-1 text-dark" id="inst-name">Instructor Name</h5>
+                                <div class="text-accent small fw-semibold mb-3" id="inst-dept">Department</div>
+                                <p class="small text-secondary mb-0" id="inst-bio">Instructor biography goes here.</p>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
+            </section>
 
+            <!-- SECTION 5 — RELATED COURSES -->
+            <section class="py-5" style="background-color: var(--color-surface);">
+                <div class="container my-4">
+                    <h3 class="fw-bold mb-4 text-dark pb-2">More from this Department</h3>
+                    <div class="row g-4" id="related-courses">
+                        <!-- Related cards injected via JS -->
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- SECTION 5 — RELATED COURSES -->
-        <section class="py-5" style="background-color: var(--color-surface);">
-            <div class="container my-4">
-                <h3 class="fw-bold mb-4 text-dark pb-2">More from this Department</h3>
-                <div class="row g-4" id="related-courses">
-                    <!-- Related cards injected via JS -->
-                </div>
-            </div>
-        </section>
-
-    </div>
-</main>
-
-<!-- ENROLLMENT MODAL -->
-<div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius: var(--radius-md); border: none;">
-      <div class="modal-header border-light p-4 pb-3">
-        <h5 class="modal-title fw-bold text-dark" id="enrollModalLabel">Enroll in Course</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body p-4 pt-3">
-        
-        <div id="enrollFormContainer">
-            <form id="enrollForm" novalidate>
-                <div class="mb-3">
-                    <label for="enrollName" class="form-label text-secondary fw-semibold small mb-1">Full Name *</label>
-                    <input type="text" class="form-control px-3 py-2 bg-light shadow-none" id="enrollName" required>
-                    <div id="enrollNameErr" class="invalid-feedback fw-medium"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="enrollStudentId" class="form-label text-secondary fw-semibold small mb-1">Student ID *</label>
-                    <input type="text" class="form-control px-3 py-2 bg-light shadow-none" id="enrollStudentId" required>
-                    <div id="enrollStudentIdErr" class="invalid-feedback fw-medium"></div>
-                </div>
-                <div class="mb-4">
-                    <label for="enrollEmail" class="form-label text-secondary fw-semibold small mb-1">Email Address *</label>
-                    <input type="email" class="form-control px-3 py-2 bg-light shadow-none" id="enrollEmail" required>
-                    <div id="enrollEmailErr" class="invalid-feedback fw-medium"></div>
-                </div>
-                <button type="submit" class="btn btn-primary-custom w-100 py-2 border-0">Confirm Enrollment</button>
-            </form>
         </div>
+    </main>
 
-        <div id="enrollSuccessMessage" style="display: none;">
-            <!-- Rendered by validation.js -->
+    <!-- ENROLLMENT MODAL -->
+    <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: var(--radius-md); border: none;">
+                <div class="modal-header border-light p-4 pb-3">
+                    <h5 class="modal-title fw-bold text-dark" id="enrollModalLabel">Enroll in Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 pt-3">
+
+                    <div id="enrollFormContainer">
+                        <form id="enrollForm" novalidate>
+                            <div class="mb-3">
+                                <label for="enrollName" class="form-label text-secondary fw-semibold small mb-1">Full
+                                    Name *</label>
+                                <input type="text" class="form-control px-3 py-2 bg-light shadow-none" id="enrollName"
+                                    required>
+                                <div id="enrollNameErr" class="invalid-feedback fw-medium"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="enrollStudentId"
+                                    class="form-label text-secondary fw-semibold small mb-1">Student ID *</label>
+                                <input type="text" class="form-control px-3 py-2 bg-light shadow-none"
+                                    id="enrollStudentId" required>
+                                <div id="enrollStudentIdErr" class="invalid-feedback fw-medium"></div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="enrollEmail" class="form-label text-secondary fw-semibold small mb-1">Email
+                                    Address *</label>
+                                <input type="email" class="form-control px-3 py-2 bg-light shadow-none" id="enrollEmail"
+                                    required>
+                                <div id="enrollEmailErr" class="invalid-feedback fw-medium"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100 py-2 border-0">Confirm
+                                Enrollment</button>
+                        </form>
+                    </div>
+
+                    <div id="enrollSuccessMessage" style="display: none;">
+                        <!-- Rendered by validation.js -->
+                    </div>
+
+                </div>
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
-</div>
 
-<!-- ========== FOOTER (NESTED PAGES) ========== -->
+    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
     <!-- jQuery CDN -->
@@ -225,76 +264,76 @@
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/validation.js"></script>
-    
+
     <!-- PAGE LOGIC -->
     <script>
-    $(document).ready(function() {
-        const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
-        if (!id) {
-            $('#loading-container').addClass('d-none');
-            $('#error-container').removeClass('d-none');
-            return;
-        }
-
-        $.getJSON('../data/courses.json', function(courses) {
-            const course = courses.find(c => c.id === id);
-            
-            if (!course) {
+        $(document).ready(function () {
+            const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
+            if (!id) {
                 $('#loading-container').addClass('d-none');
                 $('#error-container').removeClass('d-none');
                 return;
             }
 
-            // Expose context globally for validation.js
-            window.enrollmentContext = {
-                courseId: course.id,
-                courseTitle: course.title,
-                department: course.department,
-                instructor: course.instructor
-            };
+            $.getJSON('../data/courses.json', function (courses) {
+                const course = courses.find(c => c.id === id);
 
-            // Setup Details
-            document.title = "OmniVault - " + course.title;
-            $('#breadcrumb-title').text(course.title);
-            
-            const deptLower = course.department.toLowerCase();
-            $('#hero-dept-tag').html(`<span class="dept-tag dept-${deptLower}">${course.department}</span>`);
-            $('#hero-title').text(course.title);
-            $('#hero-instructor').text(`Taught by ${course.instructor}`);
-            
-            $('#pill-duration').text(course.duration);
-            $('#pill-credits').text(`${course.credits} Credits`);
-            $('#pill-level').text(course.level);
-            $('#hero-desc').text(course.description);
-            
-            // Setup Progress
-            const seatsFilledText = course.enrolled ? course.enrolled : 0;
-            const seatsTotal = course.seats ? course.seats : 0;
-            $('#seats-text').text(`${seatsFilledText}/${seatsTotal} enrolled`);
-            let perc = 0;
-            if(seatsTotal > 0) perc = (seatsFilledText / seatsTotal) * 100;
-            $('#seats-progress').css('width', `${perc}%`);
-            
-            $('#info-credits').text(course.credits);
-            $('#info-level').text(course.level);
-            $('#info-duration').text(course.duration);
+                if (!course) {
+                    $('#loading-container').addClass('d-none');
+                    $('#error-container').removeClass('d-none');
+                    return;
+                }
 
-            $('#enrollModalLabel').text(`Enroll in ${course.title}`);
+                // Expose context globally for validation.js
+                window.enrollmentContext = {
+                    courseId: course.id,
+                    courseTitle: course.title,
+                    department: course.department,
+                    instructor: course.instructor
+                };
 
-            // Setup Syllabus Accordion
-            const $syllabusArgs = $('#syllabusAccordion');
-            $syllabusArgs.empty();
-            if (course.syllabus && course.syllabus.length > 0) {
-                course.syllabus.forEach((item, index) => {
-                    // Expect format "Week 1: Title"
-                    const parts = item.split(':');
-                    let title = parts[0];
-                    let desc = parts.length > 1 ? parts.slice(1).join(':').trim() : "Details for this module.";
-                    
-                    const openClass = index === 0 ? 'show' : '';
-                    const btnClass = index === 0 ? '' : 'collapsed';
-                    
-                    $syllabusArgs.append(`
+                // Setup Details
+                document.title = "OmniVault - " + course.title;
+                $('#breadcrumb-title').text(course.title);
+
+                const deptLower = course.department.toLowerCase();
+                $('#hero-dept-tag').html(`<span class="dept-tag dept-${deptLower}">${course.department}</span>`);
+                $('#hero-title').text(course.title);
+                $('#hero-instructor').text(`Taught by ${course.instructor}`);
+
+                $('#pill-duration').text(course.duration);
+                $('#pill-credits').text(`${course.credits} Credits`);
+                $('#pill-level').text(course.level);
+                $('#hero-desc').text(course.description);
+
+                // Setup Progress
+                const seatsFilledText = course.enrolled ? course.enrolled : 0;
+                const seatsTotal = course.seats ? course.seats : 0;
+                $('#seats-text').text(`${seatsFilledText}/${seatsTotal} enrolled`);
+                let perc = 0;
+                if (seatsTotal > 0) perc = (seatsFilledText / seatsTotal) * 100;
+                $('#seats-progress').css('width', `${perc}%`);
+
+                $('#info-credits').text(course.credits);
+                $('#info-level').text(course.level);
+                $('#info-duration').text(course.duration);
+
+                $('#enrollModalLabel').text(`Enroll in ${course.title}`);
+
+                // Setup Syllabus Accordion
+                const $syllabusArgs = $('#syllabusAccordion');
+                $syllabusArgs.empty();
+                if (course.syllabus && course.syllabus.length > 0) {
+                    course.syllabus.forEach((item, index) => {
+                        // Expect format "Week 1: Title"
+                        const parts = item.split(':');
+                        let title = parts[0];
+                        let desc = parts.length > 1 ? parts.slice(1).join(':').trim() : "Details for this module.";
+
+                        const openClass = index === 0 ? 'show' : '';
+                        const btnClass = index === 0 ? '' : 'collapsed';
+
+                        $syllabusArgs.append(`
                         <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
                             <h2 class="accordion-header">
                                 <button class="accordion-button ${btnClass} bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#syllabus-${index}">
@@ -308,45 +347,45 @@
                             </div>
                         </div>
                     `);
-                });
-            } else {
-                $syllabusArgs.html('<p class="text-secondary mb-0">Syllabus details coming soon.</p>');
-            }
-
-            // Sync with Faculty
-            $.getJSON('../data/faculty.json', function(faculty) {
-                // Approximate match by name string
-                const matchName = course.instructor.replace(/Dr\.|Prof\.|Mr\.|Ms\./g,'').trim();
-                const matchedProf = faculty.find(f => f.name.includes(matchName));
-                
-                if (matchedProf) {
-                    $('#inst-name').text(matchedProf.name);
-                    $('#inst-dept').text(matchedProf.designation + ' - ' + matchedProf.department);
-                    $('#inst-bio').text(matchedProf.bio);
-                    if (window.Utils) {
-                        $('#inst-avatar').text(window.Utils.getInitials(matchedProf.name));
-                        $('#inst-avatar').css('background-color', `var(--dept-${deptLower})`); // fallback logic could use matchedProf.department style map as well
-                    }
+                    });
                 } else {
-                    $('#inst-bio').text('A leading expert in their respective field committed to academic excellence.');
-                    if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor)).css('background-color', `var(--dept-${deptLower})`);
+                    $syllabusArgs.html('<p class="text-secondary mb-0">Syllabus details coming soon.</p>');
                 }
-            }).fail(function(){ 
-                if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor));
-            });
 
-            // Related Courses
-            const $related = $('#related-courses');
-            $related.empty();
-            const relatedOpts = courses.filter(c => c.department === course.department && c.id !== course.id);
-            const loadRelated = relatedOpts.slice(0, 3);
-            
-            if (loadRelated.length === 0) {
-                 $related.html('<div class="col-12"><p class="text-secondary">No other specific courses in this department at this time.</p></div>');
-            } else {
-                 loadRelated.forEach(rc => {
-                      const linkHref = `./course-detail.html?id=${rc.id}`;
-                      $related.append(`
+                // Sync with Faculty
+                $.getJSON('../data/faculty.json', function (faculty) {
+                    // Approximate match by name string
+                    const matchName = course.instructor.replace(/Dr\.|Prof\.|Mr\.|Ms\./g, '').trim();
+                    const matchedProf = faculty.find(f => f.name.includes(matchName));
+
+                    if (matchedProf) {
+                        $('#inst-name').text(matchedProf.name);
+                        $('#inst-dept').text(matchedProf.designation + ' - ' + matchedProf.department);
+                        $('#inst-bio').text(matchedProf.bio);
+                        if (window.Utils) {
+                            $('#inst-avatar').text(window.Utils.getInitials(matchedProf.name));
+                            $('#inst-avatar').css('background-color', `var(--dept-${deptLower})`); // fallback logic could use matchedProf.department style map as well
+                        }
+                    } else {
+                        $('#inst-bio').text('A leading expert in their respective field committed to academic excellence.');
+                        if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor)).css('background-color', `var(--dept-${deptLower})`);
+                    }
+                }).fail(function () {
+                    if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor));
+                });
+
+                // Related Courses
+                const $related = $('#related-courses');
+                $related.empty();
+                const relatedOpts = courses.filter(c => c.department === course.department && c.id !== course.id);
+                const loadRelated = relatedOpts.slice(0, 3);
+
+                if (loadRelated.length === 0) {
+                    $related.html('<div class="col-12"><p class="text-secondary">No other specific courses in this department at this time.</p></div>');
+                } else {
+                    loadRelated.forEach(rc => {
+                        const linkHref = `./course-detail.html?id=${rc.id}`;
+                        $related.append(`
                         <div class="col-lg-4 col-md-6 col-12 mb-4">
                           <div class="course-card h-100 d-flex flex-column border" style="border-radius: var(--radius-md); background: var(--color-surface); padding: 24px;">
                             <div class="mb-3">
@@ -361,19 +400,20 @@
                           </div>
                         </div>
                       `);
-                 });
-            }
+                    });
+                }
 
-            // Reveal UI
-            $('#loading-container').addClass('d-none');
-            $('#course-content-container').removeClass('d-none');
+                // Reveal UI
+                $('#loading-container').addClass('d-none');
+                $('#course-content-container').removeClass('d-none');
 
-        }).fail(function() {
-            $('#loading-container').addClass('d-none');
-            $('#error-container').removeClass('d-none');
+            }).fail(function () {
+                $('#loading-container').addClass('d-none');
+                $('#error-container').removeClass('d-none');
+            });
+
         });
-
-    });
     </script>
 </body>
+
 </html>

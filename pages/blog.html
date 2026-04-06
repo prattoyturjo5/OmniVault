@@ -5,6 +5,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Core CSS -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
@@ -31,12 +34,12 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
-        
+
         .blog-filter:hover {
             color: var(--color-accent);
             border-color: var(--color-accent);
         }
-        
+
         .blog-filter.active {
             color: white;
             background-color: var(--color-accent);
@@ -44,71 +47,80 @@
         }
     </style>
 </head>
+
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
 
-<main class="flex-shrink-0 pt-5 mt-4" id="blog-page-container">
+    <main class="flex-shrink-0 pt-5 mt-4" id="blog-page-container">
 
-    <!-- SECTION 1 — PAGE HEADER -->
-    <section style="background-color: var(--color-accent-light); padding: 48px 0;">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-3">
-                    <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none hover-primary">Home</a></li>
-                    <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Blog</li>
-                </ol>
-            </nav>
-            <h1 class="display-5 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">Blog & News</h1>
-            <p class="fs-5 text-secondary">Insights, university culture, and academic breakthroughs.</p>
-        </div>
-    </section>
+        <!-- SECTION 1 — PAGE HEADER -->
+        <section style="background-color: var(--color-accent-light); padding: 48px 0;">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item"><a href="../index.html"
+                                class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                        <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Blog</li>
+                    </ol>
+                </nav>
+                <h1 class="display-5 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">Blog & News</h1>
+                <p class="fs-5 text-secondary">Insights, university culture, and academic breakthroughs.</p>
+            </div>
+        </section>
 
-    <!-- SECTION 2 — FEATURED POST -->
-    <section class="py-5" style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
-        <div class="container my-2" id="featured-post">
-            <div class="row g-4 align-items-center border" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <div class="col-lg-6 p-5">
-                    <div class="mb-3">
-                        <span class="badge bg-light text-dark py-2 px-3 border border-secondary fw-semibold" id="featured-category">...</span>
+        <!-- SECTION 2 — FEATURED POST -->
+        <section class="py-5"
+            style="background-color: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+            <div class="container my-2" id="featured-post">
+                <div class="row g-4 align-items-center border"
+                    style="border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                    <div class="col-lg-6 p-5">
+                        <div class="mb-3">
+                            <span class="badge bg-light text-dark py-2 px-3 border border-secondary fw-semibold"
+                                id="featured-category">...</span>
+                        </div>
+                        <h2 class="display-6 fw-bold mb-3 text-dark" id="featured-title"
+                            style="font-family: Playfair Display;">Loading Featured Post...</h2>
+                        <p class="text-secondary mb-4 fs-5 w-75" id="featured-excerpt" style="line-height: 1.6;"></p>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <div class="small text-secondary fw-semibold" id="featured-meta"></div>
+                            <a href="#"
+                                class="fw-bold text-accent text-decoration-none border-bottom border-accent pb-1 d-inline-block hover-primary"
+                                id="featured-link">Read Full Post →</a>
+                        </div>
                     </div>
-                    <h2 class="display-6 fw-bold mb-3 text-dark" id="featured-title" style="font-family: Playfair Display;">Loading Featured Post...</h2>
-                    <p class="text-secondary mb-4 fs-5 w-75" id="featured-excerpt" style="line-height: 1.6;"></p>
-                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                         <div class="small text-secondary fw-semibold" id="featured-meta"></div>
-                         <a href="#" class="fw-bold text-accent text-decoration-none border-bottom border-accent pb-1 d-inline-block hover-primary" id="featured-link">Read Full Post →</a>
+                    <div class="col-lg-6 p-0">
+                        <!-- Colored div acts as placeholder aspect 16:9 equivalent -->
+                        <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+                            style="background-color: var(--color-bg); min-height: 400px; border-left: 1px solid var(--color-border);">
+                            <div class="spinner-border text-accent mb-3" role="status"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 p-0">
-                    <!-- Colored div acts as placeholder aspect 16:9 equivalent -->
-                    <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="background-color: var(--color-bg); min-height: 400px; border-left: 1px solid var(--color-border);">
-                       <div class="spinner-border text-accent mb-3" role="status"></div>
-                    </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 — CATEGORY PILLS + POSTS GRID -->
+        <section class="py-5" style="background-color: var(--color-bg);">
+            <div class="container my-3">
+                <div class="d-flex flex-wrap gap-2 mb-5" id="blogTypes">
+                    <a class="blog-filter active" data-filter="All">All Topics</a>
+                    <a class="blog-filter" data-filter="Advice">Advice</a>
+                    <a class="blog-filter" data-filter="Research">Research</a>
+                    <a class="blog-filter" data-filter="Campus Life">Campus Life</a>
+                    <a class="blog-filter" data-filter="Announcements">Announcements</a>
+                </div>
+
+                <div class="row g-4" id="blog-grid">
+                    <!-- Javascript injection via /data/blogs.json -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECTION 3 — CATEGORY PILLS + POSTS GRID -->
-    <section class="py-5" style="background-color: var(--color-bg);">
-        <div class="container my-3">
-            <div class="d-flex flex-wrap gap-2 mb-5" id="blogTypes">
-                <a class="blog-filter active" data-filter="All">All Topics</a>
-                <a class="blog-filter" data-filter="Advice">Advice</a>
-                <a class="blog-filter" data-filter="Research">Research</a>
-                <a class="blog-filter" data-filter="Campus Life">Campus Life</a>
-                <a class="blog-filter" data-filter="Announcements">Announcements</a>
-            </div>
+    </main>
 
-            <div class="row g-4" id="blog-grid">
-                <!-- Javascript injection via /data/blogs.json -->
-            </div>
-        </div>
-    </section>
-
-</main>
-
-<!-- ========== FOOTER (NESTED PAGES) ========== -->
+    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
     <!-- jQuery CDN -->
@@ -130,6 +142,7 @@
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/blog.js"></script>
-<script src="../js/navbar-loader.js"></script>
+    <script src="../js/navbar-loader.js"></script>
 </body>
+
 </html>

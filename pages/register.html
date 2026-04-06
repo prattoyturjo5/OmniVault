@@ -5,6 +5,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,47 +15,55 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Core CSS -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
 </head>
-<body class="d-flex flex-column min-vh-100 bg-bg align-items-center justify-content-center pb-5" style="background-color: var(--color-bg); padding-top: 80px;">
+
+<body class="d-flex flex-column min-vh-100 bg-bg align-items-center justify-content-center pb-5"
+    style="background-color: var(--color-bg); padding-top: 80px;">
 
     <div id="navbar-placeholder"></div>
     <div id="footer-placeholder"></div>
 
 
-<!-- REGISTER CARD -->
+    <!-- REGISTER CARD -->
     <div class="container d-flex justify-content-center mt-5 mt-md-0">
         <div class="w-100" style="max-width: 480px; z-index: 10;">
-            
+
             <div id="reg-alert"></div>
 
-            <div class="card p-4 p-md-5 border" style="border-radius: var(--radius-md); border-color: var(--color-border) !important; background: var(--color-surface); box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
-                
+            <div class="card p-4 p-md-5 border"
+                style="border-radius: var(--radius-md); border-color: var(--color-border) !important; background: var(--color-surface); box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+
                 <div class="text-center mb-4">
                     <h2 class="fw-bold text-dark mb-2" style="font-family: Playfair Display;">Create Account</h2>
                     <p class="text-secondary mb-0">Join OmniVault and start learning today</p>
                 </div>
 
                 <form id="register-form">
-                    
+
                     <div class="mb-3">
-                        <label for="regName" class="form-label fw-semibold text-dark small">Full Name <span class="text-danger">*</span></label>
+                        <label for="regName" class="form-label fw-semibold text-dark small">Full Name <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control py-2" id="regName" placeholder="e.g. Anika Rahman">
                         <div class="invalid-feedback fw-medium" id="regNameErr"></div>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label for="regStudentId" class="form-label fw-semibold text-dark small">Student ID <span class="text-danger">*</span></label>
+                            <label for="regStudentId" class="form-label fw-semibold text-dark small">Student ID <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control py-2" id="regStudentId" placeholder="e.g. CS1024">
                             <div class="invalid-feedback fw-medium" id="regStudentIdErr"></div>
                         </div>
                         <div class="col-md-6">
-                            <label for="regDept" class="form-label fw-semibold text-dark small">Department <span class="text-danger">*</span></label>
+                            <label for="regDept" class="form-label fw-semibold text-dark small">Department <span
+                                    class="text-danger">*</span></label>
                             <select class="form-select py-2" id="regDept">
                                 <option value="" disabled selected>Select...</option>
                                 <option value="Computer Science" selected>Computer Science</option>
@@ -64,42 +73,57 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="regEmail" class="form-label fw-semibold text-dark small">Email Address <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control py-2" id="regEmail" placeholder="e.g. format@domain.com">
+                        <label for="regEmail" class="form-label fw-semibold text-dark small">Email Address <span
+                                class="text-danger">*</span></label>
+                        <input type="email" class="form-control py-2" id="regEmail"
+                            placeholder="e.g. format@domain.com">
                         <div class="invalid-feedback fw-medium" id="regEmailErr"></div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="regPassword" class="form-label fw-semibold text-dark small">Password <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control py-2" id="regPassword" placeholder="Minimum 6 characters">
-                        
+                        <label for="regPassword" class="form-label fw-semibold text-dark small">Password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control py-2" id="regPassword"
+                            placeholder="Minimum 6 characters">
+
                         <!-- Strength Meter -->
-                        <div class="mt-2" style="background:#e9ecef; border-radius:2px; height:4px; width:100%; overflow:hidden;">
-                            <div id="strength-bar" style="height:4px; border-radius:2px; transition: width 0.3s, background 0.3s; width: 0%; background: #dc3545;"></div>
+                        <div class="mt-2"
+                            style="background:#e9ecef; border-radius:2px; height:4px; width:100%; overflow:hidden;">
+                            <div id="strength-bar"
+                                style="height:4px; border-radius:2px; transition: width 0.3s, background 0.3s; width: 0%; background: #dc3545;">
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between mt-1">
-                            <small class="text-secondary" style="font-size: 11px;" id="strength-label">Enter password</small>
-                            <small class="text-danger fw-medium d-none" style="font-size: 11px;" id="regPasswordErr"></small>
+                            <small class="text-secondary" style="font-size: 11px;" id="strength-label">Enter
+                                password</small>
+                            <small class="text-danger fw-medium d-none" style="font-size: 11px;"
+                                id="regPasswordErr"></small>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label for="regConfirm" class="form-label fw-semibold text-dark small">Confirm Password <span class="text-danger">*</span></label>
+                        <label for="regConfirm" class="form-label fw-semibold text-dark small">Confirm Password <span
+                                class="text-danger">*</span></label>
                         <div class="position-relative">
-                            <input type="password" class="form-control py-2" id="regConfirm" placeholder="Must match password">
-                            <span id="match-icon" class="position-absolute d-none" style="right: 12px; top: 10px; font-weight: bold;"></span>
+                            <input type="password" class="form-control py-2" id="regConfirm"
+                                placeholder="Must match password">
+                            <span id="match-icon" class="position-absolute d-none"
+                                style="right: 12px; top: 10px; font-weight: bold;"></span>
                             <div class="invalid-feedback fw-medium" id="regConfirmErr"></div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold fs-6 border-0 text-white shadow-sm mt-2">Create Account</button>
-                    
+                    <button type="submit"
+                        class="btn btn-primary-custom w-100 py-2 fw-semibold fs-6 border-0 text-white shadow-sm mt-2">Create
+                        Account</button>
+
                 </form>
 
             </div>
 
             <div class="text-center mt-4 text-secondary small">
-                Already have an account? <a href="./login.html" class="fw-semibold text-accent text-decoration-none hover-primary">Login →</a>
+                Already have an account? <a href="./login.html"
+                    class="fw-semibold text-accent text-decoration-none hover-primary">Login →</a>
             </div>
 
         </div>
@@ -117,4 +141,5 @@
     <script src="../js/footer-loader.js"></script>
 
 </body>
+
 </html>
