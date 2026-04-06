@@ -122,9 +122,6 @@ $(document).ready(function() {
             // Re-align dept codes intelligently
             const dpt = course.departmentLabel || course.department;
             let code = "dept-cs";
-            if (dpt.includes("Business")) code = "dept-bus";
-            if (dpt.includes("Design")) code = "dept-des";
-            if (dpt.includes("Science") && !dpt.includes("Computer")) code = "dept-sci";
             $('#formDept').val(code);
 
             $('#formInstructor').val(course.instructor);
@@ -165,10 +162,7 @@ $(document).ready(function() {
         
         // Label mapped mechanically from coded `<select>` values
         const deptLabelMap = {
-            'dept-cs': 'Computer Science',
-            'dept-bus': 'Business',
-            'dept-des': 'Design',
-            'dept-sci': 'Science'
+            'dept-cs': 'Computer Science'
         };
 
         if (isValid) {

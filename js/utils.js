@@ -4,14 +4,13 @@
 */
 
 window.Utils = {
-  // Returns "June 10, 2025" from "2025-06-10"
+  // Returns "June 10" from "2025-06-10"
   formatDate: function(dateString) {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       month: 'long',
-      day: 'numeric',
-      year: 'numeric'
+      day: 'numeric'
     });
   },
 

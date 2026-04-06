@@ -31,92 +31,92 @@
   },
   {
     "id": "fac004",
-    "name": "Dr. Jamal Islam",
-    "department": "Business",
-    "deptLabel": "Business Administration",
+    "name": "Dr. Sarah Jenkins",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Associate Professor",
-    "email": "jamal.i@omnivault.edu",
-    "bio": "Over a decade of corporate management experience before joining academia. Focuses on organizational behavior.",
-    "courses": ["biz101"]
+    "email": "sarah.j@omnivault.edu",
+    "bio": "Expert in software architecture and agile methodologies. Previously worked at top-tier silicon valley firms.",
+    "courses": ["cs205"]
   },
   {
     "id": "fac005",
-    "name": "Prof. Naima Haque",
-    "department": "Business",
-    "deptLabel": "Business Administration",
+    "name": "Prof. Michael Chen",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Professor",
-    "email": "naima.h@omnivault.edu",
-    "bio": "Certified CPA with extensive research in forensic accounting and international financial regulations.",
-    "courses": ["biz205"]
+    "email": "michael.c@omnivault.edu",
+    "bio": "Heads the Distributed Systems Research Group. Specializing in kernel optimization and memory management.",
+    "courses": ["cs310"]
   },
   {
     "id": "fac006",
-    "name": "Dr. Kamal Uddin",
-    "department": "Business",
-    "deptLabel": "Business Administration",
+    "name": "Dr. Robert Wilson",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Assistant Professor",
-    "email": "kamal.u@omnivault.edu",
-    "bio": "Researcher in digital marketing dynamics and consumer behavior analytics in emerging markets.",
-    "courses": ["biz310"]
+    "email": "robert.w@omnivault.edu",
+    "bio": "Researcher in big data analytics and NoSQL optimization techniques. Leads the 'DataFirst' initiative.",
+    "courses": ["cs220"]
   },
   {
     "id": "fac007",
-    "name": "Ms. Sadia Hossain",
-    "department": "Design",
-    "deptLabel": "Design & Arts",
+    "name": "Dr. Lisa Thompson",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Senior Lecturer",
-    "email": "sadia.h@omnivault.edu",
-    "bio": "Professional graphic designer with a focus on typography and minimalist editorial layouts.",
-    "courses": ["des101"]
+    "email": "lisa.t@omnivault.edu",
+    "bio": "Focuses on network topology, high-availability clusters, and the future of 5G/6G communication.",
+    "courses": ["cs325"]
   },
   {
     "id": "fac008",
-    "name": "Mr. Asif Ahmed",
-    "department": "Design",
-    "deptLabel": "Design & Arts",
+    "name": "Mr. David Miller",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Lecturer",
-    "email": "asif.a@omnivault.edu",
-    "bio": "Specializes in UX methodologies and interactive prototyping. Acts as an industry consultant for local startups.",
-    "courses": ["des202"]
+    "email": "david.m@omnivault.edu",
+    "bio": "Certified security professional with extensive experience in vulnerability assessment and network defense.",
+    "courses": ["cs401"]
   },
   {
     "id": "fac009",
-    "name": "Ms. Nusrat Jahan",
-    "department": "Design",
-    "deptLabel": "Design & Arts",
+    "name": "Ms. Emily Davis",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Lecturer",
-    "email": "nusrat.j@omnivault.edu",
-    "bio": "Expert in 3D modeling and animation pipelines. Former character rigger for an international animation studio.",
-    "courses": ["des305"]
+    "email": "emily.d@omnivault.edu",
+    "bio": "Full-stack enthusiast focused on highly-scalable web applications and modern React ecosystems.",
+    "courses": ["cs215"]
   },
   {
     "id": "fac010",
-    "name": "Dr. Rashedul Islam",
-    "department": "Science",
-    "deptLabel": "Natural Sciences",
-    "designation": "Professor",
-    "email": "rashedul.i@omnivault.edu",
-    "bio": "Renowned physicist dedicated to alternative energy research and practical thermodynamics.",
-    "courses": ["sci101"]
+    "name": "Mr. Kevin Park",
+    "department": "CS",
+    "deptLabel": "Computer Science",
+    "designation": "Lecturer",
+    "email": "kevin.p@omnivault.edu",
+    "bio": "Mobile developer with several apps boasting over 100k downloads. Expert in cross-platform UI/UX.",
+    "courses": ["cs330"]
   },
   {
     "id": "fac011",
-    "name": "Dr. Salma Begum",
-    "department": "Science",
-    "deptLabel": "Natural Sciences",
+    "name": "Dr. Susan White",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Associate Professor",
-    "email": "salma.b@omnivault.edu",
-    "bio": "Leading researcher in organic synthesis and molecular structure analysis.",
-    "courses": ["sci202"]
+    "email": "susan.w@omnivault.edu",
+    "bio": "Specializes in cloud-native architectures and serverless functions for large-scale enterprise deployments.",
+    "courses": ["cs410"]
   },
   {
     "id": "fac012",
-    "name": "Dr. Hasan Mahmud",
-    "department": "Science",
-    "deptLabel": "Natural Sciences",
+    "name": "Prof. Steven Hall",
+    "department": "CS",
+    "deptLabel": "Computer Science",
     "designation": "Assistant Professor",
-    "email": "hasan.m@omnivault.edu",
-    "bio": "Focused on recombinant DNA and genetic regulation mechanisms. Actively involved in biotechnology research.",
-    "courses": ["sci310"]
+    "email": "steven.h@omnivault.edu",
+    "bio": "Deeply theoretical researcher focusing on complexity theory and Turing machine efficiency limits.",
+    "courses": ["cs301"]
   }
 ]

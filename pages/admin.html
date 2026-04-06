@@ -116,130 +116,74 @@
 <body>
 
 <!-- ========== NAVBAR ========== -->
-<nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
-  <div class="container">
-    <a class="navbar-brand logo" href="../index.html">
-        <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault
-    </a>
-    <button class="navbar-toggler border-0" type="button" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="./courses.html">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="./faculty.html">Faculty</a></li>
-        <li class="nav-item"><a class="nav-link" href="./blog.html">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="./noticeboard.html">Notice Board</a></li>
-        <li class="nav-item"><a class="nav-link" href="./events.html">Events</a></li>
-      </ul>
-    </div>
-    <div class="d-none d-lg-flex">
-      <a class="btn btn-ghost ms-2" href="./login.html">Login</a>
-      <a class="btn btn-primary-custom ms-2" href="./register.html">Get Started</a>
-    </div>
-  </div>
-</nav>
+    <div id="navbar-placeholder"></div>
 
-<!-- Mobile Overlay Menu -->
-<div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(26, 26, 46, 0.98); z-index: 1050;">
-  <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3" style="background: none; border: none; line-height: 1;">&times;</button>
-  <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
-    <a class="nav-link text-white fs-4 my-2" href="../index.html">Home</a>
-    <a class="nav-link text-white fs-4 my-2" href="./about.html">About</a>
-    <a class="nav-link text-white fs-4 my-2" href="./courses.html">Courses</a>
-    <a class="nav-link text-white fs-4 my-2" href="./faculty.html">Faculty</a>
-    <a class="nav-link text-white fs-4 my-2" href="./blog.html">Blog</a>
-    <a class="nav-link text-white fs-4 my-2" href="./noticeboard.html">Notice Board</a>
-    <a class="nav-link text-white fs-4 my-2" href="./events.html">Events</a>
-    <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
-      <a class="btn btn-ghost text-white border-white" href="./login.html">Login</a>
-      <a class="btn btn-primary-custom" href="./register.html">Get Started</a>
-    </div>
-  </div>
-</div>
-<style>
-  body.menu-open .mobile-menu-overlay { display: block !important; }
-  body.menu-open { overflow: hidden; }
-</style>
-
-<div class="dashboard-layout d-flex w-100 flex-column flex-md-row">
-
-    <!-- ========== SIDEBAR ========== -->
-    <div class="sidebar d-none d-md-flex">
-        
-        <div class="sidebar-header">
-            <h5 class="fw-bold text-dark mb-0 fs-5 d-flex align-items-center gap-2">
-                <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault Admin
-            </h5>
+    <div class="dashboard-layout d-flex w-100 flex-column flex-md-row">
+        <!-- ========== SIDEBAR ========== -->
+        <div class="sidebar d-none d-md-flex">
+            <div class="sidebar-header">
+                <h5 class="fw-bold text-dark mb-0 fs-5 d-flex align-items-center gap-2">
+                    <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault Admin
+                </h5>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-link active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Manage Courses
+                </a>
+                <hr class="mx-4 text-secondary opacity-25 my-3">
+                <a href="../index.html" class="sidebar-link mt-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    ← Back to Site
+                </a>
+            </div>
         </div>
 
-        <div class="sidebar-menu">
-            <a href="#" class="sidebar-link active">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Manage Courses
-            </a>
-            <hr class="mx-4 text-secondary opacity-25 my-3">
-            <a href="../index.html" class="sidebar-link mt-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                ← Back to Site
-            </a>
+        <!-- ========== MAIN AREA ========== -->
+        <div class="main-area">
+            <div class="content-section">
+                <!-- Content ... -->
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Courses</h2>
+                        <span id="table-count" class="text-secondary small fw-semibold">Loading...</span>
+                    </div>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddCourse">
+                        + Add New Course
+                    </button>
+                </div>
+                <!-- Search and Table ... -->
+                <div class="mb-4" style="max-width: 400px;">
+                    <div class="position-relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="position-absolute text-secondary" style="top:50%; transform:translateY(-50%); left: 14px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" class="form-control" id="search-admin" placeholder="Search by title or department..." style="padding-left: 40px;">
+                    </div>
+                </div>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
+                    <div class="table-responsive">
+                        <table class="table admin-table mb-0 table-hover align-middle" id="courses-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th style="min-width: 200px;">Title</th>
+                                    <th>Department</th>
+                                    <th>Instructor</th>
+                                    <th>Duration</th>
+                                    <th>Credits</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-tbody">
+                                <tr><td colspan="7" class="text-center py-5"><div class="spinner-border text-secondary spinner-border-sm"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="footer-placeholder"></div>
         </div>
     </div>
 
-    <!-- ========== MAIN AREA ========== -->
-    <div class="main-area">
-        
-        <!-- 1. MANAGE COURSES SECTION -->
-
-        <!-- 1. MANAGE COURSES SECTION -->
-        <div class="content-section">
-            
-            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
-                <div>
-                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Courses</h2>
-                    <span id="table-count" class="text-secondary small fw-semibold">Loading...</span>
-                </div>
-                
-                <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddCourse">
-                    + Add New Course
-                </button>
-            </div>
-
-            <!-- Search Area -->
-            <div class="mb-4" style="max-width: 400px;">
-                <div class="position-relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="position-absolute text-secondary" style="top:50%; transform:translateY(-50%); left: 14px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" class="form-control" id="search-admin" placeholder="Search by title or department..." style="padding-left: 40px;">
-                </div>
-            </div>
-
-            <!-- Main Table Block -->
-            <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
-                <div class="table-responsive">
-                    <table class="table admin-table mb-0 table-hover align-middle" id="courses-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th style="min-width: 200px;">Title</th>
-                                <th>Department</th>
-                                <th>Instructor</th>
-                                <th>Duration</th>
-                                <th>Credits</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="courses-tbody">
-                            <!-- Populated dynamically through crud.js natively -->
-                            <tr><td colspan="7" class="text-center py-5"><div class="spinner-border text-secondary spinner-border-sm"></div></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 
 <!-- ============================================== -->
@@ -266,9 +210,6 @@
                             <label for="formDept" class="form-label fw-semibold text-dark small">Department <span class="text-danger">*</span></label>
                             <select class="form-select py-2" id="formDept">
                                 <option value="dept-cs">Computer Science</option>
-                                <option value="dept-bus">Business</option>
-                                <option value="dept-des">Design</option>
-                                <option value="dept-sci">Science</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -342,7 +283,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core JS -->
 <script src="../js/utils.js"></script>
+<script src="../js/navbar-loader.js"></script>
+<script src="../js/footer-loader.js"></script>
 <!-- CRUD Execution Context -->
 <script src="../js/crud.js"></script>
 </body>
 </html>
+

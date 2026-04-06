@@ -9,9 +9,9 @@ $(document).ready(function() {
   // --------------------------------------------------------
   if ($('#notice-board-teaser').length) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/data/notices.xml', true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
+    xhr.open('GET', 'data/notices.xml', true);
+    xhr.onload = function() {
+      if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText)) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
         const notices = xmlDoc.getElementsByTagName('notice');
@@ -19,6 +19,11 @@ $(document).ready(function() {
         $container.empty();
         
         const count = Math.min(notices.length, 3);
+        if (count === 0) {
+            $container.html('<p class="text-secondary small">No recent announcements.</p>');
+            return;
+        }
+
         for (let i = 0; i < count; i++) {
           const title = notices[i].getElementsByTagName('title')[0].textContent;
           const date = notices[i].getElementsByTagName('date')[0].textContent;
@@ -35,7 +40,12 @@ $(document).ready(function() {
           `;
           $container.append(itemHtml);
         }
+      } else {
+          $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements at this time.</p>');
       }
+    };
+    xhr.onerror = function() {
+        $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements.</p>');
     };
     xhr.send();
   }
@@ -48,7 +58,10 @@ $(document).ready(function() {
     if ($tbody.length === 0) return;
 
     fetch('../data/notices.xml')
-      .then(r => r.text())
+      .then(r => {
+          if (!r.ok) throw new Error('Network response was not ok');
+          return r.text();
+      })
       .then(xmlText => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
@@ -60,7 +73,7 @@ $(document).ready(function() {
           const title = notice.querySelector('title').textContent;
           const date = notice.querySelector('date').textContent;
           const category = notice.querySelector('category').textContent;
-          const body = notice.querySelector('body').textContent;
+          const body = notice.querySelector('content').textContent;
           const dateFormatted = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(date) : date;
           
           // Badge styling

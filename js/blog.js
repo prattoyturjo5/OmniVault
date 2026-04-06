@@ -11,7 +11,7 @@ $(document).ready(function() {
   
   // Set Pathing
   const isHomePage = $homeGrid.length > 0;
-  const dataPath = isHomePage ? '/data/blogs.json' : '../data/blogs.json';
+  const dataPath = isHomePage ? 'data/blogs.json' : '../data/blogs.json';
   
   $.getJSON(dataPath, function(data) {
       if (!data || data.length === 0) return;
@@ -58,6 +58,10 @@ $(document).ready(function() {
           $('#featured-excerpt').text(featured.excerpt);
           $('#featured-meta').text(`By ${featured.author} · ${featDateStr}`);
           $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
+          
+          // Replace spinner with featured image
+          const featImg = featured.image || '../assets/images/placeholder.jpg';
+          $('#featured-post .spinner-border').parent().html(`<img src="${featImg}" class="w-100 h-100 object-fit-cover" alt="${featured.title}" style="min-height: 400px; border-left: 1px solid var(--color-border);">`);
 
           // Grid the rest (and feature if desired, prompt says "all 8 posts loaded" so we include all natively)
           const $grid = $('#blog-grid');

@@ -13,7 +13,7 @@ $(document).ready(function() {
   let visibleCount = initialCount;
 
   // Path resolution: if we are on homepage fetch from /data, if inside pages/, fetch from ../data
-  const dataPath = isHomePage ? '/data/courses.json' : '../data/courses.json';
+  const dataPath = isHomePage ? 'data/courses.json' : '../data/courses.json';
 
   $.getJSON(dataPath, function(data) {
     allCourses = data;
