@@ -1,6 +1,6 @@
 /*
   File: blog.js
-  Made by: [Member Name] | ID: [Student ID]
+  Updated by: Gemini | Theme: Premier University
 */
 $(document).ready(function() {
   
@@ -49,25 +49,40 @@ $(document).ready(function() {
       // 2. BLOG.HTML (Overview Grid + Featured)
       // ----------------------------------------------------
       if ($blogPage.length > 0) {
-          // Feature First Item
-          const featured = data[0];
-          const featDateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(featured.date) : featured.date;
+          // Force Custom Featured Content for Premier University
+          const featured = data[0]; 
+          const customTitle = "Empowering Premier University: The New Era of CS Education";
+          const customAuthor = "Raisul Islam";
+          const customExcerpt = "OmniVault is officially partnering with the Premier University community to provide world-class Computer Science resources and academic excellence.";
+          const featDateStr = "April 5"; // Hardcoded as requested
           
-          $('#featured-category').text(featured.category);
-          $('#featured-title').text(featured.title);
-          $('#featured-excerpt').text(featured.excerpt);
-          $('#featured-meta').text(`By ${featured.author} · ${featDateStr}`);
+          $('#featured-category').text("Announcements");
+          $('#featured-title').text(customTitle);
+          $('#featured-excerpt').text(customExcerpt);
+          $('#featured-meta').text(`By ${customAuthor} · ${featDateStr}`);
           $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
           
           // Replace spinner with featured image
           const featImg = featured.image || '../assets/images/placeholder.jpg';
-          $('#featured-post .spinner-border').parent().html(`<img src="${featImg}" class="w-100 h-100 object-fit-cover" alt="${featured.title}" style="min-height: 400px; border-left: 1px solid var(--color-border);">`);
+          $('#featured-post .spinner-border').parent().html(`
+              <img src="${featImg}" class="w-100 h-100 object-fit-cover" 
+              alt="Premier University CS" 
+              style="min-height: 400px; border-left: 1px solid var(--color-border);">
+          `);
 
-          // Grid the rest (and feature if desired, prompt says "all 8 posts loaded" so we include all natively)
+          // Grid the rest
           const $grid = $('#blog-grid');
           $grid.empty();
           
-          data.forEach(blog => {
+          data.forEach((blog, index) => {
+              // Apply the same custom naming to the first card in the grid if it matches the featured ID
+              let displayTitle = blog.title;
+              let displayAuthor = blog.author;
+              if(index === 0) {
+                  displayTitle = customTitle;
+                  displayAuthor = customAuthor;
+              }
+
               const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
               const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
               
@@ -77,8 +92,8 @@ $(document).ready(function() {
                           <div class="mb-3">
                               <span class="badge bg-light text-dark border">${blog.category}</span>
                           </div>
-                          <h5 class="mb-2 fw-bold text-dark">${blog.title}</h5>
-                          <div class="small text-secondary mb-3">By ${blog.author} · ${dateStr}</div>
+                          <h5 class="mb-2 fw-bold text-dark">${displayTitle}</h5>
+                          <div class="small text-secondary mb-3">By ${displayAuthor} · ${dateStr}</div>
                           <p class="text-secondary small mb-3 flex-grow-1">${excerpt}</p>
                           <div class="pt-3 border-top border-light mt-auto">
                               <a href="./blog-detail.html?id=${blog.id}" class="fw-semibold text-accent text-decoration-none hover-primary">Read More →</a>
@@ -107,7 +122,7 @@ $(document).ready(function() {
       }
 
       // ----------------------------------------------------
-      // 3. BLOG-DETAIL.HTML (Individual Render & Aggregation)
+      // 3. BLOG-DETAIL.HTML
       // ----------------------------------------------------
       if ($blogDetail.length > 0) {
           const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
@@ -119,16 +134,18 @@ $(document).ready(function() {
              return;
           }
 
+          // If this is the first post, override details
+          const isFirstPost = data[0].id === id;
+          const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CS Education" : post.title;
+          const displayAuthor = isFirstPost ? "Raisul Islam" : post.author;
           const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(post.date) : post.date;
 
-          // Main Header binding
-          document.title = `OmniVault - ${post.title}`;
-          $('#breadcrumb-title').text(post.title);
+          document.title = `OmniVault - ${displayTitle}`;
+          $('#breadcrumb-title').text(displayTitle);
           $('#detail-category').text(post.category);
-          $('#detail-title').text(post.title);
-          $('#detail-meta').text(`By ${post.author} · ${dateStr}`);
+          $('#detail-title').text(displayTitle);
+          $('#detail-meta').text(`By ${displayAuthor} · ${dateStr}`);
           
-          // Paragraph Parsing logic
           const contentSplits = post.content ? post.content.split('\n') : ["Data absent."];
           let formattedContent = "";
           contentSplits.forEach(str => {
@@ -141,17 +158,18 @@ $(document).ready(function() {
           const $sidebarLatest = $('#sidebar-latest');
           $sidebarLatest.empty();
           
-          latestPosts.forEach(lp => {
+          latestPosts.forEach((lp, i) => {
+              const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CS Education" : lp.title;
               const lpDate = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(lp.date) : lp.date;
               $sidebarLatest.append(`
                  <div class="mb-3 border-bottom border-light pb-3">
-                     <a href="./blog-detail.html?id=${lp.id}" class="fw-semibold text-dark text-decoration-none d-block mb-1 hover-primary">${lp.title}</a>
+                     <a href="./blog-detail.html?id=${lp.id}" class="fw-semibold text-dark text-decoration-none d-block mb-1 hover-primary">${lpTitle}</a>
                      <span class="small text-secondary fw-medium">${lpDate}</span>
                  </div>
               `);
           });
 
-          // SIDEBAR: Category Distribution logic
+          // SIDEBAR: Categories
           const categories = {};
           data.forEach(p => {
               categories[p.category] = (categories[p.category] || 0) + 1;
@@ -173,7 +191,7 @@ $(document).ready(function() {
       }
 
   }).fail(function() {
-      console.error('Failed to parse blogs.json logic');
+      console.error('Failed to parse blogs.json');
   });
 
 });
