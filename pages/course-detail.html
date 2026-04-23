@@ -268,11 +268,10 @@
     <!-- PAGE LOGIC -->
     <script>
         $(document).ready(function () {
-            const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
+            let id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
             if (!id) {
-                $('#loading-container').addClass('d-none');
-                $('#error-container').removeClass('d-none');
-                return;
+                // Default to a course if opened directly without an ID parameter
+                id = 'cs101';
             }
 
             $.getJSON('../data/courses.json', function (courses) {
