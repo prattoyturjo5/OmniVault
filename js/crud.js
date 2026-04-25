@@ -140,6 +140,13 @@ $(document).ready(function () {
     // ----------------------------------------------------
     // SUBMISSION HANDLER (Supports both Add & Edit natively)
     // ----------------------------------------------------
+    $('#courseForm').on('keypress', function(e) {
+        if (e.which === 13 && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            $('#btnSaveCourse').click();
+        }
+    });
+
     $('#btnSaveCourse').on('click', function () {
         let isValid = true;
 
