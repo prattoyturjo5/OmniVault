@@ -104,11 +104,11 @@ $(document).ready(function () {
     // UPDATE FLOW
     // ----------------------------------------------------
     $(document).on('click', '.btn-edit', function () {
-        const idToEdit = $(this).data('id');
+        const idToEdit = String($(this).attr('data-id'));
 
         let courses = [];
         try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
-        const course = courses.find(c => c.id === idToEdit);
+        const course = courses.find(c => String(c.id) === idToEdit);
 
         if (course) {
             // Reset state
@@ -178,7 +178,7 @@ $(document).ready(function () {
             // Constructed course object logic
             const payload = {
                 title: fTitle,
-                department: fDept,
+                department: 'CSE',
                 departmentLabel: deptLabel,
                 instructor: fInstructor,
                 duration: fDuration || 'N/A',
@@ -189,7 +189,7 @@ $(document).ready(function () {
 
             if (editId) {
                 // Update specific iteration
-                const index = courses.findIndex(c => c.id === editId);
+                const index = courses.findIndex(c => String(c.id) === String(editId));
                 if (index !== -1) {
                     // Update object by extending it rather than wiping unseen fields perfectly
                     courses[index] = { ...courses[index], ...payload };
@@ -213,17 +213,17 @@ $(document).ready(function () {
     // DELETE FLOW
     // ----------------------------------------------------
     $(document).on('click', '.btn-delete', function () {
-        const idToDelete = $(this).data('id');
+        const idToDelete = String($(this).attr('data-id'));
         $('#deleteModal').data('id', idToDelete);
         $('#deleteModal').modal('show');
     });
 
     $('#btnConfirmDelete').on('click', function () {
-        const targetId = $('#deleteModal').data('id');
+        const targetId = String($('#deleteModal').data('id'));
         let courses = [];
         try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
 
-        const newArr = courses.filter(c => c.id !== targetId);
+        const newArr = courses.filter(c => String(c.id) !== targetId);
         localStorage.setItem('adminCourses', JSON.stringify(newArr));
 
         $('#deleteModal').modal('hide');

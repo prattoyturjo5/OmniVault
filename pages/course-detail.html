@@ -274,8 +274,8 @@
                 id = 'cse101';
             }
 
-            $.getJSON('../data/courses.json', function (courses) {
-                const course = courses.find(c => c.id === id);
+            const processCourseData = function (courses) {
+                const course = courses.find(c => String(c.id) === String(id));
 
                 if (!course) {
                     $('#loading-container').addClass('d-none');
@@ -406,10 +406,20 @@
                 $('#loading-container').addClass('d-none');
                 $('#course-content-container').removeClass('d-none');
 
-            }).fail(function () {
-                $('#loading-container').addClass('d-none');
-                $('#error-container').removeClass('d-none');
-            });
+            };
+
+            const storedAdminCourses = localStorage.getItem('adminCourses');
+            if (storedAdminCourses) {
+                processCourseData(JSON.parse(storedAdminCourses));
+            } else {
+                $.getJSON('../data/courses.json', function (courses) {
+                    localStorage.setItem('adminCourses', JSON.stringify(courses));
+                    processCourseData(courses);
+                }).fail(function () {
+                    $('#loading-container').addClass('d-none');
+                    $('#error-container').removeClass('d-none');
+                });
+            }
 
         });
     </script>

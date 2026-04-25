@@ -15,12 +15,19 @@ $(document).ready(function () {
   // Path resolution: if we are on homepage fetch from /data, if inside pages/, fetch from ../data
   const dataPath = isHomePage ? 'data/courses.json' : '../data/courses.json';
 
-  $.getJSON(dataPath, function (data) {
-    allCourses = data;
+  const storedAdminCourses = localStorage.getItem('adminCourses');
+  if (storedAdminCourses) {
+    allCourses = JSON.parse(storedAdminCourses);
     renderCourses();
-  }).fail(function () {
-    console.error("Failed to load courses.json from " + dataPath);
-  });
+  } else {
+    $.getJSON(dataPath, function (data) {
+      allCourses = data;
+      localStorage.setItem('adminCourses', JSON.stringify(data));
+      renderCourses();
+    }).fail(function () {
+      console.error("Failed to load courses.json from " + dataPath);
+    });
+  }
 
   function renderCourses() {
     const $grid = $('#courses-grid');
