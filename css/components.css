@@ -159,12 +159,12 @@
   letter-spacing: 0.5px;
 }
 
-.dept-tag.dept-cs {
+.dept-tag.dept-cse {
   background-color: #E0F2FF;
   color: #355872;
 }
 
-/* Blue tonal CS tag */
+/* Blue tonal CSE tag */
 .dept-tag.dept-biz {
   background-color: #FEF3C7;
   color: #b45309;
@@ -253,8 +253,8 @@
   justify-content: center;
 }
 
-.initials-avatar.dept-cs {
-  background-color: var(--dept-cs);
+.initials-avatar.dept-cse {
+  background-color: var(--dept-cse);
 }
 
 .initials-avatar.dept-biz {

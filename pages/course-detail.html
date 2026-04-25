@@ -80,7 +80,7 @@
                         <!-- LEFT COLUMN 60% -->
                         <div class="col-lg-7">
                             <div class="mb-3" id="hero-dept-tag">
-                                <span class="dept-tag dept-cs">CS</span>
+                                <span class="dept-tag dept-cse">CSE</span>
                             </div>
                             <h1 class="display-5 fw-bold mb-3 text-dark" id="hero-title"
                                 style="font-family: Playfair Display;">Course Title</h1>
@@ -271,7 +271,7 @@
             let id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
             if (!id) {
                 // Default to a course if opened directly without an ID parameter
-                id = 'cs101';
+                id = 'cse101';
             }
 
             $.getJSON('../data/courses.json', function (courses) {

@@ -1,12 +1,12 @@
 [
   {
     "id": "blog001",
-    "title": "Welcome to OmniVault: The Future of CS Education",
+    "title": "Welcome to OmniVault: The Future of CSE Education",
     "category": "Announcements",
     "author": "Dr. Anika Rahman",
     "date": "2026-04-05",
     "excerpt": "We are proud to announce our transition to a strictly Computer Science-focused portal, dedicated to academic excellence.",
-    "content": "Welcome to the new OmniVault. As of today, our portal has undergone a significant transformation to better serve the needs of our Computer Science community. By focusing exclusively on CS, we can provide more tailored resources, deeper technical content, and a more streamlined experience for both students and faculty.\nThis shift is not just about removing other departments—it's about doubling down on what we do best. You'll notice new specialization tracks in AI, Cybersecurity, and Software Engineering, along with expanded lab access and industry-linked research opportunities.\nOur mission is to become the premier digital ecosystem for computer scientists in the region. We welcome your feedback as we continue to iterate on this platform. Let's code the future together.",
+    "content": "Welcome to the new OmniVault. As of today, our portal has undergone a significant transformation to better serve the needs of our Computer Science community. By focusing exclusively on CSE, we can provide more tailored resources, deeper technical content, and a more streamlined experience for both students and faculty.\nThis shift is not just about removing other departments—it's about doubling down on what we do best. You'll notice new specialization tracks in AI, Cybersecurity, and Software Engineering, along with expanded lab access and industry-linked research opportunities.\nOur mission is to become the premier digital ecosystem for computer scientists in the region. We welcome your feedback as we continue to iterate on this platform. Let's code the future together.",
     "image": "assets/images/placeholder.jpg"
   },
   {
@@ -31,7 +31,7 @@
   },
   {
     "id": "blog004",
-    "title": "Quantum Computing: A CS Student's Primer",
+    "title": "Quantum Computing: A CSE Student's Primer",
     "category": "Research",
     "author": "Prof. Tariq Hassan",
     "date": "2026-03-20",
@@ -51,7 +51,7 @@
   },
   {
     "id": "blog006",
-    "title": "Breaking the Code: Women in CS",
+    "title": "Breaking the Code: Women in CSE",
     "category": "Campus Life",
     "author": "Amina Rahman",
     "date": "2026-03-10",

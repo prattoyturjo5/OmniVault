@@ -51,7 +51,7 @@ $(document).ready(function () {
         if ($blogPage.length > 0) {
             // Force Custom Featured Content for Premier University
             const featured = data[0];
-            const customTitle = "Empowering Premier University: The New Era of CS Education";
+            const customTitle = "Empowering Premier University: The New Era of CSE Education";
             const customAuthor = "Raisul Islam";
             const customExcerpt = "OmniVault is officially partnering with the Premier University community to provide world-class Computer Science resources and academic excellence.";
             const featDateStr = "April 5"; // Hardcoded as requested
@@ -66,7 +66,7 @@ $(document).ready(function () {
             const featImg = featured.image || '../assets/images/placeholder.jpg';
             $('#featured-post .spinner-border').parent().html(`
               <img src="${featImg}" class="w-100 h-100 object-fit-cover" 
-              alt="Premier University CS" 
+              alt="Premier University CSE" 
               style="min-height: 400px; border-left: 1px solid var(--color-border);">
           `);
 
@@ -136,7 +136,7 @@ $(document).ready(function () {
 
             // If this is the first post, override details
             const isFirstPost = data[0].id === id;
-            const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CS Education" : post.title;
+            const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CSE Education" : post.title;
             const displayAuthor = isFirstPost ? "Raisul Islam" : post.author;
             const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(post.date) : post.date;
 
@@ -159,7 +159,7 @@ $(document).ready(function () {
             $sidebarLatest.empty();
 
             latestPosts.forEach((lp, i) => {
-                const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CS Education" : lp.title;
+                const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CSE Education" : lp.title;
                 const lpDate = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(lp.date) : lp.date;
                 $sidebarLatest.append(`
                  <div class="mb-3 border-bottom border-light pb-3">

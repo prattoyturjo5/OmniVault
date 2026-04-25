@@ -2,7 +2,7 @@
   {
     "id": "cs101",
     "title": "Introduction to Computer Science",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Anika Rahman",
     "duration": "16 Weeks",
@@ -17,7 +17,7 @@
   {
     "id": "cs203",
     "title": "Data Structures and Algorithms",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Prof. Tariq Hassan",
     "duration": "16 Weeks",
@@ -32,7 +32,7 @@
   {
     "id": "cs315",
     "title": "Artificial Intelligence Basics",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Fahmida Chowdhury",
     "duration": "14 Weeks",
@@ -47,7 +47,7 @@
   {
     "id": "cs205",
     "title": "Software Engineering",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Sarah Jenkins",
     "duration": "16 Weeks",
@@ -62,7 +62,7 @@
   {
     "id": "cs310",
     "title": "Operating Systems",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Prof. Michael Chen",
     "duration": "16 Weeks",
@@ -77,7 +77,7 @@
   {
     "id": "cs220",
     "title": "Database Management Systems",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Robert Wilson",
     "duration": "14 Weeks",
@@ -92,7 +92,7 @@
   {
     "id": "cs325",
     "title": "Computer Networks",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Lisa Thompson",
     "duration": "16 Weeks",
@@ -107,7 +107,7 @@
   {
     "id": "cs401",
     "title": "Cybersecurity Fundamentals",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Mr. David Miller",
     "duration": "16 Weeks",
@@ -122,7 +122,7 @@
   {
     "id": "cs215",
     "title": "Web Technologies",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Ms. Emily Davis",
     "duration": "14 Weeks",
@@ -137,7 +137,7 @@
   {
     "id": "cs330",
     "title": "Mobile App Development",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Mr. Kevin Park",
     "duration": "16 Weeks",
@@ -152,7 +152,7 @@
   {
     "id": "cs410",
     "title": "Cloud Computing",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Dr. Susan White",
     "duration": "16 Weeks",
@@ -167,7 +167,7 @@
   {
     "id": "cs301",
     "title": "Theory of Computation",
-    "department": "CS",
+    "department": "CSE",
     "deptLabel": "Computer Science",
     "instructor": "Prof. Steven Hall",
     "duration": "14 Weeks",

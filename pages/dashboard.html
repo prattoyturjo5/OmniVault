@@ -394,17 +394,17 @@
 
             // Assign generic fallback behaviors
             const uName = user.name || "Student User";
-            const uDept = user.department || "CS";
+            const uDept = user.department || "CSE";
             const uEmail = user.email || "user@omnivault.edu";
 
             // Setup Top/Sidebar UI Details
             const initial = window.Utils && window.Utils.getInitials ? window.Utils.getInitials(uName) : uName.substring(0, 2).toUpperCase();
-            const deptClass = window.Utils && window.Utils.getDeptClass ? window.Utils.getDeptClass(uDept) : "dept-cs";
+            const deptClass = window.Utils && window.Utils.getDeptClass ? window.Utils.getDeptClass(uDept) : "dept-cse";
 
             $('#dash-name').text(uName);
             $('#dash-dept').text(uDept);
             // Explicit color-mapping using global CSS variable logic mapped back precisely
-            const safeDeptCode = uDept === "Computer Science" ? "CS" : uDept;
+            const safeDeptCode = uDept === "Computer Science" ? "CSE" : uDept;
             $('#dash-avatar').text(initial).css('background-color', `var(--dept-${safeDeptCode.toLowerCase()}, var(--color-accent))`);
 
             // Setup Overview UI Details

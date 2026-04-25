@@ -193,7 +193,7 @@ $(document).ready(function () {
                 email: email,
                 loggedIn: true,
                 name: "John Student",
-                department: "CS"
+                department: "CSE"
             }));
             window.location.href = './dashboard.html';
         }

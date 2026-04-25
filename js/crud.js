@@ -121,7 +121,7 @@ $(document).ready(function () {
 
             // Re-align dept codes intelligently
             const dpt = course.departmentLabel || course.department;
-            let code = "dept-cs";
+            let code = "dept-cse";
             $('#formDept').val(code);
 
             $('#formInstructor').val(course.instructor);
@@ -162,7 +162,7 @@ $(document).ready(function () {
 
         // Label mapped mechanically from coded `<select>` values
         const deptLabelMap = {
-            'dept-cs': 'Computer Science'
+            'dept-cse': 'Computer Science'
         };
 
         if (isValid) {
