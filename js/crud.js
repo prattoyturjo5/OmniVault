@@ -3,7 +3,7 @@
   Made by: [Member Name] | ID: [Student ID]
 */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     // ----------------------------------------------------
     // INITIALIZATION & STORE
@@ -13,10 +13,10 @@ $(document).ready(function() {
         const stored = localStorage.getItem('adminCourses');
         if (!stored) {
             // First time initialization
-            $.getJSON('../data/courses.json', function(data) {
+            $.getJSON('../data/courses.json', function (data) {
                 localStorage.setItem('adminCourses', JSON.stringify(data));
                 renderTable();
-            }).fail(function() {
+            }).fail(function () {
                 console.error("Failed to load root courses.json for initialization.");
                 localStorage.setItem('adminCourses', JSON.stringify([]));
                 renderTable();
@@ -32,19 +32,19 @@ $(document).ready(function() {
     function renderTable(filterText = '') {
         const stored = localStorage.getItem('adminCourses');
         let courses = stored ? JSON.parse(stored) : [];
-        
+
         // Filter logic
         if (filterText) {
             const query = filterText.toLowerCase();
-            courses = courses.filter(c => 
-                (c.title && c.title.toLowerCase().includes(query)) || 
+            courses = courses.filter(c =>
+                (c.title && c.title.toLowerCase().includes(query)) ||
                 (c.department && c.department.toLowerCase().includes(query))
             );
         }
-        
+
         const $tbody = $('#courses-tbody');
         $tbody.empty();
-        
+
         if (courses.length === 0) {
             $tbody.html(`<tr><td colspan="7" class="text-center py-4 text-secondary">No courses found matching criteria.</td></tr>`);
             $('#table-count').text(`Showing 0 courses`);
@@ -52,7 +52,7 @@ $(document).ready(function() {
         }
 
         $('#table-count').text(`Showing ${courses.length} courses`);
-        
+
         courses.forEach((c, index) => {
             const deptClass = window.Utils && window.Utils.getDeptClass ? window.Utils.getDeptClass(c.departmentLabel || c.department) : "dept-cs";
             const rowHtml = `
@@ -79,7 +79,7 @@ $(document).ready(function() {
     // ----------------------------------------------------
     // LIVE SEARCH
     // ----------------------------------------------------
-    $('#search-admin').on('keyup', function() {
+    $('#search-admin').on('keyup', function () {
         const val = $(this).val().trim();
         renderTable(val);
     });
@@ -87,27 +87,27 @@ $(document).ready(function() {
     // ----------------------------------------------------
     // CREATE / ADD NEW FLOW
     // ----------------------------------------------------
-    $('#btnAddCourse').on('click', function() {
+    $('#btnAddCourse').on('click', function () {
         // Reset form completely
         $('#courseForm')[0].reset();
         $('.form-control, .form-select').removeClass('is-invalid');
         $('.invalid-feedback').hide();
-        
+
         // Reset modal headers and attributes
         $('#courseModalLabel').text('Add New Course');
         $('#courseModal').removeAttr('data-edit-id');
-        
+
         $('#courseModal').modal('show');
     });
 
     // ----------------------------------------------------
     // UPDATE FLOW
     // ----------------------------------------------------
-    $(document).on('click', '.btn-edit', function() {
+    $(document).on('click', '.btn-edit', function () {
         const idToEdit = $(this).data('id');
-        
+
         let courses = [];
-        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch(e) {}
+        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
         const course = courses.find(c => c.id === idToEdit);
 
         if (course) {
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
             // Populate mapping
             $('#formTitle').val(course.title);
-            
+
             // Re-align dept codes intelligently
             const dpt = course.departmentLabel || course.department;
             let code = "dept-cs";
@@ -132,7 +132,7 @@ $(document).ready(function() {
 
             $('#courseModalLabel').text('Edit Course');
             $('#courseModal').attr('data-edit-id', idToEdit);
-            
+
             $('#courseModal').modal('show');
         }
     });
@@ -140,9 +140,9 @@ $(document).ready(function() {
     // ----------------------------------------------------
     // SUBMISSION HANDLER (Supports both Add & Edit natively)
     // ----------------------------------------------------
-    $('#btnSaveCourse').on('click', function() {
+    $('#btnSaveCourse').on('click', function () {
         let isValid = true;
-        
+
         // Form properties
         const fTitle = $('#formTitle').val().trim();
         const fDept = $('#formDept').val(); // dept code mapping
@@ -159,7 +159,7 @@ $(document).ready(function() {
         if (!fTitle) { $('#formTitle').addClass('is-invalid'); isValid = false; }
         if (!fInstructor) { $('#formInstructor').addClass('is-invalid'); isValid = false; }
         if (fCredits < 1 || fCredits > 6) { $('#formCredits').addClass('is-invalid'); isValid = false; }
-        
+
         // Label mapped mechanically from coded `<select>` values
         const deptLabelMap = {
             'dept-cs': 'Computer Science'
@@ -170,11 +170,11 @@ $(document).ready(function() {
             try {
                 const stored = localStorage.getItem('adminCourses');
                 if (stored) courses = JSON.parse(stored);
-            } catch(e) {}
+            } catch (e) { }
 
             const editId = $('#courseModal').attr('data-edit-id');
             const deptLabel = deptLabelMap[fDept] || 'Computer Science';
-            
+
             // Constructed course object logic
             const payload = {
                 title: fTitle,
@@ -212,26 +212,26 @@ $(document).ready(function() {
     // ----------------------------------------------------
     // DELETE FLOW
     // ----------------------------------------------------
-    $(document).on('click', '.btn-delete', function() {
+    $(document).on('click', '.btn-delete', function () {
         const idToDelete = $(this).data('id');
         $('#deleteModal').data('id', idToDelete);
         $('#deleteModal').modal('show');
     });
 
-    $('#btnConfirmDelete').on('click', function() {
+    $('#btnConfirmDelete').on('click', function () {
         const targetId = $('#deleteModal').data('id');
         let courses = [];
-        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch(e) {}
+        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
 
         const newArr = courses.filter(c => c.id !== targetId);
         localStorage.setItem('adminCourses', JSON.stringify(newArr));
-        
+
         $('#deleteModal').modal('hide');
 
         // Animate out natively
-        $(`#row-${targetId}`).fadeOut(300, function() {
+        $(`#row-${targetId}`).fadeOut(300, function () {
             $(this).remove();
-            
+
             // Adjust label locally rather than whole render loop to persist search states dynamically unless zero
             if (newArr.length === 0) {
                 renderTable($('#search-admin').val().trim());

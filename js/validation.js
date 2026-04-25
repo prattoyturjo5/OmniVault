@@ -2,36 +2,36 @@
   File: validation.js
   Made by: [Member Name] | ID: [Student ID]
 */
-$(document).ready(function() {
+$(document).ready(function () {
     // Reusable regex validate
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     // Core enrollment modal form handling
-    $('#enrollForm').on('submit', function(e) {
+    $('#enrollForm').on('submit', function (e) {
         e.preventDefault();
         let isValid = true;
-        
+
         const $form = $(this);
         const name = $('#enrollName').val().trim();
         const studentId = $('#enrollStudentId').val().trim();
         const email = $('#enrollEmail').val().trim();
-        
+
         // Reset errors
         $('.invalid-feedback').hide();
         $form.find('.form-control').removeClass('is-invalid');
-        
+
         if (!name) {
             $('#enrollName').addClass('is-invalid');
             $('#enrollNameErr').text('Full name is required').show();
             isValid = false;
         }
-        
+
         if (!studentId) {
             $('#enrollStudentId').addClass('is-invalid');
             $('#enrollStudentIdErr').text('Student ID is required').show();
             isValid = false;
         }
-        
+
         if (!email) {
             $('#enrollEmail').addClass('is-invalid');
             $('#enrollEmailErr').text('Email is required').show();
@@ -41,25 +41,25 @@ $(document).ready(function() {
             $('#enrollEmailErr').text('Please enter a valid email address').show();
             isValid = false;
         }
-        
+
         if (isValid) {
             // Context provided by course-detail script
             if (window.enrollmentContext) {
                 const { courseId, courseTitle, department, instructor } = window.enrollmentContext;
-                
+
                 // Fetch storage
                 let enrollments = [];
                 try {
                     const stored = localStorage.getItem('enrollments');
                     if (stored) enrollments = JSON.parse(stored);
-                } catch(err) { console.error('LocalStorage error'); }
-                
+                } catch (err) { console.error('LocalStorage error'); }
+
                 // Check if already enrolled
                 const alreadyEnrolled = enrollments.find(env => env.courseId === courseId && env.studentId === studentId);
-                
+
                 // Resolve logic
                 if (alreadyEnrolled) {
-                    $('#enrollStudentId').addClass('is-invalid'); 
+                    $('#enrollStudentId').addClass('is-invalid');
                     $('#enrollStudentIdErr').text('You are already enrolled with this Student ID.').show();
                 } else {
                     // Success
@@ -73,9 +73,9 @@ $(document).ready(function() {
                         email: email,
                         enrolledAt: new Date().toISOString()
                     });
-                    
+
                     localStorage.setItem('enrollments', JSON.stringify(enrollments));
-                    
+
                     // Show success
                     $('#enrollFormContainer').hide();
                     $('#enrollSuccessMessage').show().html(`
@@ -104,26 +104,26 @@ $(document).ready(function() {
     });
 
     // Handle Contact Form Validation
-    $('#contact-form').on('submit', function(e) {
+    $('#contact-form').on('submit', function (e) {
         e.preventDefault();
         let isValid = true;
-        
+
         const $form = $(this);
         const name = $('#contactName').val().trim();
         const email = $('#contactEmail').val().trim();
         const message = $('#contactMessage').val().trim();
-        
+
         // Reset errors
         $('.invalid-feedback').hide();
         $form.find('.form-control').removeClass('is-invalid');
         $('#form-alert').empty();
-        
+
         if (!name) {
             $('#contactName').addClass('is-invalid');
             $('#contactNameErr').text('Full name is required').show();
             isValid = false;
         }
-        
+
         if (!email) {
             $('#contactEmail').addClass('is-invalid');
             $('#contactEmailErr').text('Email is required').show();
@@ -139,7 +139,7 @@ $(document).ready(function() {
             $('#contactMessageErr').text('Message must be at least 20 characters').show();
             isValid = false;
         }
-        
+
         if (isValid) {
             if (window.Utils && window.Utils.showAlert) {
                 window.Utils.showAlert('#form-alert', 'Your message was sent successfully! Our team will get back to you soon.', 'success');
@@ -150,14 +150,14 @@ $(document).ready(function() {
     // -----------------------------------------------------------------
     // AUTH: Login Form Validation & Toggle
     // -----------------------------------------------------------------
-    
+
     // Toggle Password Visibility
-    $('#toggleLoginPassword').on('click', function(e) {
+    $('#toggleLoginPassword').on('click', function (e) {
         e.preventDefault();
         const $input = $('#loginPassword');
         const type = $input.attr('type') === 'password' ? 'text' : 'password';
         $input.attr('type', type);
-        
+
         // Swap svg representation mildly
         if (type === 'text') {
             $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-off-icon"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>');
@@ -166,10 +166,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#login-form').on('submit', function(e) {
+    $('#login-form').on('submit', function (e) {
         e.preventDefault();
         let isValid = true;
-        
+
         const email = $('#loginEmail').val().trim();
         const pass = $('#loginPassword').val().trim();
 
@@ -202,12 +202,12 @@ $(document).ready(function() {
     // -----------------------------------------------------------------
     // AUTH: Register Live Validation & Submission Constraints
     // -----------------------------------------------------------------
-    
+
     // Live Field Checking mechanism (Alphanumeric constraint on ID)
-    $('#regName, #regEmail, #regDept, #regStudentId').on('keyup change', function() {
+    $('#regName, #regEmail, #regDept, #regStudentId').on('keyup change', function () {
         const id = $(this).attr('id');
         const val = $(this).val().trim();
-        
+
         if (id === 'regName' && val.length > 0) { $(this).removeClass('is-invalid'); }
         if (id === 'regDept' && val !== "") { $(this).removeClass('is-invalid'); }
         if (id === 'regEmail' && emailRegex.test(val)) { $(this).removeClass('is-invalid'); }
@@ -223,44 +223,44 @@ $(document).ready(function() {
     });
 
     // Password Strength Meter Loop
-    $('#regPassword').on('keyup', function() {
+    $('#regPassword').on('keyup', function () {
         const val = $(this).val().trim();
         const $bar = $('#strength-bar');
         const $lbl = $('#strength-label');
         const $err = $('#regPasswordErr');
-        
+
         $(this).removeClass('is-invalid');
         $err.addClass('d-none');
         $('#regConfirm').trigger('keyup'); // refresh match validator
 
         if (val.length === 0) {
-            $bar.css({'width': '0%', 'background': '#dc3545'});
+            $bar.css({ 'width': '0%', 'background': '#dc3545' });
             $lbl.text('Enter password');
             return;
         }
-        
+
         if (val.length < 6) {
-            $bar.css({'width': '33%', 'background': '#dc3545'});
+            $bar.css({ 'width': '33%', 'background': '#dc3545' });
             $lbl.text('Weak: Too short');
         } else {
             const hasLetters = /[a-zA-Z]/.test(val);
             const hasNumbers = /[0-9]/.test(val);
             const hasSymbols = /[^a-zA-Z0-9]/.test(val);
-            
+
             if (val.length >= 8 && hasLetters && hasNumbers && hasSymbols) {
                 // Strong Check
-                $bar.css({'width': '100%', 'background': '#198754'});
+                $bar.css({ 'width': '100%', 'background': '#198754' });
                 $lbl.text('Strong');
             } else {
                 // Medium Check (Letters + Numbers, or just 6-7 raw characters)
-                $bar.css({'width': '66%', 'background': '#ffc107'});
+                $bar.css({ 'width': '66%', 'background': '#ffc107' });
                 $lbl.text('Medium');
             }
         }
     });
 
     // Password Integrity Matching loop
-    $('#regConfirm').on('keyup', function() {
+    $('#regConfirm').on('keyup', function () {
         const pass = $('#regPassword').val().trim();
         const conf = $(this).val().trim();
         const $icon = $('#match-icon');
@@ -283,7 +283,7 @@ $(document).ready(function() {
     });
 
     // Final Block Submission
-    $('#register-form').on('submit', function(e) {
+    $('#register-form').on('submit', function (e) {
         e.preventDefault();
         let isValid = true;
 
@@ -293,29 +293,29 @@ $(document).ready(function() {
         const email = $('#regEmail').val().trim();
         const pass = $('#regPassword').val().trim();
         const conf = $('#regConfirm').val().trim();
-        
+
         $('.invalid-feedback').hide();
         $(this).find('.form-control, .form-select').removeClass('is-invalid');
 
         if (!name) { $('#regName').addClass('is-invalid'); $('#regNameErr').text('Required').show(); isValid = false; }
-        
+
         const alphaNumRegex = /^[a-zA-Z0-9]+$/;
         if (!sId || !alphaNumRegex.test(sId)) { $('#regStudentId').addClass('is-invalid'); $('#regStudentIdErr').text('Required alphanumeric').show(); isValid = false; }
-        
+
         if (!dept) { $('#regDept').addClass('is-invalid'); $('#regDeptErr').text('Department required').show(); isValid = false; }
-        
+
         if (!email || !emailRegex.test(email)) { $('#regEmail').addClass('is-invalid'); $('#regEmailErr').text('Valid email required').show(); isValid = false; }
-        
-        if (pass.length < 6) { 
-            $('#regPassword').addClass('is-invalid'); 
-            $('#regPasswordErr').text('Minimum 6 characters').removeClass('d-none'); 
-            isValid = false; 
+
+        if (pass.length < 6) {
+            $('#regPassword').addClass('is-invalid');
+            $('#regPasswordErr').text('Minimum 6 characters').removeClass('d-none');
+            isValid = false;
         }
-        
-        if (conf !== pass || conf.length === 0) { 
-            $('#regConfirm').addClass('is-invalid'); 
-            $('#regConfirmErr').text('Passwords must match').show(); 
-            isValid = false; 
+
+        if (conf !== pass || conf.length === 0) {
+            $('#regConfirm').addClass('is-invalid');
+            $('#regConfirmErr').text('Passwords must match').show();
+            isValid = false;
         }
 
         if (isValid) {
@@ -323,7 +323,7 @@ $(document).ready(function() {
             try {
                 const stored = localStorage.getItem('users');
                 if (stored) users = JSON.parse(stored);
-            } catch(e) {}
+            } catch (e) { }
 
             const exists = users.find(u => u.email === email);
             if (exists) {
@@ -339,13 +339,13 @@ $(document).ready(function() {
                     password: pass, // Naturally unsafe, fulfilling prompt purely for concept UI mapping
                     createdAt: new Date().toISOString()
                 });
-                
+
                 localStorage.setItem('users', JSON.stringify(users));
-                
+
                 if (window.Utils && window.Utils.showAlert) {
                     window.Utils.showAlert('#reg-alert', 'Account created! Redirecting to login...', 'success');
                 }
-                
+
                 setTimeout(() => {
                     window.location.href = './login.html';
                 }, 1500);

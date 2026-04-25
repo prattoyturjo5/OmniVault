@@ -4,17 +4,18 @@
 */
 :root {
   /* Colors */
-  --color-bg: #F8F7F4;
+  --color-bg: #F7F8F0;
   --color-surface: #FFFFFF;
-  --color-text-primary: #1A1A2E;
-  --color-text-secondary: #6B7280;
-  --color-accent: #4F46E5;
-  --color-accent-light: #EEF2FF;
-  --color-border: #E5E7EB;
-  --color-dark-band: #4F46E5; /* Updated to accent color */
+  --color-text-primary: #355872;
+  --color-text-secondary: #5A7B95;
+  --color-accent: #9CD5FF;
+  --color-accent-light: #E0F2FF;
+  --color-border: #7AAACE;
+  --color-dark-band: #355872;
+  /* Deep Slate Blue */
 
   /* Department Colors */
-  --dept-cs: #4F46E5;
+  --dept-cs: #7AAACE;
   --dept-biz: #D97706;
   --dept-design: #DB2777;
   --dept-sci: #0D9488;
@@ -35,9 +36,12 @@
   --spacing-12: 96px;
 
   /* Border Radius */
-  --radius-sm: 4px; /* For buttons and tags */
-  --radius-md: 6px; /* For cards */
-  --radius-circle: 50%; /* For avatars */
+  --radius-sm: 4px;
+  /* For buttons and tags */
+  --radius-md: 6px;
+  /* For cards */
+  --radius-circle: 50%;
+  /* For avatars */
 
   /* Transitions */
   --transition-fast: 0.15s ease;

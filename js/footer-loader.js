@@ -3,26 +3,26 @@
  * Dynamically injects the unified Omnivault/OmniVault footer across pages.
  */
 
-$(document).ready(function() {
-    const isRoot = !window.location.pathname.includes('/pages/');
+$(document).ready(function () {
+  const isRoot = !window.location.pathname.includes('/pages/');
 
-    const links = {
-        home: isRoot ? 'index.html' : '../index.html',
-        about: isRoot ? 'pages/about.html' : './about.html',
-        courses: isRoot ? 'pages/courses.html' : './courses.html',
-        faculty: isRoot ? 'pages/faculty.html' : './faculty.html',
-        blog: isRoot ? 'pages/blog.html' : './blog.html',
-        noticeboard: isRoot ? 'pages/noticeboard.html' : './noticeboard.html',
-        events: isRoot ? 'pages/events.html' : './events.html',
-        faq: isRoot ? 'pages/faq.html' : './faq.html',
-        contact: isRoot ? 'pages/contact.html' : './contact.html',
-        login: isRoot ? 'pages/login.html' : './login.html',
-        register: isRoot ? 'pages/register.html' : './register.html',
-        dashboard: isRoot ? 'pages/dashboard.html' : './dashboard.html',
-        admin: isRoot ? 'pages/admin.html' : './admin.html',
-    };
+  const links = {
+    home: isRoot ? 'index.html' : '../index.html',
+    about: isRoot ? 'pages/about.html' : './about.html',
+    courses: isRoot ? 'pages/courses.html' : './courses.html',
+    faculty: isRoot ? 'pages/faculty.html' : './faculty.html',
+    blog: isRoot ? 'pages/blog.html' : './blog.html',
+    noticeboard: isRoot ? 'pages/noticeboard.html' : './noticeboard.html',
+    events: isRoot ? 'pages/events.html' : './events.html',
+    faq: isRoot ? 'pages/faq.html' : './faq.html',
+    contact: isRoot ? 'pages/contact.html' : './contact.html',
+    login: isRoot ? 'pages/login.html' : './login.html',
+    register: isRoot ? 'pages/register.html' : './register.html',
+    dashboard: isRoot ? 'pages/dashboard.html' : './dashboard.html',
+    admin: isRoot ? 'pages/admin.html' : './admin.html',
+  };
 
-    const footerHtml = `
+  const footerHtml = `
     <!-- ========== FOOTER (DYNAMIC) ========== -->
     <footer class="footer-omnivault mt-auto pt-5">
       <div class="container">
@@ -102,5 +102,5 @@ $(document).ready(function() {
     </footer>
     `;
 
-    $('#footer-placeholder').html(footerHtml);
+  $('#footer-placeholder').html(footerHtml);
 });

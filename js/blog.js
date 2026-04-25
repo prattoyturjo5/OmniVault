@@ -2,31 +2,31 @@
   File: blog.js
   Updated by: Gemini | Theme: Premier University
 */
-$(document).ready(function() {
-  
-  // DOM Identifiers
-  const $homeGrid = $('#latest-blogs');
-  const $blogPage = $('#blog-page-container');
-  const $blogDetail = $('#blog-detail-container');
-  
-  // Set Pathing
-  const isHomePage = $homeGrid.length > 0;
-  const dataPath = isHomePage ? 'data/blogs.json' : '../data/blogs.json';
-  
-  $.getJSON(dataPath, function(data) {
-      if (!data || data.length === 0) return;
+$(document).ready(function () {
 
-      // ----------------------------------------------------
-      // 1. INDEX.HTML (Homepage limited 3 Latest)
-      // ----------------------------------------------------
-      if (isHomePage) {
-          $homeGrid.empty();
-          const latest = data.slice(0, 3);
-          
-          latest.forEach(blog => {
-              const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
-              const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
-              const cardHtml = `
+    // DOM Identifiers
+    const $homeGrid = $('#latest-blogs');
+    const $blogPage = $('#blog-page-container');
+    const $blogDetail = $('#blog-detail-container');
+
+    // Set Pathing
+    const isHomePage = $homeGrid.length > 0;
+    const dataPath = isHomePage ? 'data/blogs.json' : '../data/blogs.json';
+
+    $.getJSON(dataPath, function (data) {
+        if (!data || data.length === 0) return;
+
+        // ----------------------------------------------------
+        // 1. INDEX.HTML (Homepage limited 3 Latest)
+        // ----------------------------------------------------
+        if (isHomePage) {
+            $homeGrid.empty();
+            const latest = data.slice(0, 3);
+
+            latest.forEach(blog => {
+                const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
+                const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
+                const cardHtml = `
                   <div class="col-lg-4 col-md-6 mb-4">
                       <div class="course-card h-100 p-4 border d-flex flex-column text-start" style="border-radius: var(--radius-md); background: var(--color-surface);">
                           <div class="mb-3">
@@ -41,52 +41,52 @@ $(document).ready(function() {
                       </div>
                   </div>
               `;
-              $homeGrid.append(cardHtml);
-          });
-      }
+                $homeGrid.append(cardHtml);
+            });
+        }
 
-      // ----------------------------------------------------
-      // 2. BLOG.HTML (Overview Grid + Featured)
-      // ----------------------------------------------------
-      if ($blogPage.length > 0) {
-          // Force Custom Featured Content for Premier University
-          const featured = data[0]; 
-          const customTitle = "Empowering Premier University: The New Era of CS Education";
-          const customAuthor = "Raisul Islam";
-          const customExcerpt = "OmniVault is officially partnering with the Premier University community to provide world-class Computer Science resources and academic excellence.";
-          const featDateStr = "April 5"; // Hardcoded as requested
-          
-          $('#featured-category').text("Announcements");
-          $('#featured-title').text(customTitle);
-          $('#featured-excerpt').text(customExcerpt);
-          $('#featured-meta').text(`By ${customAuthor} · ${featDateStr}`);
-          $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
-          
-          // Replace spinner with featured image
-          const featImg = featured.image || '../assets/images/placeholder.jpg';
-          $('#featured-post .spinner-border').parent().html(`
+        // ----------------------------------------------------
+        // 2. BLOG.HTML (Overview Grid + Featured)
+        // ----------------------------------------------------
+        if ($blogPage.length > 0) {
+            // Force Custom Featured Content for Premier University
+            const featured = data[0];
+            const customTitle = "Empowering Premier University: The New Era of CS Education";
+            const customAuthor = "Raisul Islam";
+            const customExcerpt = "OmniVault is officially partnering with the Premier University community to provide world-class Computer Science resources and academic excellence.";
+            const featDateStr = "April 5"; // Hardcoded as requested
+
+            $('#featured-category').text("Announcements");
+            $('#featured-title').text(customTitle);
+            $('#featured-excerpt').text(customExcerpt);
+            $('#featured-meta').text(`By ${customAuthor} · ${featDateStr}`);
+            $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
+
+            // Replace spinner with featured image
+            const featImg = featured.image || '../assets/images/placeholder.jpg';
+            $('#featured-post .spinner-border').parent().html(`
               <img src="${featImg}" class="w-100 h-100 object-fit-cover" 
               alt="Premier University CS" 
               style="min-height: 400px; border-left: 1px solid var(--color-border);">
           `);
 
-          // Grid the rest
-          const $grid = $('#blog-grid');
-          $grid.empty();
-          
-          data.forEach((blog, index) => {
-              // Apply the same custom naming to the first card in the grid if it matches the featured ID
-              let displayTitle = blog.title;
-              let displayAuthor = blog.author;
-              if(index === 0) {
-                  displayTitle = customTitle;
-                  displayAuthor = customAuthor;
-              }
+            // Grid the rest
+            const $grid = $('#blog-grid');
+            $grid.empty();
 
-              const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
-              const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
-              
-              const cardHtml = `
+            data.forEach((blog, index) => {
+                // Apply the same custom naming to the first card in the grid if it matches the featured ID
+                let displayTitle = blog.title;
+                let displayAuthor = blog.author;
+                if (index === 0) {
+                    displayTitle = customTitle;
+                    displayAuthor = customAuthor;
+                }
+
+                const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
+                const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
+
+                const cardHtml = `
                   <div class="col-lg-4 col-md-6 mb-4 blog-card-wrapper" data-category="${blog.category}">
                       <div class="course-card h-100 p-4 border d-flex flex-column text-start" style="border-radius: var(--radius-md); background: var(--color-surface);">
                           <div class="mb-3">
@@ -101,97 +101,97 @@ $(document).ready(function() {
                       </div>
                   </div>
               `;
-              $grid.append(cardHtml);
-          });
+                $grid.append(cardHtml);
+            });
 
-          // Category Pill Filter Event
-          $('.blog-filter').on('click', function(e) {
-              e.preventDefault();
-              $('.blog-filter').removeClass('active');
-              $(this).addClass('active');
+            // Category Pill Filter Event
+            $('.blog-filter').on('click', function (e) {
+                e.preventDefault();
+                $('.blog-filter').removeClass('active');
+                $(this).addClass('active');
 
-              const filterCat = $(this).data('filter');
-              
-              if (filterCat === 'All') {
-                  $('.blog-card-wrapper').fadeIn(200);
-              } else {
-                  $('.blog-card-wrapper').hide();
-                  $(`.blog-card-wrapper[data-category="${filterCat}"]`).fadeIn(200);
-              }
-          });
-      }
+                const filterCat = $(this).data('filter');
 
-      // ----------------------------------------------------
-      // 3. BLOG-DETAIL.HTML
-      // ----------------------------------------------------
-      if ($blogDetail.length > 0) {
-          const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
-          if (!id) return;
-          
-          const post = data.find(p => p.id === id);
-          if (!post) {
-             $('#detail-loading').html('<div class="alert alert-danger mx-auto mt-5 w-50 text-center">Blog post not found.</div>');
-             return;
-          }
+                if (filterCat === 'All') {
+                    $('.blog-card-wrapper').fadeIn(200);
+                } else {
+                    $('.blog-card-wrapper').hide();
+                    $(`.blog-card-wrapper[data-category="${filterCat}"]`).fadeIn(200);
+                }
+            });
+        }
 
-          // If this is the first post, override details
-          const isFirstPost = data[0].id === id;
-          const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CS Education" : post.title;
-          const displayAuthor = isFirstPost ? "Raisul Islam" : post.author;
-          const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(post.date) : post.date;
+        // ----------------------------------------------------
+        // 3. BLOG-DETAIL.HTML
+        // ----------------------------------------------------
+        if ($blogDetail.length > 0) {
+            const id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
+            if (!id) return;
 
-          document.title = `OmniVault - ${displayTitle}`;
-          $('#breadcrumb-title').text(displayTitle);
-          $('#detail-category').text(post.category);
-          $('#detail-title').text(displayTitle);
-          $('#detail-meta').text(`By ${displayAuthor} · ${dateStr}`);
-          
-          const contentSplits = post.content ? post.content.split('\n') : ["Data absent."];
-          let formattedContent = "";
-          contentSplits.forEach(str => {
-             if (str.trim().length > 0) formattedContent += `<p style="line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 24px; font-size: 16px;">${str}</p>`;
-          });
-          $('#detail-content').html(formattedContent);
+            const post = data.find(p => p.id === id);
+            if (!post) {
+                $('#detail-loading').html('<div class="alert alert-danger mx-auto mt-5 w-50 text-center">Blog post not found.</div>');
+                return;
+            }
 
-          // SIDEBAR: Latest
-          const latestPosts = data.slice(0, 3);
-          const $sidebarLatest = $('#sidebar-latest');
-          $sidebarLatest.empty();
-          
-          latestPosts.forEach((lp, i) => {
-              const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CS Education" : lp.title;
-              const lpDate = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(lp.date) : lp.date;
-              $sidebarLatest.append(`
+            // If this is the first post, override details
+            const isFirstPost = data[0].id === id;
+            const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CS Education" : post.title;
+            const displayAuthor = isFirstPost ? "Raisul Islam" : post.author;
+            const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(post.date) : post.date;
+
+            document.title = `OmniVault - ${displayTitle}`;
+            $('#breadcrumb-title').text(displayTitle);
+            $('#detail-category').text(post.category);
+            $('#detail-title').text(displayTitle);
+            $('#detail-meta').text(`By ${displayAuthor} · ${dateStr}`);
+
+            const contentSplits = post.content ? post.content.split('\n') : ["Data absent."];
+            let formattedContent = "";
+            contentSplits.forEach(str => {
+                if (str.trim().length > 0) formattedContent += `<p style="line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 24px; font-size: 16px;">${str}</p>`;
+            });
+            $('#detail-content').html(formattedContent);
+
+            // SIDEBAR: Latest
+            const latestPosts = data.slice(0, 3);
+            const $sidebarLatest = $('#sidebar-latest');
+            $sidebarLatest.empty();
+
+            latestPosts.forEach((lp, i) => {
+                const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CS Education" : lp.title;
+                const lpDate = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(lp.date) : lp.date;
+                $sidebarLatest.append(`
                  <div class="mb-3 border-bottom border-light pb-3">
                      <a href="./blog-detail.html?id=${lp.id}" class="fw-semibold text-dark text-decoration-none d-block mb-1 hover-primary">${lpTitle}</a>
                      <span class="small text-secondary fw-medium">${lpDate}</span>
                  </div>
               `);
-          });
+            });
 
-          // SIDEBAR: Categories
-          const categories = {};
-          data.forEach(p => {
-              categories[p.category] = (categories[p.category] || 0) + 1;
-          });
-          
-          const $sidebarCats = $('#sidebar-categories');
-          $sidebarCats.empty();
-          Object.keys(categories).forEach(cat => {
-              $sidebarCats.append(`
+            // SIDEBAR: Categories
+            const categories = {};
+            data.forEach(p => {
+                categories[p.category] = (categories[p.category] || 0) + 1;
+            });
+
+            const $sidebarCats = $('#sidebar-categories');
+            $sidebarCats.empty();
+            Object.keys(categories).forEach(cat => {
+                $sidebarCats.append(`
                   <div class="d-flex justify-content-between align-items-center mb-2">
                       <span class="text-secondary fw-semibold">${cat}</span>
                       <span class="badge border border-light text-dark bg-white px-2 py-1 fw-bold">${categories[cat]}</span>
                   </div>
               `);
-          });
+            });
 
-          $('#detail-loading').addClass('d-none');
-          $('#detail-content-wrapper').removeClass('d-none');
-      }
+            $('#detail-loading').addClass('d-none');
+            $('#detail-content-wrapper').removeClass('d-none');
+        }
 
-  }).fail(function() {
-      console.error('Failed to parse blogs.json');
-  });
+    }).fail(function () {
+        console.error('Failed to parse blogs.json');
+    });
 
 });

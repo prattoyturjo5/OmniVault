@@ -2,33 +2,33 @@
   File: xml-parser.js
   Made by: [Member Name] | ID: [Student ID]
 */
-$(document).ready(function() {
-  
+$(document).ready(function () {
+
   // --------------------------------------------------------
   // 1. INDEX.HTML: Homepage Notice Teaser Logic
   // --------------------------------------------------------
   if ($('#notice-board-teaser').length) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'data/notices.xml', true);
-    xhr.onload = function() {
+    xhr.onload = function () {
       if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText)) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
         const notices = xmlDoc.getElementsByTagName('notice');
         const $container = $('#notice-board-teaser');
         $container.empty();
-        
+
         const count = Math.min(notices.length, 3);
         if (count === 0) {
-            $container.html('<p class="text-secondary small">No recent announcements.</p>');
-            return;
+          $container.html('<p class="text-secondary small">No recent announcements.</p>');
+          return;
         }
 
         for (let i = 0; i < count; i++) {
           const title = notices[i].getElementsByTagName('title')[0].textContent;
           const date = notices[i].getElementsByTagName('date')[0].textContent;
           const dateFormatted = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(date) : date;
-          
+
           const itemHtml = `
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between border-bottom pb-3 mb-3 border-dark border-opacity-10">
               <div class="mb-2 mb-md-0 d-flex flex-column flex-md-row gap-md-3 align-items-md-center">
@@ -41,11 +41,11 @@ $(document).ready(function() {
           $container.append(itemHtml);
         }
       } else {
-          $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements at this time.</p>');
+        $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements at this time.</p>');
       }
     };
-    xhr.onerror = function() {
-        $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements.</p>');
+    xhr.onerror = function () {
+      $('#notice-board-teaser').html('<p class="text-secondary small">Unable to load announcements.</p>');
     };
     xhr.send();
   }
@@ -59,30 +59,30 @@ $(document).ready(function() {
 
     fetch('../data/notices.xml')
       .then(r => {
-          if (!r.ok) throw new Error('Network response was not ok');
-          return r.text();
+        if (!r.ok) throw new Error('Network response was not ok');
+        return r.text();
       })
       .then(xmlText => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
         const notices = xmlDoc.querySelectorAll('notice');
-        
+
         $tbody.empty();
-        
+
         notices.forEach((notice, i) => {
           const title = notice.querySelector('title').textContent;
           const date = notice.querySelector('date').textContent;
           const category = notice.querySelector('category').textContent;
           const body = notice.querySelector('content').textContent;
           const dateFormatted = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(date) : date;
-          
+
           // Badge styling
           let badgeClass = "bg-light text-dark";
           if (category === "Exam") badgeClass = "bg-danger text-white";
           if (category === "Academic") badgeClass = "bg-info text-dark";
           if (category === "Administrative") badgeClass = "bg-warning text-dark";
           if (category === "Event") badgeClass = "bg-success text-white";
-          
+
           const safeBody = body.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
           const tr = `
@@ -107,42 +107,42 @@ $(document).ready(function() {
         });
       })
       .catch(error => {
-          $tbody.html('<tr><td colspan="5" class="text-center text-danger">Failed to load notices properly.</td></tr>');
+        $tbody.html('<tr><td colspan="5" class="text-center text-danger">Failed to load notices properly.</td></tr>');
       });
   }
 
   // Bind Fetch to load if on the table page
   if ($('#notices-table').length) {
-      loadNotices();
+    loadNotices();
   }
 
   // Modal payload injection
-  $(document).on('click', '.read-notice-btn', function() {
-      const title = $(this).data('title');
-      const body = $(this).data('body');
-      const date = $(this).data('date');
+  $(document).on('click', '.read-notice-btn', function () {
+    const title = $(this).data('title');
+    const body = $(this).data('body');
+    const date = $(this).data('date');
 
-      $('#noticeModalLabel').text(title);
-      $('#noticeModalBody').html(`
+    $('#noticeModalLabel').text(title);
+    $('#noticeModalBody').html(`
           <p class="text-secondary small fw-bold mb-3">${date}</p>
           <p style="line-height:1.7; color: var(--color-text-secondary);">${body}</p>
       `);
   });
 
   // Category Pill Filtering
-  $('.notice-filter').on('click', function(e) {
-      e.preventDefault();
-      $('.notice-filter').removeClass('active');
-      $(this).addClass('active');
+  $('.notice-filter').on('click', function (e) {
+    e.preventDefault();
+    $('.notice-filter').removeClass('active');
+    $(this).addClass('active');
 
-      const filterCat = $(this).data('filter');
-      
-      if (filterCat === 'All') {
-          $('.notice-row').fadeIn(200);
-      } else {
-          $('.notice-row').hide();
-          $(`.notice-row[data-category="${filterCat}"]`).fadeIn(200);
-      }
+    const filterCat = $(this).data('filter');
+
+    if (filterCat === 'All') {
+      $('.notice-row').fadeIn(200);
+    } else {
+      $('.notice-row').hide();
+      $(`.notice-row[data-category="${filterCat}"]`).fadeIn(200);
+    }
   });
 
 });

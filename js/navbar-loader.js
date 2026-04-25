@@ -50,7 +50,7 @@ $(document).ready(function() {
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(26, 26, 46, 0.98); z-index: 1050;">
+    <div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(53, 88, 114, 0.98); z-index: 1050;">
       <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3" style="background: none; border: none; line-height: 1;">&times;</button>
       <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
         <a class="nav-link text-white fs-4 my-2" href="${links.home}">Home</a>

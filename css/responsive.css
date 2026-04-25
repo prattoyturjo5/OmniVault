@@ -22,7 +22,7 @@
 .accordion-button:not(.collapsed) {
     color: var(--color-accent) !important;
     background-color: var(--color-accent-light) !important;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125) !important;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125) !important;
 }
 
 .accordion-button:focus {
@@ -30,18 +30,21 @@
     border-color: var(--color-border) !important;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     border-color: var(--color-border) !important;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     border-color: var(--color-accent) !important;
     box-shadow: none !important;
 }
 
 .form-control.is-invalid {
     border-color: #EF4444 !important;
-    background-image: none !important; /* Cleanup icon overlapping */
+    background-image: none !important;
+    /* Cleanup icon overlapping */
 }
 
 .btn-primary {
@@ -67,13 +70,14 @@
 /* ========================================================= */
 
 @media (max-width: 576px) {
-    
+
     /* Navbar Toggle Override Handled Primarily by Bootstrap Defaults (Collapse class) but strictly bounding here conceptually if needed */
-    
+
     /* Hero Section Override */
     #hero-section .row {
         flex-direction: column !important;
     }
+
     #hero-section h1.display-3 {
         font-size: 36px !important;
     }
@@ -85,11 +89,11 @@
         max-width: 50% !important;
         margin-bottom: 24px;
     }
-    
+
     /* Grids strictly single col */
-    #courses-grid > div,
-    #faculty-grid > div,
-    #blog-grid > div,
+    #courses-grid>div,
+    #faculty-grid>div,
+    #blog-grid>div,
     #events-grid .event-col {
         width: 100% !important;
         flex: 0 0 100% !important;
@@ -110,6 +114,7 @@
     .course-detail-layout {
         flex-direction: column !important;
     }
+
     .course-detail-sticky-card {
         position: relative !important;
         width: 100% !important;
@@ -117,19 +122,20 @@
     }
 
     /* Footer single column loop */
-    footer .row > div {
+    footer .row>div {
         width: 100% !important;
         flex: 0 0 100% !important;
         max-width: 100% !important;
         margin-bottom: 24px;
         text-align: center;
     }
+
     footer .d-flex.justify-content-between {
         flex-direction: column !important;
         justify-content: center !important;
         text-align: center;
     }
-    
+
     /* Dashboard & Admin sidebars natively hidden handled by d-none d-md-flex classes, overriding specifically for clarity */
     .dashboard-layout .sidebar {
         display: none !important;
@@ -140,6 +146,7 @@
         left: 0;
         top: 0;
     }
+
     .sidebar.show {
         display: flex !important;
     }
@@ -152,20 +159,22 @@
 /* ========================================================= */
 
 @media (min-width: 577px) and (max-width: 768px) {
+
     /* Multi-columns force 2 per row */
-    #courses-grid > div,
-    #faculty-grid > div,
-    #blog-grid > div,
+    #courses-grid>div,
+    #faculty-grid>div,
+    #blog-grid>div,
     #events-grid .event-col {
         width: 50% !important;
         flex: 0 0 50% !important;
         max-width: 50% !important;
     }
-    
+
     /* Course detail overlap fix */
     .course-detail-layout {
         flex-direction: column !important;
     }
+
     .course-detail-sticky-card {
         position: relative !important;
         width: 100% !important;
@@ -187,10 +196,11 @@
 /* ========================================================= */
 
 @media (min-width: 992px) {
+
     /* 3 Column Grids mapped globally */
-    #courses-grid > div,
-    #faculty-grid > div,
-    #blog-grid > div,
+    #courses-grid>div,
+    #faculty-grid>div,
+    #blog-grid>div,
     #events-grid .event-col {
         width: 33.333333% !important;
         flex: 0 0 33.333333% !important;
@@ -202,7 +212,7 @@
         width: 260px !important;
         min-width: 260px !important;
     }
-    
+
     /* Keep filter inline */
     .filter-sidebar {
         width: 260px;
