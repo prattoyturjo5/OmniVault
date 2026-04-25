@@ -157,6 +157,12 @@ $(document).ready(function () {
                   $('#admin-login-error').removeClass('d-none');
               }
           });
+
+          $('#admin-username, #admin-password').off('keypress').on('keypress', function(e) {
+              if (e.which === 13) {
+                  $('#admin-login-btn').click();
+              }
+          });
       }
   });
 });
