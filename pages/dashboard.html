@@ -227,149 +227,117 @@
         <!-- ========== MAIN AREA ========== -->
         <div class="main-area">
             <!-- 1. OVERVIEW SECTION -->
-            <div class="content-section active container-fluid" id="section-overview">...</div>
-            <!-- 2. MY COURSES SECTION -->
-            <div class="content-section container-fluid" id="section-courses">...</div>
-            <!-- 3. PROFILE SECTION -->
-            <div class="content-section container-fluid" id="section-profile">...</div>
+            <div class="content-section active container-fluid" id="section-overview">
+                <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;" id="welcome-msg">Good morning, User! 👋</h2>
+                <p class="text-secondary fs-6 mb-4 fw-medium" id="current-date">October 15, Current Session</p>
 
-            <div id="footer-placeholder"></div>
-        </div>
-    </div>
+                <div class="row g-3 mb-5">
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-enrollments">0</div>
+                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Enrolled Courses</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-value">2</div>
+                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Completed</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-value">1</div>
+                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Certificates</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-value text-accent">3.75</div>
+                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Current GPA</div>
+                        </div>
+                    </div>
+                </div>
 
-    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;" id="welcome-msg">Good morning,
-        User! 👋</h2>
-    <p class="text-secondary fs-6 mb-4 fw-medium" id="current-date">October 15, Current Session</p>
-
-    <div class="row g-3 mb-5">
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-card">
-                <div class="stat-value" id="stat-enrollments">0</div>
-                <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Enrolled Courses</div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-card">
-                <div class="stat-value">2</div>
-                <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Completed</div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-card">
-                <div class="stat-value">1</div>
-                <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Certificates</div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-card">
-                <div class="stat-value text-accent">3.75</div>
-                <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Current GPA</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <div class="col-lg-6">
-            <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
-                <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Recent Activity</h5>
-                <ul class="list-unstyled activity-list mb-0" id="activityList">
-                    <!-- Populated statically if local is void just for placeholder ui fidelity -->
-                    <li>
-                        <span class="badge bg-light text-dark fw-medium border me-2">Today</span> Viewed Introduction to
-                        Computer Science
-                    </li>
-                    <li>
-                        <span class="badge bg-light text-dark fw-medium border me-2">2 Days Ago</span> Enrolled in
-                        Advanced AI Architecture
-                    </li>
-                    <li>
-                        <span class="badge bg-light text-dark fw-medium border me-2">Last Week</span> Completed Data
-                        Structures Module 4
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
-                <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Latest Notices</h5>
-                <div id="notice-board-teaser">
-                    <!-- Reused from xml-parser hook natively -->
-                    <div class="text-center py-3">
-                        <div class="spinner-border spinner-border-sm text-secondary"></div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
+                            <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Recent Activity</h5>
+                            <ul class="list-unstyled activity-list mb-0" id="activityList">
+                                <li><span class="badge bg-light text-dark fw-medium border me-2">Today</span> Viewed Introduction to Computer Science</li>
+                                <li><span class="badge bg-light text-dark fw-medium border me-2">2 Days Ago</span> Enrolled in Advanced AI Architecture</li>
+                                <li><span class="badge bg-light text-dark fw-medium border me-2">Last Week</span> Completed Data Structures Module 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
+                            <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Latest Notices</h5>
+                            <div id="notice-board-teaser">
+                                <div class="text-center py-3">
+                                    <div class="spinner-border spinner-border-sm text-secondary"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
 
-    <!-- 2. MY COURSES SECTION -->
-    <div class="content-section container-fluid" id="section-courses">
-        <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Enrolled Courses</h2>
-
-        <div id="enrolled-empty" class="empty-state text-center border bg-white p-5 shadow-sm d-none"
-            style="border-radius: var(--radius-md);">
-            <h4 class="fw-bold text-dark mb-2">You haven't enrolled in any courses yet.</h4>
-            <p class="text-secondary mb-4">Explore our catalog and find the perfect program for you.</p>
-            <a href="./courses.html" class="btn btn-primary-custom px-4 py-2">Browse Courses →</a>
-        </div>
-
-        <div id="enrolled-table" class="bg-white border rounded shadow-sm overflow-hidden d-none">
-            <div class="table-responsive">
-                <table class="table dash-table mb-0 align-middle">
-                    <thead>
-                        <tr>
-                            <th>Course Details</th>
-                            <th>Department</th>
-                            <th>Instructor</th>
-                            <th>Enrolled Date</th>
-                            <th class="text-end">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="enrolled-tbody">
-                        <!-- JS Inject -->
-                    </tbody>
-                </table>
+            <!-- 2. MY COURSES SECTION -->
+            <div class="content-section container-fluid" id="section-courses">
+                <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Enrolled Courses</h2>
+                <div id="enrolled-empty" class="empty-state text-center border bg-white p-5 shadow-sm d-none" style="border-radius: var(--radius-md);">
+                    <h4 class="fw-bold text-dark mb-2">You haven't enrolled in any courses yet.</h4>
+                    <p class="text-secondary mb-4">Explore our catalog and find the perfect program for you.</p>
+                    <a href="./courses.html" class="btn btn-primary-custom px-4 py-2">Browse Courses →</a>
+                </div>
+                <div id="enrolled-table" class="bg-white border rounded shadow-sm overflow-hidden d-none">
+                    <div class="table-responsive">
+                        <table class="table dash-table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Course Details</th>
+                                    <th>Department</th>
+                                    <th>Instructor</th>
+                                    <th>Enrolled Date</th>
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="enrolled-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
+            <!-- 3. PROFILE SECTION -->
+            <div class="content-section container-fluid" id="section-profile">
+                <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Profile</h2>
+                <div id="profile-alert"></div>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md); max-width: 600px;">
+                    <form id="profile-form" class="p-4 p-md-5">
+                        <div class="mb-4">
+                            <label for="profName" class="form-label fw-semibold text-dark">Full Name</label>
+                            <input type="text" class="form-control py-2" id="profName">
+                        </div>
+                        <div class="mb-4">
+                            <label for="profEmail" class="form-label fw-semibold text-dark">Email Address <span class="text-secondary small fw-normal">(contact admin to change)</span></label>
+                            <input type="email" class="form-control py-2 bg-light text-secondary border-secondary border-opacity-25" id="profEmail" readonly>
+                        </div>
+                        <div class="mb-5">
+                            <label for="profDept" class="form-label fw-semibold text-dark">Department</label>
+                            <select class="form-select py-2" id="profDept">
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Placeholder inside main-area at the bottom -->
+            <div id="footer-placeholder" class="mt-auto"></div>
         </div>
     </div>
 
-    <!-- 3. PROFILE SECTION -->
-    <div class="content-section container-fluid" id="section-profile">
-        <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Profile</h2>
-
-        <div id="profile-alert"></div>
-
-        <div class="card bg-white border border-light shadow-sm"
-            style="border-radius: var(--radius-md); max-width: 600px;">
-            <form id="profile-form" class="p-4 p-md-5">
-                <div class="mb-4">
-                    <label for="profName" class="form-label fw-semibold text-dark">Full Name</label>
-                    <input type="text" class="form-control py-2" id="profName">
-                </div>
-
-                <div class="mb-4">
-                    <label for="profEmail" class="form-label fw-semibold text-dark">Email Address <span
-                            class="text-secondary small fw-normal">(contact admin to change)</span></label>
-                    <input type="email"
-                        class="form-control py-2 bg-light text-secondary border-secondary border-opacity-25"
-                        id="profEmail" readonly>
-                </div>
-
-                <div class="mb-5">
-                    <label for="profDept" class="form-label fw-semibold text-dark">Department</label>
-                    <select class="form-select py-2" id="profDept">
-                        <option value="Computer Science">Computer Science</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    </div>
-    </div>
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
