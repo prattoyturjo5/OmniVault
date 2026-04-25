@@ -62,7 +62,7 @@ $(document).ready(function () {
                   <li class="mb-2"><a href="${links.login}" class="text-secondary text-decoration-none hover-primary">Login</a></li>
                   <li class="mb-2"><a href="${links.register}" class="text-secondary text-decoration-none hover-primary">Register</a></li>
                   <li class="mb-2"><a href="${links.dashboard}" class="text-secondary text-decoration-none hover-primary">Dashboard</a></li>
-                  <li class="mb-2"><a href="${links.admin}" class="text-secondary text-decoration-none hover-primary">Admin Panel</a></li>
+                  <li class="mb-2"><a href="#" id="admin-panel-link" data-admin-url="${links.admin}" class="text-secondary text-decoration-none hover-primary">Admin Panel</a></li>
                 </ul>
               </div>
             </div>
@@ -100,7 +100,63 @@ $(document).ready(function () {
         </div>
       </div>
     </footer>
+    
+    <!-- Admin Login Modal -->
+    <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-labelledby="adminLoginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="color: black;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="adminLoginModalLabel">Admin Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="admin-login-error" class="alert alert-danger d-none mb-3">Invalid credentials.</div>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" id="admin-username" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" id="admin-password" class="form-control" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="admin-login-btn">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
     `;
 
   $('#footer-placeholder').html(footerHtml);
+
+  // Admin Panel Login Logic
+  if (!localStorage.getItem('adminCreds')) {
+      localStorage.setItem('adminCreds', JSON.stringify({ username: 'Omnivaltauthority', password: 'courseauthority' }));
+  }
+
+  $('#admin-panel-link').on('click', function(e) {
+      e.preventDefault();
+      const adminUrl = $(this).attr('data-admin-url');
+      if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+          window.location.href = adminUrl;
+      } else {
+          $('#admin-login-error').addClass('d-none');
+          $('#admin-username').val('');
+          $('#admin-password').val('');
+          $('#adminLoginModal').modal('show');
+          
+          $('#admin-login-btn').off('click').on('click', function() {
+              const creds = JSON.parse(localStorage.getItem('adminCreds'));
+              if ($('#admin-username').val() === creds.username && $('#admin-password').val() === creds.password) {
+                  sessionStorage.setItem('adminLoggedIn', 'true');
+                  $('#adminLoginModal').modal('hide');
+                  window.location.href = adminUrl;
+              } else {
+                  $('#admin-login-error').removeClass('d-none');
+              }
+          });
+      }
+  });
 });
