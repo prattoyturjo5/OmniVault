@@ -14,6 +14,7 @@ $(document).ready(function() {
         blog: isRoot ? 'pages/blog.html' : './blog.html',
         noticeboard: isRoot ? 'pages/noticeboard.html' : './noticeboard.html',
         events: isRoot ? 'pages/events.html' : './events.html',
+        contact: isRoot ? 'pages/contact.html' : './contact.html',
         login: isRoot ? 'pages/login.html' : './login.html',
         register: isRoot ? 'pages/register.html' : './register.html',
     };
@@ -39,6 +40,7 @@ $(document).ready(function() {
             <li class="nav-item"><a class="nav-link" href="${links.blog}">Blog</a></li>
             <li class="nav-item"><a class="nav-link" href="${links.noticeboard}">Notice Board</a></li>
             <li class="nav-item"><a class="nav-link" href="${links.events}">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="${links.contact}">Contact</a></li>
           </ul>
         </div>
         
@@ -60,6 +62,7 @@ $(document).ready(function() {
         <a class="nav-link text-white fs-4 my-2" href="${links.blog}">Blog</a>
         <a class="nav-link text-white fs-4 my-2" href="${links.noticeboard}">Notice Board</a>
         <a class="nav-link text-white fs-4 my-2" href="${links.events}">Events</a>
+        <a class="nav-link text-white fs-4 my-2" href="${links.contact}">Contact</a>
         <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
           <a class="btn btn-ghost text-white border-white" href="${links.login}">Login</a>
           <a class="btn btn-primary-custom" href="${links.register}">Get Started</a>

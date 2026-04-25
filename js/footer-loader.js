@@ -54,6 +54,7 @@ $(document).ready(function () {
                   <li class="mb-2"><a href="${links.noticeboard}" class="text-secondary text-decoration-none hover-primary">Notice Board</a></li>
                   <li class="mb-2"><a href="${links.events}" class="text-secondary text-decoration-none hover-primary">Events</a></li>
                   <li class="mb-2"><a href="${links.faq}" class="text-secondary text-decoration-none hover-primary">FAQ</a></li>
+                  <li class="mb-2"><a href="${links.contact}" class="text-secondary text-decoration-none hover-primary">Contact</a></li>
                 </ul>
               </div>
               <div class="col-6">
