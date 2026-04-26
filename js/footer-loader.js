@@ -60,10 +60,13 @@ $(document).ready(function () {
               <div class="col-6">
                 <h6 class="mb-3 text-dark">Account</h6>
                 <ul class="list-unstyled text-secondary">
-                  <li class="mb-2"><a href="${links.login}" class="text-secondary text-decoration-none hover-primary">Login</a></li>
-                  <li class="mb-2"><a href="${links.register}" class="text-secondary text-decoration-none hover-primary">Register</a></li>
-                  <li class="mb-2"><a href="${links.dashboard}" class="text-secondary text-decoration-none hover-primary">Dashboard</a></li>
-                  <li class="mb-2"><a href="#" id="admin-panel-link" data-admin-url="${links.admin}" class="text-secondary text-decoration-none hover-primary">Admin Panel</a></li>
+                  <li class="mb-2"><a href="${links.login}" class="text-secondary text-decoration-none hover-primary">Student Login</a></li>
+                  <li class="mb-2"><a href="${links.register}" class="text-secondary text-decoration-none hover-primary">Create Account</a></li>
+                  <li class="mb-2"><a href="${links.dashboard}" class="text-secondary text-decoration-none hover-primary">Student Dashboard</a></li>
+                  <li class="mb-2"><a href="#" id="admin-panel-link" data-admin-url="${links.admin}" class="text-secondary text-decoration-none hover-primary d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Administrative Access
+                  </a></li>
                 </ul>
               </div>
             </div>
@@ -75,7 +78,7 @@ $(document).ready(function () {
             <ul class="list-unstyled text-secondary d-flex flex-column gap-3">
               <li class="d-flex align-items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                Premier Univarsity, Chattagram, Bangladesh
+                Premier University, Chattagram, Bangladesh
               </li>
               <li class="d-flex align-items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -102,33 +105,47 @@ $(document).ready(function () {
       </div>
     </footer>
     
-    <!-- Admin Login Modal -->
-    <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-labelledby="adminLoginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" style="color: black;">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="adminLoginModalLabel">Admin Login</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Admin Login Modal (Professional Refresh) -->
+    <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+          <div class="modal-header bg-dark text-white p-4 border-0">
+            <div class="d-flex align-items-center gap-3">
+              <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 12px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <div>
+                <h5 class="modal-title fw-bold mb-0">Authority Portal</h5>
+                <p class="small opacity-75 mb-0">Administrative Access Only</p>
+              </div>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div id="admin-login-error" class="alert alert-danger d-none mb-3">Invalid credentials.</div>
-            <div class="mb-3">
-              <label class="form-label">Username</label>
-              <input type="text" id="admin-username" class="form-control" />
+          <div class="modal-body p-4 bg-light">
+            <div id="admin-login-error" class="alert alert-danger d-none border-0 shadow-sm small mb-4 py-2">
+               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+               Unauthorized access attempt recorded. Please check credentials.
             </div>
             <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" id="admin-password" class="form-control" />
+              <label class="form-label small fw-bold text-uppercase text-secondary" style="letter-spacing: 0.5px;">Authority ID</label>
+              <input type="text" id="admin-username" class="form-control form-control-lg border-0 shadow-sm" placeholder="Enter username" style="border-radius: 10px; font-size: 15px;">
             </div>
+            <div class="mb-4">
+              <label class="form-label small fw-bold text-uppercase text-secondary" style="letter-spacing: 0.5px;">Security Key</label>
+              <input type="password" id="admin-password" class="form-control form-control-lg border-0 shadow-sm" placeholder="••••••••" style="border-radius: 10px; font-size: 15px;">
+            </div>
+            <button type="button" class="btn btn-dark w-100 py-3 fw-bold shadow-sm" id="admin-login-btn" style="border-radius: 10px; transition: all 0.3s ease;">
+              Verify and Access
+            </button>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="admin-login-btn">Login</button>
+          <div class="modal-footer justify-content-center bg-white border-0 pb-4 pt-0">
+             <p class="xsmall text-muted mb-0">Confidentiality: Unauthorized access is prohibited by OmniVault Security Protocol.</p>
           </div>
         </div>
       </div>
     </div>
     `;
+
 
   $('#footer-placeholder').html(footerHtml);
 
