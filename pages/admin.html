@@ -68,7 +68,8 @@
             background-color: var(--color-accent-light);
         }
 
-        .sidebar-link:hover, .sidebar-link.active {
+        .sidebar-link:hover,
+        .sidebar-link.active {
             color: #0d6efd;
             background-color: #f8f9fa;
         }
@@ -179,16 +180,24 @@
             <div id="section-courses" class="content-section">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
-                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Courses</h2>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage
+                            Courses</h2>
                         <span id="courses-count" class="text-secondary small fw-semibold">Loading...</span>
                     </div>
-                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddCourse">+ Add New Course</button>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddCourse">+ Add New
+                        Course</button>
                 </div>
                 <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
                     <div class="table-responsive">
                         <table class="table admin-table mb-0 align-middle">
                             <thead>
-                                <tr><th>#</th><th>Title</th><th>Dept</th><th>Instructor</th><th class="text-end">Actions</th></tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Dept</th>
+                                    <th>Instructor</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
                             </thead>
                             <tbody id="courses-tbody"></tbody>
                         </table>
@@ -200,16 +209,39 @@
             <div id="section-faculty" class="content-section d-none">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
-                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Faculty</h2>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage
+                            Faculty</h2>
                         <span id="faculty-count" class="text-secondary small fw-semibold">Loading...</span>
                     </div>
-                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddFaculty">+ Add Faculty</button>
+                    <div class="d-flex gap-2 flex-wrap justify-content-end">
+                        <input type="text" class="form-control w-auto shadow-sm" id="searchFaculty" placeholder="Search by name...">
+                        <select class="form-select w-auto shadow-sm" id="filterDesignation">
+                            <option value="">All Designations</option>
+                            <option value="Professor">Professor</option>
+                            <option value="Associate Professor">Associate Professor</option>
+                            <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Lecturer">Lecturer</option>
+                        </select>
+                        <select class="form-select w-auto shadow-sm" id="filterStatus">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="On Leave">On Leave</option>
+                            <option value="Study Leave">Study Leave</option>
+                        </select>
+                        <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddFaculty">+ Add Faculty</button>
+                    </div>
                 </div>
                 <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
                     <div class="table-responsive">
                         <table class="table admin-table mb-0 align-middle">
                             <thead>
-                                <tr><th>#</th><th>Name</th><th>Designation</th><th>Dept</th><th class="text-end">Actions</th></tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Status / Role</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
                             </thead>
                             <tbody id="faculty-tbody"></tbody>
                         </table>
@@ -221,16 +253,24 @@
             <div id="section-students" class="content-section d-none">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
-                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Students</h2>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage
+                            Students</h2>
                         <span id="students-count" class="text-secondary small fw-semibold">Loading...</span>
                     </div>
-                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddStudent">+ Add Student</button>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddStudent">+ Add
+                        Student</button>
                 </div>
                 <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
                     <div class="table-responsive">
                         <table class="table admin-table mb-0 align-middle">
                             <thead>
-                                <tr><th>#</th><th>Name</th><th>Date</th><th>Dept</th><th class="text-end">Actions</th></tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Dept</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
                             </thead>
                             <tbody id="students-tbody"></tbody>
                         </table>
@@ -242,16 +282,24 @@
             <div id="section-specializations" class="content-section d-none">
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
-                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage Specializations</h2>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage
+                            Specializations</h2>
                         <span id="specializations-count" class="text-secondary small fw-semibold">Loading...</span>
                     </div>
-                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddSpecialization">+ Add Specialization</button>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddSpecialization">+ Add
+                        Specialization</button>
                 </div>
                 <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
                     <div class="table-responsive">
                         <table class="table admin-table mb-0 align-middle">
                             <thead>
-                                <tr><th>#</th><th>Title</th><th>Tag</th><th>Stats</th><th class="text-end">Actions</th></tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Tag</th>
+                                    <th>Stats</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
                             </thead>
                             <tbody id="specializations-tbody"></tbody>
                         </table>
@@ -275,15 +323,23 @@
                 </div>
                 <div class="modal-body p-4">
                     <form id="courseForm">
-                        <div class="mb-3"><label class="form-label small fw-bold">Title</label><input type="text" class="form-control" id="formTitle" required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Title</label><input type="text"
+                                class="form-control" id="formTitle" required></div>
                         <div class="row g-3 mb-3">
-                            <div class="col-6"><label class="form-label small fw-bold">Dept</label><select class="form-select" id="formDept"><option value="dept-cse">CSE</option></select></div>
-                            <div class="col-6"><label class="form-label small fw-bold">Instructor</label><input type="text" class="form-control" id="formInstructor" required></div>
+                            <div class="col-6"><label class="form-label small fw-bold">Dept</label><select
+                                    class="form-select" id="formDept">
+                                    <option value="dept-cse">CSE</option>
+                                </select></div>
+                            <div class="col-6"><label class="form-label small fw-bold">Instructor</label><input
+                                    type="text" class="form-control" id="formInstructor" required></div>
                         </div>
-                        <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea class="form-control" id="formDesc" rows="3"></textarea></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea
+                                class="form-control" id="formDesc" rows="3"></textarea></div>
                     </form>
                 </div>
-                <div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveCourse">Save</button></div>
+                <div class="modal-footer"><button type="button" class="btn btn-ghost"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom"
+                        id="btnSaveCourse">Save</button></div>
             </div>
         </div>
     </div>
@@ -298,29 +354,114 @@
                 </div>
                 <div class="modal-body p-4">
                     <form id="specializationForm">
-                        <div class="mb-3"><label class="form-label small fw-bold">Title</label><input type="text" class="form-control" id="specTitle" required></div>
-                        <div class="mb-3"><label class="form-label small fw-bold">Tag</label><input type="text" class="form-control" id="specTag" placeholder="e.g. AI & ML" required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Title</label><input type="text"
+                                class="form-control" id="specTitle" required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Tag</label><input type="text"
+                                class="form-control" id="specTag" placeholder="e.g. AI & ML" required></div>
                         <div class="row g-3 mb-3">
-                            <div class="col-6"><label class="form-label small fw-bold">Courses</label><input type="number" class="form-control" id="specCourses" value="0"></div>
-                            <div class="col-6"><label class="form-label small fw-bold">Faculty</label><input type="number" class="form-control" id="specFaculty" value="0"></div>
+                            <div class="col-6"><label class="form-label small fw-bold">Courses</label><input
+                                    type="number" class="form-control" id="specCourses" value="0"></div>
+                            <div class="col-6"><label class="form-label small fw-bold">Faculty</label><input
+                                    type="number" class="form-control" id="specFaculty" value="0"></div>
                         </div>
-                        <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea class="form-control" id="specDesc" rows="3"></textarea></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea
+                                class="form-control" id="specDesc" rows="3"></textarea></div>
                     </form>
                 </div>
-                <div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveSpecialization">Save</button></div>
+                <div class="modal-footer"><button type="button" class="btn btn-ghost"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom"
+                        id="btnSaveSpecialization">Save</button></div>
             </div>
         </div>
     </div>
 
     <!-- Other Modals (Faculty, Student, Delete) omitted for brevity in thought but included in write -->
     <div class="modal fade" id="facultyModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header border-bottom"><h5 class="modal-title fw-bold" id="facultyModalLabel">Add Faculty</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><form id="facultyForm"><div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" class="form-control" id="facultyName" required></div><div class="mb-3"><label class="form-label small fw-bold">Designation</label><input type="text" class="form-control" id="facultyDesignation" required></div><div class="mb-3"><label class="form-label small fw-bold">Email</label><input type="email" class="form-control" id="facultyEmail" required></div><div class="mb-3"><label class="form-label small fw-bold">Dept</label><select class="form-select" id="facultyDept"><option value="CSE">CSE</option></select></div></form></div><div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveFaculty">Save</button></div></div></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold" id="facultyModalLabel">Add Faculty</h5><button type="button"
+                        class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="facultyForm">
+                        <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text"
+                                class="form-control" id="facultyName" required></div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Designation</label>
+                            <select class="form-select" id="facultyDesignation" required>
+                                <option value="Professor">Professor</option>
+                                <option value="Associate Professor">Associate Professor</option>
+                                <option value="Assistant Professor">Assistant Professor</option>
+                                <option value="Lecturer">Lecturer</option>
+                            </select>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Status</label>
+                                <select class="form-select" id="facultyStatus">
+                                    <option value="Active">Active</option>
+                                    <option value="On Leave">On Leave</option>
+                                    <option value="Study Leave">Study Leave</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Role</label>
+                                <input type="text" class="form-control" id="facultyRole" placeholder="e.g. Dean, Coordinator">
+                            </div>
+                        </div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Email</label><input type="email"
+                                class="form-control" id="facultyEmail"></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Dept</label><select
+                                class="form-select" id="facultyDept">
+                                <option value="CSE">CSE</option>
+                            </select></div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-ghost"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom"
+                        id="btnSaveFaculty">Save</button></div>
+            </div>
+        </div>
     </div>
     <div class="modal fade" id="studentModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header border-bottom"><h5 class="modal-title fw-bold" id="studentModalLabel">Add Student</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><form id="studentForm"><div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" class="form-control" id="studentName" required></div><div class="mb-3"><label class="form-label small fw-bold">Dept</label><select class="form-select" id="studentDept"><option value="CSE">CSE</option></select></div></form></div><div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveStudent">Save</button></div></div></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold" id="studentModalLabel">Add Student</h5><button type="button"
+                        class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="studentForm">
+                        <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text"
+                                class="form-control" id="studentName" required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Dept</label><select
+                                class="form-select" id="studentDept">
+                                <option value="CSE">CSE</option>
+                            </select></div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-ghost"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom"
+                        id="btnSaveStudent">Save</button></div>
+            </div>
+        </div>
     </div>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header border-bottom"><h5 class="modal-title fw-bold text-danger">Confirm Delete</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><p class="mb-0">Are you sure? This cannot be undone.</p></div><div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger" id="btnConfirmDelete">Delete</button></div></div></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold text-danger">Confirm Delete</h5><button type="button"
+                        class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="mb-0">Are you sure? This cannot be undone.</p>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-ghost"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger"
+                        id="btnConfirmDelete">Delete</button></div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
@@ -334,4 +475,5 @@
     <script src="../js/auth.js"></script>
     <script src="../js/crud.js"></script>
 </body>
+
 </html>
