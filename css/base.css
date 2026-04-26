@@ -59,3 +59,19 @@ section {
   margin: 0 auto;
   padding: 0 var(--spacing-2);
 }
+
+.text-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
+.text-dark {
+  color: var(--color-dark-band) !important;
+}

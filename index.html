@@ -258,6 +258,25 @@
 
     </main>
 
+    <!-- NOTICE MODAL (Added for Homepage Direct View) -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0" style="border-radius: var(--radius-md);">
+                <div class="modal-header border-light p-4 pb-3">
+                    <h4 class="modal-title fw-bold text-dark pe-4" id="noticeModalLabel"
+                        style="font-family: Playfair Display;">Notice Title</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 pt-3" id="noticeModalBody">
+                    <!-- JS fills detailed description here -->
+                </div>
+                <div class="modal-footer border-light px-4 py-3">
+                    <button type="button" class="btn btn-primary-custom px-4" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="footer-placeholder"></div>
 
     <!-- Core Scripts -->
