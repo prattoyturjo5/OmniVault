@@ -9,19 +9,17 @@ $(document).ready(function () {
     // INITIALIZATION & STORE
     // ----------------------------------------------------
 
-    function initData() {
-        const stored = localStorage.getItem('adminCourses');
-        if (!stored) {
-            // First time initialization
-            $.getJSON('../data/courses.json', function (data) {
-                localStorage.setItem('adminCourses', JSON.stringify(data));
-                renderTable();
-            }).fail(function () {
-                console.error("Failed to load root courses.json for initialization.");
-                localStorage.setItem('adminCourses', JSON.stringify([]));
-                renderTable();
-            });
-        } else {
+    let adminCourses = [];
+
+    async function initData() {
+        try {
+            const { data, error } = await supabase.from('courses').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            adminCourses = data || [];
+            renderTable();
+        } catch (err) {
+            console.error("Failed to fetch courses from Supabase: ", err);
+            adminCourses = [];
             renderTable();
         }
     }
@@ -30,8 +28,7 @@ $(document).ready(function () {
     // RENDER LOGIC
     // ----------------------------------------------------
     function renderTable(filterText = '') {
-        const stored = localStorage.getItem('adminCourses');
-        let courses = stored ? JSON.parse(stored) : [];
+        let courses = adminCourses;
 
         // Filter logic
         if (filterText) {
@@ -106,8 +103,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-edit', function () {
         const idToEdit = String($(this).attr('data-id'));
 
-        let courses = [];
-        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
+        let courses = adminCourses;
         const course = courses.find(c => String(c.id) === idToEdit);
 
         if (course) {
@@ -147,7 +143,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#btnSaveCourse').on('click', function () {
+    $('#btnSaveCourse').on('click', async function () {
         let isValid = true;
 
         // Form properties
@@ -173,12 +169,6 @@ $(document).ready(function () {
         };
 
         if (isValid) {
-            let courses = [];
-            try {
-                const stored = localStorage.getItem('adminCourses');
-                if (stored) courses = JSON.parse(stored);
-            } catch (e) { }
-
             const editId = $('#courseModal').attr('data-edit-id');
             const deptLabel = deptLabelMap[fDept] || 'Computer Science';
 
@@ -196,23 +186,29 @@ $(document).ready(function () {
 
             if (editId) {
                 // Update specific iteration
-                const index = courses.findIndex(c => String(c.id) === String(editId));
-                if (index !== -1) {
-                    // Update object by extending it rather than wiping unseen fields perfectly
-                    courses[index] = { ...courses[index], ...payload };
-                    localStorage.setItem('adminCourses', JSON.stringify(courses));
+                try {
+                    const { error } = await supabase.from('courses').update(payload).eq('id', editId);
+                    if (error) throw error;
                     if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course updated!', 'success');
+                } catch(err) {
+                    console.error('Update error:', err);
+                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Update failed.', 'danger');
                 }
             } else {
                 // Append logic uniquely
                 payload.id = window.Utils && window.Utils.generateId ? window.Utils.generateId() : 'C-' + Date.now();
-                courses.push(payload);
-                localStorage.setItem('adminCourses', JSON.stringify(courses));
-                if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course added successfully!', 'success');
+                try {
+                    const { error } = await supabase.from('courses').insert([payload]);
+                    if (error) throw error;
+                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course added successfully!', 'success');
+                } catch(err) {
+                    console.error('Insert error:', err);
+                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Insert failed.', 'danger');
+                }
             }
 
             $('#courseModal').modal('hide');
-            renderTable($('#search-admin').val().trim());
+            await initData();
         }
     });
 
@@ -225,29 +221,26 @@ $(document).ready(function () {
         $('#deleteModal').modal('show');
     });
 
-    $('#btnConfirmDelete').on('click', function () {
+    $('#btnConfirmDelete').on('click', async function () {
         const targetId = String($('#deleteModal').data('id'));
-        let courses = [];
-        try { courses = JSON.parse(localStorage.getItem('adminCourses')); } catch (e) { }
+        
+        try {
+            const { error } = await supabase.from('courses').delete().eq('id', targetId);
+            if (error) throw error;
+            
+            $('#deleteModal').modal('hide');
 
-        const newArr = courses.filter(c => String(c.id) !== targetId);
-        localStorage.setItem('adminCourses', JSON.stringify(newArr));
+            // Animate out natively
+            $(`#row-${targetId}`).fadeOut(300, async function () {
+                $(this).remove();
+                await initData();
+            });
 
-        $('#deleteModal').modal('hide');
-
-        // Animate out natively
-        $(`#row-${targetId}`).fadeOut(300, function () {
-            $(this).remove();
-
-            // Adjust label locally rather than whole render loop to persist search states dynamically unless zero
-            if (newArr.length === 0) {
-                renderTable($('#search-admin').val().trim());
-            } else {
-                $('#table-count').text(`Showing ${newArr.length} courses`);
-            }
-        });
-
-        if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course deleted.', 'success');
+            if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course deleted.', 'success');
+        } catch(err) {
+            console.error('Delete error:', err);
+            if (window.Utils) window.Utils.showAlert('#admin-alert', 'Delete failed.', 'danger');
+        }
     });
 
 });

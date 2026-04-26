@@ -15,19 +15,18 @@ $(document).ready(function () {
   // Path resolution: if we are on homepage fetch from /data, if inside pages/, fetch from ../data
   const dataPath = isHomePage ? 'data/courses.json' : '../data/courses.json';
 
-  const storedAdminCourses = localStorage.getItem('adminCourses');
-  if (storedAdminCourses) {
-    allCourses = JSON.parse(storedAdminCourses);
-    renderCourses();
-  } else {
-    $.getJSON(dataPath, function (data) {
-      allCourses = data;
-      localStorage.setItem('adminCourses', JSON.stringify(data));
+  async function fetchCourses() {
+    try {
+      const { data, error } = await supabase.from('courses').select('*');
+      if (error) throw error;
+      allCourses = data || [];
       renderCourses();
-    }).fail(function () {
-      console.error("Failed to load courses.json from " + dataPath);
-    });
+    } catch (err) {
+      console.error("Failed to load courses from Supabase: ", err);
+    }
   }
+
+  fetchCourses();
 
   function renderCourses() {
     const $grid = $('#courses-grid');

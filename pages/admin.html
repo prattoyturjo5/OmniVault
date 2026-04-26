@@ -9,11 +9,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
-            window.location.href = '../index.html';
-        }
-    </script>
     <title>OmniVault - Admin Panel</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -153,13 +148,7 @@
                     Manage Courses
                 </a>
                 <hr class="mx-4 text-secondary opacity-25 my-3">
-                <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#changeCredsModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                    Change Credentials
-                </a>
-                <a href="../index.html" class="sidebar-link mt-auto" onclick="sessionStorage.removeItem('adminLoggedIn');">
+                <a href="#" class="sidebar-link mt-auto" id="btnLogout">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -173,7 +162,6 @@
         <!-- ========== MAIN AREA ========== -->
         <div class="main-area">
             <div class="content-section">
-                <!-- Content ... -->
                 <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
                     <div>
                         <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;">Manage
@@ -184,7 +172,6 @@
                         + Add New Course
                     </button>
                 </div>
-                <!-- Search and Table ... -->
                 <div class="mb-4" style="max-width: 400px;">
                     <div class="position-relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -227,11 +214,7 @@
         </div>
     </div>
 
-    </div>
-
-    <!-- ============================================== -->
     <!-- COURSE (ADD/EDIT) MODAL -->
-    <!-- ============================================== -->
     <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content border-0 shadow" style="border-radius: 8px;">
@@ -306,9 +289,7 @@
         </div>
     </div>
 
-    <!-- ============================================== -->
     <!-- DELETE CONFIRMATION MODAL -->
-    <!-- ============================================== -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
@@ -340,65 +321,21 @@
         </div>
     </div>
 
-    <!-- ============================================== -->
-    <!-- CHANGE CREDENTIALS MODAL -->
-    <!-- ============================================== -->
-    <div class="modal fade" id="changeCredsModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header border-bottom px-4 pt-4 pb-3">
-                    <h5 class="modal-title fw-bold font-playfair fs-4">Change Admin Credentials</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body px-4 py-4">
-                    <div id="creds-alert" class="alert alert-success d-none mb-3">Credentials updated successfully!</div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold text-dark small">New Username</label>
-                        <input type="text" id="new-admin-username" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold text-dark small">New Password</label>
-                        <input type="password" id="new-admin-password" class="form-control" />
-                    </div>
-                </div>
-                <div class="modal-footer px-4 py-3 bg-light border-top">
-                    <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary-custom fw-semibold" id="btnSaveCreds">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
     <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/navbar-loader.js"></script>
     <script src="../js/footer-loader.js"></script>
-    <!-- CRUD Execution Context -->
+    <!-- Auth & CRUD -->
+    <script src="../js/auth.js"></script>
     <script src="../js/crud.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#btnSaveCreds').on('click', function() {
-                const newUser = $('#new-admin-username').val().trim();
-                const newPass = $('#new-admin-password').val().trim();
-                if (newUser && newPass) {
-                    localStorage.setItem('adminCreds', JSON.stringify({ username: newUser, password: newPass }));
-                    $('#creds-alert').removeClass('d-none');
-                    setTimeout(() => {
-                        $('#changeCredsModal').modal('hide');
-                        $('#creds-alert').addClass('d-none');
-                        $('#new-admin-username').val('');
-                        $('#new-admin-password').val('');
-                    }, 1500);
-                } else {
-                    alert('Both fields are required.');
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
+
