@@ -5,201 +5,238 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniVault - Events & Institutional Story</title>
-    <!-- Bootstrap 5 CDN -->
+    <title>OmniVault - Upcoming Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <!-- Core CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <style>
-        .milestone-list {
-            position: relative;
-            padding-left: 32px;
-            list-style: none;
-        }
-
-        .milestone-list::before {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--color-accent-light);
-            border-radius: 2px;
-        }
-
-        .milestone-item {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .milestone-dot {
-            position: absolute;
-            left: -32px;
-            top: 4px;
-            width: 16px;
-            height: 16px;
+        /* Countdown Boxes */
+        .cd-box {
             background: #fff;
-            border: 3px solid var(--color-accent);
-            border-radius: 50%;
-            z-index: 1;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            width: 84px;
+            padding: 16px 8px 12px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
-
-        .milestone-item.active .milestone-dot {
-            background: var(--color-accent);
+        .cd-num {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            color: var(--color-dark-band);
+            line-height: 1;
         }
-
-        .milestone-title {
+        .cd-label {
+            font-size: 10px;
             font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 2px;
-            color: var(--color-text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-secondary);
+            margin-top: 6px;
         }
 
-        .milestone-desc {
-            font-size: 12px;
+        /* Seat progress bar */
+        .seat-bar { height: 6px; border-radius: 4px; background: var(--color-border); overflow: hidden; margin-top: 4px; }
+        .seat-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+
+        /* Event card */
+        .event-card {
+            border-radius: var(--radius-md);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.10) !important;
+        }
+
+        /* Filter pills override */
+        .filter-pill {
+            padding: 6px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
             color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: #fff;
         }
     </style>
 </head>
-
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
 
     <main class="flex-shrink-0 pt-5 mt-4">
 
-        <!-- SECTION 1 — HEADER (FROM SCREENSHOT) -->
-        <section style="background-color: var(--color-accent-light); padding: 64px 0;">
-            <div class="container">
+        <!-- ══════════════════════════════════════════════════
+             SECTION 1 — PAGE HEADER
+        ══════════════════════════════════════════════════ -->
+        <section style="background-color: var(--color-accent-light); padding: 56px 0;">
+            <div class="container text-center">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-3">
+                    <ol class="breadcrumb justify-content-center mb-3">
                         <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none">Home</a></li>
-                        <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">About & Events</li>
+                        <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Events</li>
                     </ol>
                 </nav>
-                <h1 class="display-4 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">About OmniVault</h1>
-                <p class="fs-5 text-secondary">Building tomorrow's leaders since inception.</p>
+                <h1 class="display-5 fw-bold mb-3 text-dark" style="font-family: Playfair Display;">Upcoming Events</h1>
+                <p class="fs-5 text-secondary mx-auto mb-0" style="max-width: 600px;">Workshops, seminars, hackathons and campus activities at OmniVault.</p>
             </div>
         </section>
 
-        <!-- SECTION 2 — OUR STORY & MILESTONES (FROM SCREENSHOT) -->
-        <section class="py-5 bg-white">
-            <div class="container py-4">
-                <div class="row g-5">
-                    <div class="col-lg-8">
-                        <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">Our Story</h2>
-                        <p class="text-secondary mb-4" style="line-height: 1.8;">In an era where digital clutter often hinders academic performance, OmniVault emerges as the definitive solution for modern student resource management. We recognized that students are constantly overwhelmed by fragmented data—lecture slides on one platform, research papers on another, and deadlines scattered across many more. OmniVault was engineered to serve as a high-security, centralized "knowledge bank," consolidating every piece of your academic journey into a single, intuitive interface that prioritizes clarity over chaos.</p>
-                        <p class="text-secondary mb-4" style="line-height: 1.8;">Through the evolution of the web and the rise of AI, our methodology has stayed ahead of the curve. We prioritize deep logic, algorithmic efficiency, and scalable system design. By partnering with Silicon Valley veterans and research pioneers, we ensure our students don't just use technology—they invent it.</p>
-                        <p class="text-secondary mb-0" style="line-height: 1.8;">Today, as an exclusively Computer Science dedicated institution, OmniVault provides a specialized sanctuary where every line of code matters and every algorithm has the power to change the world.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <h4 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">Milestones</h4>
-                        <ul class="milestone-list">
-                            <li class="milestone-item">
-                                <div class="milestone-dot"></div>
-                                <div class="milestone-title">Phase 1</div>
-                                <div class="milestone-desc">Project Genesis</div>
-                            </li>
-                            <li class="milestone-item">
-                                <div class="milestone-dot"></div>
-                                <div class="milestone-title">Phase 2</div>
-                                <div class="milestone-desc">Beta Release</div>
-                            </li>
-                            <li class="milestone-item">
-                                <div class="milestone-dot"></div>
-                                <div class="milestone-title">Phase 3</div>
-                                <div class="milestone-desc">Global Expansion</div>
-                            </li>
-                            <li class="milestone-item active">
-                                <div class="milestone-dot"></div>
-                                <div class="milestone-title">Current</div>
-                                <div class="milestone-desc">OmniVault v2.0 Excellence</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- ══════════════════════════════════════════════════
+             SECTION 2 — FEATURED EVENT BANNER (DYNAMIC)
+        ══════════════════════════════════════════════════ -->
+        <div id="featured-section">
+            <!-- Shown when a featured event exists -->
+            <section class="py-5 bg-white d-none" id="featured-event-wrapper">
+                <div class="container py-3">
+                    <div class="card border p-4 p-md-5 shadow-sm position-relative overflow-hidden"
+                        style="background-color: var(--color-accent-light); border-radius: var(--radius-lg); border-color: var(--color-accent) !important;">
 
-        <!-- SECTION 3 — CORE PRINCIPLES -->
-        <section class="py-5" style="background-color: var(--color-bg);">
-            <div class="container py-4">
-                <h2 class="fw-bold mb-4 text-dark text-center" style="font-family: Playfair Display;">Core Principles</h2>
-                <div class="d-flex justify-content-center">
-                    <div class="accordion border-0 w-100" id="principlesAccordion" style="max-width: 800px;">
-                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
-                            <h2 class="accordion-header"><button class="accordion-button bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMission">Mission</button></h2>
-                            <div id="collapseMission" class="accordion-collapse collapse show" data-bs-parent="#principlesAccordion">
-                                <div class="accordion-body text-secondary">Our mission is to democratize high-level academic achievement by providing rigorous, adaptable, and globally relevant educational frameworks.</div>
+                        <div class="row align-items-center g-5">
+                            <!-- Left: Event Details -->
+                            <div class="col-lg-6">
+                                <span class="badge bg-white border px-3 py-2 fw-bold text-uppercase rounded-pill mb-3 shadow-sm"
+                                    style="color: var(--color-accent); border-color: var(--color-accent) !important;">⭐ Featured Event</span>
+                                <h2 class="display-6 fw-bold text-dark mb-2" style="font-family: Playfair Display;" id="feat-title">—</h2>
+                                <p class="fw-semibold mb-3 d-flex align-items-center gap-2" style="color: var(--color-accent);" id="feat-meta">—</p>
+                                <p class="text-secondary mb-4" id="feat-desc" style="max-width: 480px; line-height: 1.7;">—</p>
+
+                                <!-- Seat info under description -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between small fw-semibold mb-1">
+                                        <span>Seats Available</span>
+                                        <span id="feat-seats-text">—</span>
+                                    </div>
+                                    <div class="seat-bar" style="height: 8px;">
+                                        <div class="seat-bar-fill" id="feat-seat-fill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary-custom px-5 py-2 fw-bold shadow-sm"
+                                    id="feat-register-btn" data-event-id="" data-event-title="">
+                                    Register Now
+                                </button>
                             </div>
-                        </div>
-                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVision">Vision</button></h2>
-                            <div id="collapseVision" class="accordion-collapse collapse" data-bs-parent="#principlesAccordion">
-                                <div class="accordion-body text-secondary">To be the leading academic institution that continuously bridges the gap between conventional pedagogy and forward-thinking industry innovations.</div>
-                            </div>
-                        </div>
-                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIdea">Core Idea</button></h2>
-                            <div id="collapseIdea" class="accordion-collapse collapse" data-bs-parent="#principlesAccordion">
-                                <div class="accordion-body text-secondary">OmniVault functions as a secure, scalable repository for academic excellence, ensuring that knowledge is not just stored, but actively deployed for student growth.</div>
+
+                            <!-- Right: Countdown Timer -->
+                            <div class="col-lg-6 text-center">
+                                <p class="small fw-bold text-uppercase text-secondary mb-3" style="letter-spacing: 1px;">Event starts in</p>
+                                <div class="d-inline-flex gap-3" id="countdown-wrapper">
+                                    <div class="cd-box"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
+                                    <div class="cd-box"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
+                                    <div class="cd-box"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Mins</div></div>
+                                    <div class="cd-box"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Secs</div></div>
+                                </div>
+                                <div id="cd-ended" class="d-none mt-4">
+                                    <span class="badge bg-white border shadow-sm text-dark px-4 py-3 rounded-pill fw-bold fs-6">Event has ended</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- SECTION 4 — SPECIALIZATIONS (DYNAMIC) -->
-        <section class="py-5 bg-surface">
-            <div class="container py-4">
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold text-dark" style="font-family: Playfair Display;">Our Specializations</h2>
-                </div>
-                <div class="row g-4" id="specializations-grid">
-                    <!-- Dynamic rendering -->
-                </div>
-            </div>
-        </section>
+        <!-- ══════════════════════════════════════════════════
+             SECTION 3 — ALL EVENTS GRID (DYNAMIC)
+        ══════════════════════════════════════════════════ -->
+        <section class="py-5" style="background-color: var(--color-surface);">
+            <div class="container py-3">
 
-        <!-- SECTION 5 — UPCOMING EVENTS -->
-        <section class="py-5 bg-white">
-            <div class="container py-4">
-                <h2 class="fw-bold mb-5 text-dark" style="font-family: Playfair Display;">Upcoming Events</h2>
-                <div class="row g-4" id="events-grid">
-                    <!-- Event 1 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card course-card h-100 bg-white shadow-sm border border-light p-4" style="border-radius: var(--radius-md);">
-                            <div class="mb-3">
-                                <span class="badge border bg-white px-2 py-1 shadow-sm fs-7 fw-bold text-dark">Workshop</span>
-                                <span class="badge bg-primary-custom text-white border-0 px-2 py-1 shadow-sm fs-7 fw-bold float-end">Oct 12</span>
-                            </div>
-                            <h3 class="fw-bold fs-5 text-dark mb-2">React Native Bootcamp</h3>
-                            <p class="text-secondary small mb-4">Hands-on application development building comprehensive cross-platform applications natively over frameworks.</p>
-                            <button class="btn btn-outline-primary btn-sm fw-medium mt-auto border-light w-100">Details</button>
-                        </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+                    <h2 class="fw-bold text-dark mb-0" style="font-family: Playfair Display;">Event Schedule</h2>
+                    <div class="d-flex flex-wrap gap-2" id="filter-pills">
+                        <button class="filter-pill active" data-filter="All">All</button>
+                        <button class="filter-pill" data-filter="Workshop">Workshop</button>
+                        <button class="filter-pill" data-filter="Seminar">Seminar</button>
+                        <button class="filter-pill" data-filter="Conference">Conference</button>
+                        <button class="filter-pill" data-filter="Cultural">Cultural</button>
+                        <button class="filter-pill" data-filter="Hackathon">Hackathon</button>
                     </div>
-                    <!-- Add more events if needed -->
                 </div>
+
+                <!-- Loading State -->
+                <div id="events-loading" class="text-center py-5">
+                    <div class="spinner-border text-accent mb-3"></div>
+                    <p class="text-secondary small">Loading events...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="events-empty" class="d-none text-center py-5">
+                    <h5 class="fw-bold text-dark mb-2">No events scheduled yet.</h5>
+                    <p class="text-secondary small">Check back soon or contact the admin.</p>
+                </div>
+
+                <!-- Events Grid -->
+                <div class="row g-4" id="events-grid"></div>
+
             </div>
         </section>
 
     </main>
 
     <div id="footer-placeholder"></div>
+
+    <!-- ══════════════════════════════════════════════════
+         REGISTRATION MODAL
+    ══════════════════════════════════════════════════ -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-bottom px-4 pt-4 pb-3">
+                    <div>
+                        <h5 class="modal-title fw-bold mb-1" id="registerModalLabel">Register for Event</h5>
+                        <p class="small text-secondary mb-0" id="registerModalSubtitle"></p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Success State -->
+                    <div id="register-success" class="d-none text-center py-3">
+                        <div style="font-size: 52px;">🎉</div>
+                        <h5 class="fw-bold text-dark mt-3 mb-2">You're Registered!</h5>
+                        <p class="text-secondary small mb-0">Your seat has been confirmed. We'll reach out via email with further details.</p>
+                    </div>
+                    <!-- Form -->
+                    <form id="registerForm">
+                        <div id="register-error" class="alert alert-danger d-none small py-2 mb-3"></div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="regName" placeholder="Your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="regEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold small">Student ID <span class="text-secondary fw-normal">(optional)</span></label>
+                            <input type="text" class="form-control" id="regStudentId" placeholder="e.g. CSE-1171">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer px-4 py-3" id="registerFooter">
+                    <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary-custom fw-semibold px-4" id="btnSubmitRegister">Confirm Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -212,28 +249,286 @@
     <script src="../js/footer-loader.js"></script>
 
     <script>
-        $(document).ready(async function () {
-            // Fetch Specializations
+    $(document).ready(async function () {
+
+        let allEvents = [];
+        let currentEventId = null;
+        let currentEventTitle = '';
+        let countdownInterval = null;
+
+        // ════════════════════════════════════════════
+        // LOAD EVENTS FROM SUPABASE
+        // ════════════════════════════════════════════
+        async function loadEvents() {
             try {
-                const { data: specs } = await supabase.from('specializations').select('*').order('created_at', { ascending: true });
-                const $grid = $('#specializations-grid');
-                $grid.empty();
-                if (specs && specs.length > 0) {
-                    specs.forEach(s => {
-                        $grid.append(`
-                            <div class="col-lg-4 col-md-6">
-                                <div class="course-card h-100 p-4 shadow-none border bg-white" style="border-radius: var(--radius-md);">
-                                    <div class="mb-3"><span class="badge bg-primary-custom text-white border-0 px-3 py-2 rounded-pill small fw-bold">${s.tag}</span></div>
-                                    <h4 class="fw-bold mb-2 text-dark">${s.title}</h4>
-                                    <div class="small text-secondary mb-3 fw-medium">${s.course_count} Courses · ${s.faculty_count} Faculty</div>
-                                    <p class="small text-secondary mb-0">${s.description || ""}</p>
-                                </div>
-                            </div>
-                        `);
-                    });
+                const { data, error } = await supabase
+                    .from('events')
+                    .select('*')
+                    .order('event_date', { ascending: true });
+                if (error) throw error;
+                allEvents = data || [];
+                $('#events-loading').addClass('d-none');
+                renderFeatured();
+                renderGrid('All');
+            } catch (e) {
+                $('#events-loading').addClass('d-none');
+                $('#events-grid').html(`<div class="col-12 text-center py-5 text-danger small">Failed to load events: ${e.message}</div>`);
+            }
+        }
+        await loadEvents();
+
+        // ════════════════════════════════════════════
+        // FEATURED EVENT
+        // ════════════════════════════════════════════
+        function renderFeatured() {
+            const feat = allEvents.find(e => e.is_featured);
+            if (!feat) return;
+
+            $('#featured-event-wrapper').removeClass('d-none');
+
+            // Populate text
+            const dateStr = feat.event_date
+                ? new Date(feat.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                : '';
+            $('#feat-title').text(feat.title);
+            $('#feat-meta').html(`
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                ${dateStr}${feat.event_time ? ' · ' + feat.event_time : ''}
+                &nbsp;·&nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${feat.location || 'TBD'}
+            `);
+            $('#feat-desc').text(feat.description || '');
+
+            // Seats
+            const rem = feat.seats_remaining ?? feat.seats_total;
+            const total = feat.seats_total;
+            const pct = total > 0 ? Math.round(((total - rem) / total) * 100) : 0;
+            const seatColor = pct >= 90 ? '#dc3545' : pct >= 70 ? '#fd7e14' : 'var(--color-accent)';
+            $('#feat-seats-text').html(rem <= 0
+                ? '<span class="text-danger fw-bold">Fully Booked</span>'
+                : `<span class="fw-bold">${rem}</span> / ${total} seats left`);
+            $('#feat-seat-fill').css({ width: pct + '%', background: seatColor });
+
+            // Register button
+            if (rem <= 0) {
+                $('#feat-register-btn').prop('disabled', true).text('Fully Booked').removeClass('btn-primary-custom').addClass('btn-secondary');
+            } else {
+                $('#feat-register-btn').attr('data-event-id', feat.id).attr('data-event-title', feat.title);
+            }
+
+            // Countdown
+            startCountdown(feat.event_date, feat.event_time);
+        }
+
+        // ════════════════════════════════════════════
+        // COUNTDOWN TIMER
+        // ════════════════════════════════════════════
+        function startCountdown(eventDate, eventTime) {
+            if (!eventDate) return;
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            const timeStr = eventTime || '00:00';
+            const targetStr = `${eventDate}T${convertTo24h(timeStr)}`;
+            const target = new Date(targetStr);
+
+            function tick() {
+                const now = new Date();
+                const diff = target - now;
+                if (diff <= 0) {
+                    clearInterval(countdownInterval);
+                    $('#countdown-wrapper').addClass('d-none');
+                    $('#cd-ended').removeClass('d-none');
+                    return;
                 }
-            } catch (e) { console.error(e); }
+                const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+                $('#cd-days').text(String(days).padStart(2, '0'));
+                $('#cd-hours').text(String(hours).padStart(2, '0'));
+                $('#cd-mins').text(String(mins).padStart(2, '0'));
+                $('#cd-secs').text(String(secs).padStart(2, '0'));
+            }
+            tick();
+            countdownInterval = setInterval(tick, 1000);
+        }
+
+        function convertTo24h(timeStr) {
+            if (!timeStr) return '00:00:00';
+            const m = timeStr.match(/^(\d+):(\d+)\s*(AM|PM)?$/i);
+            if (!m) return '00:00:00';
+            let [, h, min, period] = m;
+            h = parseInt(h);
+            if (period && period.toUpperCase() === 'PM' && h < 12) h += 12;
+            if (period && period.toUpperCase() === 'AM' && h === 12) h = 0;
+            return `${String(h).padStart(2, '0')}:${min}:00`;
+        }
+
+        // ════════════════════════════════════════════
+        // EVENTS GRID
+        // ════════════════════════════════════════════
+        function renderGrid(filter) {
+            const $grid = $('#events-grid');
+            $grid.empty();
+
+            let filtered = filter === 'All' ? allEvents : allEvents.filter(e => e.type === filter);
+            // Exclude featured from grid (it's in the banner)
+            filtered = filtered.filter(e => !e.is_featured);
+
+            if (filtered.length === 0) {
+                $('#events-empty').removeClass('d-none');
+                return;
+            }
+            $('#events-empty').addClass('d-none');
+
+            filtered.forEach(ev => {
+                const dateStr = ev.event_date
+                    ? new Date(ev.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+                    : '—';
+                const rem = ev.seats_remaining ?? ev.seats_total;
+                const total = ev.seats_total;
+                const pct = total > 0 ? Math.round(((total - rem) / total) * 100) : 0;
+                const fillColor = pct >= 90 ? '#dc3545' : pct >= 70 ? '#fd7e14' : 'var(--color-accent)';
+                const full = rem <= 0;
+
+                $grid.append(`
+                    <div class="col-lg-4 col-md-6 event-item" data-type="${ev.type}">
+                        <div class="card event-card h-100 bg-white shadow-sm border border-light p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge border bg-white text-dark fw-semibold px-2 py-1">${ev.type}</span>
+                                <span class="badge text-white fw-bold px-2 py-1" style="background:var(--color-accent);">${dateStr}</span>
+                            </div>
+                            <h3 class="fw-bold fs-5 text-dark mb-2">${ev.title}</h3>
+                            <p class="text-secondary small fw-medium mb-1">📍 ${ev.location || 'TBD'}${ev.event_time ? ' &nbsp;·&nbsp; 🕐 ' + ev.event_time : ''}</p>
+                            <p class="text-secondary small mb-3">${(ev.description || '').substring(0, 110)}${(ev.description || '').length > 110 ? '...' : ''}</p>
+                            <div class="mt-auto">
+                                <!-- Seats left -->
+                                <div class="d-flex justify-content-between align-items-center small mb-1">
+                                    <span class="text-secondary fw-medium">Seats</span>
+                                    <span class="fw-bold ${full ? 'text-danger' : ''}">${full ? 'Fully Booked' : rem + ' left of ' + total}</span>
+                                </div>
+                                <div class="seat-bar mb-3">
+                                    <div class="seat-bar-fill" style="width:${pct}%; background:${fillColor};"></div>
+                                </div>
+                                <button class="btn btn-primary-custom w-100 fw-semibold btn-open-register"
+                                    data-event-id="${ev.id}"
+                                    data-event-title="${ev.title.replace(/"/g, '&quot;')}"
+                                    ${full ? 'disabled' : ''}>
+                                    ${full ? 'Fully Booked' : 'Register Now'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>`);
+            });
+        }
+
+        // ════════════════════════════════════════════
+        // FILTER PILLS
+        // ════════════════════════════════════════════
+        $(document).on('click', '.filter-pill', function () {
+            $('.filter-pill').removeClass('active');
+            $(this).addClass('active');
+            renderGrid($(this).data('filter'));
         });
+
+        // ════════════════════════════════════════════
+        // OPEN REGISTRATION MODAL
+        // ════════════════════════════════════════════
+        function openRegisterModal(eventId, eventTitle) {
+            currentEventId = eventId;
+            currentEventTitle = eventTitle;
+            $('#registerModalLabel').text('Register for Event');
+            $('#registerModalSubtitle').text(currentEventTitle);
+            $('#registerForm').show().trigger('reset');
+            $('#register-success').addClass('d-none');
+            $('#register-error').addClass('d-none');
+            $('#btnSubmitRegister').show().prop('disabled', false).text('Confirm Registration');
+            $('#registerFooter .btn-ghost').text('Cancel');
+            const modal = new bootstrap.Modal(document.getElementById('registerModal'));
+            modal.show();
+        }
+
+        // Featured register button
+        $('#feat-register-btn').on('click', function () {
+            const id = $(this).attr('data-event-id');
+            const title = $(this).attr('data-event-title');
+            if (id) openRegisterModal(id, title);
+        });
+
+        // Grid register buttons
+        $(document).on('click', '.btn-open-register', function () {
+            const id = $(this).attr('data-event-id');
+            const title = $(this).attr('data-event-title');
+            openRegisterModal(id, title);
+        });
+
+        // ════════════════════════════════════════════
+        // SUBMIT REGISTRATION
+        // ════════════════════════════════════════════
+        $('#btnSubmitRegister').on('click', async function () {
+            const name = $('#regName').val().trim();
+            const email = $('#regEmail').val().trim();
+            const studentId = $('#regStudentId').val().trim();
+
+            $('#register-error').addClass('d-none');
+
+            if (!name || !email) {
+                $('#register-error').removeClass('d-none').text('⚠️ Name and Email are required.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                $('#register-error').removeClass('d-none').text('⚠️ Please enter a valid email address.');
+                return;
+            }
+
+            $(this).prop('disabled', true).text('Submitting...');
+
+            try {
+                // Check duplicate
+                const { data: existing } = await supabase
+                    .from('event_registrations')
+                    .select('id')
+                    .eq('event_id', currentEventId)
+                    .eq('student_email', email)
+                    .maybeSingle();
+
+                if (existing) throw new Error('You have already registered for this event.');
+
+                // Insert registration
+                const { error: regErr } = await supabase.from('event_registrations').insert([{
+                    event_id: currentEventId,
+                    event_title: currentEventTitle,
+                    student_name: name,
+                    student_email: email,
+                    student_id: studentId || null
+                }]);
+                if (regErr) throw regErr;
+
+                // Decrement seats
+                const ev = allEvents.find(e => e.id === currentEventId);
+                if (ev && (ev.seats_remaining ?? ev.seats_total) > 0) {
+                    const newRem = (ev.seats_remaining ?? ev.seats_total) - 1;
+                    await supabase.from('events').update({ seats_remaining: newRem }).eq('id', currentEventId);
+                    ev.seats_remaining = newRem; // update local state
+                }
+
+                // Show success
+                $('#registerForm').hide();
+                $('#register-success').removeClass('d-none');
+                $('#btnSubmitRegister').hide();
+                $('#registerFooter .btn-ghost').text('Close');
+
+                // Refresh cards
+                await loadEvents();
+
+            } catch (e) {
+                $('#register-error').removeClass('d-none').text('⚠️ ' + (e.message || 'Registration failed. Please try again.'));
+                $(this).prop('disabled', false).text('Confirm Registration');
+            }
+        });
+    });
     </script>
+
 </body>
 </html>
