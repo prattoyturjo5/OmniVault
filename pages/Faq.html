@@ -23,44 +23,17 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <style>
-        .accordion-omnivault {
-            --bs-accordion-border-width: 0;
-            --bs-accordion-bg: transparent;
-            --bs-accordion-active-bg: var(--color-surface);
-            --bs-accordion-active-color: var(--color-text-primary);
-            --bs-accordion-btn-focus-box-shadow: none;
-        }
-
         .accordion-omnivault .accordion-item {
             background-color: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-md) !important;
             margin-bottom: 16px;
             overflow: hidden;
-            transition: all 0.2s ease;
         }
 
         .accordion-omnivault .accordion-button {
             font-weight: 600;
-            font-size: 16px;
             padding: 24px;
-            color: var(--color-text-primary);
-        }
-
-        .accordion-omnivault .accordion-button:not(.collapsed) {
-            box-shadow: none;
-            color: var(--color-accent);
-            background-color: var(--color-surface);
-        }
-
-        .accordion-omnivault .accordion-button:after {
-            filter: grayscale(1);
-        }
-
-        .accordion-omnivault .accordion-body {
-            padding: 0 24px 24px 24px;
-            color: var(--color-text-secondary);
-            line-height: 1.6;
         }
 
         .search-bar-wrapper {
@@ -81,77 +54,13 @@
             padding-left: 54px;
             height: 60px;
             border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-            font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        }
-
-        .search-bar-wrapper input:focus {
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
         }
     </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand logo" href="../index.html">
-                <span class="logo-dot"
-                    style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span>
-                OmniVault
-            </a>
-            <button class="navbar-toggler border-0" type="button" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./courses.html">Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./faculty.html">Faculty</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./blog.html">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./noticeboard.html">Notice Board</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./events.html">Events</a></li>
-                </ul>
-            </div>
-            <div class="d-none d-lg-flex">
-                <a class="btn btn-ghost ms-2" href="./login.html">Login</a>
-                <a class="btn btn-primary-custom ms-2" href="./register.html">Get Started</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Overlay Menu -->
-    <div class="mobile-menu-overlay"
-        style="display: none; position: fixed; inset: 0; background: rgba(26, 26, 46, 0.98); z-index: 1050;">
-        <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3"
-            style="background: none; border: none; line-height: 1;">&times;</button>
-        <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
-            <a class="nav-link text-white fs-4 my-2" href="../index.html">Home</a>
-            <a class="nav-link text-white fs-4 my-2" href="./about.html">About</a>
-            <a class="nav-link text-white fs-4 my-2" href="./courses.html">Courses</a>
-            <a class="nav-link text-white fs-4 my-2" href="./faculty.html">Faculty</a>
-            <a class="nav-link text-white fs-4 my-2" href="./blog.html">Blog</a>
-            <a class="nav-link text-white fs-4 my-2" href="./noticeboard.html">Notice Board</a>
-            <a class="nav-link text-white fs-4 my-2" href="./events.html">Events</a>
-            <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
-                <a class="btn btn-ghost text-white border-white" href="./login.html">Login</a>
-                <a class="btn btn-primary-custom" href="./register.html">Get Started</a>
-            </div>
-        </div>
-    </div>
-    <style>
-        body.menu-open .mobile-menu-overlay {
-            display: block !important;
-        }
-
-        body.menu-open {
-            overflow: hidden;
-        }
-    </style>
+    <div id="navbar-placeholder"></div>
 
     <main class="flex-shrink-0 pt-5 mt-4">
 
@@ -160,329 +69,68 @@
             <div class="container text-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-3">
-                        <li class="breadcrumb-item"><a href="../index.html"
-                                class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none">Home</a></li>
                         <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">FAQ</li>
                     </ol>
                 </nav>
-                <h1 class="display-4 fw-bold mb-3 text-dark" style="font-family: Playfair Display;">Frequently Asked
-                    Questions</h1>
-                <p class="fs-5 text-secondary">Find answers to your questions about admissions, courses, and campus
-                    life.</p>
+                <h1 class="display-4 fw-bold mb-3 text-dark" style="font-family: Playfair Display;">Frequently Asked Questions</h1>
+                <p class="fs-5 text-secondary">Find answers to your questions about admissions, courses, and campus life.</p>
             </div>
         </section>
 
-        <!-- SECTION 2 — LIVE SEARCH BAR -->
+        <!-- SECTION 2 — SEARCH -->
         <section class="py-5" style="background-color: var(--color-bg); border-bottom: 1px solid var(--color-border);">
             <div class="container">
-                <div class="search-bar-wrapper w-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+                <div class="search-bar-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" class="form-control" id="faq-search" placeholder="Search questions...">
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3 — FAQ ACCORDION -->
+        <!-- SECTION 3 — FAQ -->
         <section class="py-5" style="background-color: var(--color-bg);">
             <div class="container" style="max-width: 800px;">
-
-                <div id="faq-empty-state" class="empty-state d-none text-center py-5">
-                    <h4 class="fw-bold mb-3">No questions match your search.</h4>
-                    <p class="text-secondary">Try adjusting your keywords or contact support for help.</p>
+                <div id="faq-empty-state" class="d-none text-center py-5">
+                    <h4 class="fw-bold mb-3">No results found.</h4>
                 </div>
-
                 <div class="accordion accordion-omnivault" id="faq-accordion">
-
-                    <!-- GROUP 1: Admissions -->
+                    <!-- Admissions -->
                     <div class="faq-group">
                         <h4 class="fw-bold mb-4 mt-4 text-dark" style="font-family: Playfair Display;">Admissions</h4>
-
                         <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingAOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
-                                    <span class="faq-question-text">What are the admission requirements?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseAOne" class="accordion-collapse collapse show"
-                                aria-labelledby="headingAOne" data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Admission requirements vary by department, but generally include a completed
-                                    application form, official high school transcripts (minimum GPA 3.0), letter of
-                                    intent, and standardized test scores if applicable. Specific programs may require
-                                    separate portfolios or entrance essays.
-                                </div>
-                            </div>
+                            <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1"><span class="faq-question-text">What are the admission requirements?</span></button></h2>
+                            <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#faq-accordion"><div class="accordion-body">Minimum GPA 3.0, official transcripts, and letter of intent.</div></div>
                         </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingATwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseATwo" aria-expanded="false" aria-controls="collapseATwo">
-                                    <span class="faq-question-text">When does the application period open?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseATwo" class="accordion-collapse collapse" aria-labelledby="headingATwo"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    The Fall semester application period opens on January 15th and closes on May 1st.
-                                    The Spring semester application period opens on September 1st and closes on November
-                                    15th. Early decision applicants have alternate timelines.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingAThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseAThree" aria-expanded="false"
-                                    aria-controls="collapseAThree">
-                                    <span class="faq-question-text">Is there an entrance exam?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseAThree" class="accordion-collapse collapse" aria-labelledby="headingAThree"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Yes, all students must take a specialized Advanced Mathematics and Programming Logic
-                                    placement exam. Detailed syllabus data for this exam is provided upon registration.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingAFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseAFour" aria-expanded="false" aria-controls="collapseAFour">
-                                    <span class="faq-question-text">Can international students apply?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseAFour" class="accordion-collapse collapse" aria-labelledby="headingAFour"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Absolutely. OmniVault welcomes students globally. International applicants must
-                                    provide proof of English proficiency (TOEFL/IELTS) and translated academic
-                                    credentials vetted by approved review boards.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- GROUP 2: Courses & Enrollment -->
-                    <div class="faq-group">
-                        <h4 class="fw-bold mb-4 mt-5 text-dark" style="font-family: Playfair Display;">Courses &
-                            Enrollment</h4>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingCOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCOne" aria-expanded="false" aria-controls="collapseCOne">
-                                    <span class="faq-question-text">How do I enroll in a course?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseCOne" class="accordion-collapse collapse" aria-labelledby="headingCOne"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    You can enroll directly via the Course Details page on this portal. Simply browse
-                                    our Catalog, select your desired module, and click the 'Enroll' button to begin your
-                                    registration. Ensure you have your Student ID ready.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingCTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCTwo" aria-expanded="false" aria-controls="collapseCTwo">
-                                    <span class="faq-question-text">Can I take courses from different specialization
-                                        tracks?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseCTwo" class="accordion-collapse collapse" aria-labelledby="headingCTwo"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Yes, our flexible curriculum allows you to select up to two elective courses per
-                                    semester from external specializations (like AI or Cybersecurity), provided you
-                                    satisfy the prerequisite logic for those modules.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingCThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCThree" aria-expanded="false"
-                                    aria-controls="collapseCThree">
-                                    <span class="faq-question-text">What is the maximum course load per semester?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseCThree" class="accordion-collapse collapse" aria-labelledby="headingCThree"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Undergraduate students may take a maximum of 18 credits (typically 6 courses) per
-                                    semester. Postgraduate students are capped at 12 credits to ensure dedicated
-                                    research allocation.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingCFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCFour" aria-expanded="false" aria-controls="collapseCFour">
-                                    <span class="faq-question-text">How do I withdraw from a course?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseCFour" class="accordion-collapse collapse" aria-labelledby="headingCFour"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Withdrawals can be requested via the Admin Dashboard up until the 4th week of the
-                                    semester without penalty. Late withdrawals will be recorded as 'W' on your permanent
-                                    transcript.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- GROUP 3: Fees & Scholarships -->
-                    <div class="faq-group">
-                        <h4 class="fw-bold mb-4 mt-5 text-dark" style="font-family: Playfair Display;">Fees &
-                            Scholarships</h4>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingFOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFOne" aria-expanded="false" aria-controls="collapseFOne">
-                                    <span class="faq-question-text">What are the tuition fees?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseFOne" class="accordion-collapse collapse" aria-labelledby="headingFOne"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Tuition varies strictly by the enrolled specialization track and level. On average,
-                                    undergraduate CSE credit hours cost $300, while specialized research lab credits cost
-                                    $450.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingFTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFTwo" aria-expanded="false" aria-controls="collapseFTwo">
-                                    <span class="faq-question-text">Are scholarships available?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseFTwo" class="accordion-collapse collapse" aria-labelledby="headingFTwo"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    Yes. OmniVault offers Merit-Based, Need-Based, and specialized CSE Research
-                                    Fellowships. Funding pools reopen every Spring semester. The application can be
-                                    submitted simultaneously with your admission packet.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item faq-item">
-                            <h2 class="accordion-header" id="headingFThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFThree" aria-expanded="false"
-                                    aria-controls="collapseFThree">
-                                    <span class="faq-question-text">What payment methods are accepted?</span>
-                                </button>
-                            </h2>
-                            <div id="collapseFThree" class="accordion-collapse collapse" aria-labelledby="headingFThree"
-                                data-bs-parent="#faq-accordion">
-                                <div class="accordion-body">
-                                    We securely accept all major structural payment methods including Wire Transfers,
-                                    Credit/Debit cards (Visa, MasterCard), and certified local bank drafts. Installment
-                                    plans are available upon explicit inquiry.
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SECTION 4 — CONTACT CTA BAND -->
-        <section class="py-5 text-center text-white" style="background-color: var(--color-dark-band); padding: 48px 0;">
-            <div class="container py-4">
-                <h2 class="fw-bold mb-3" style="font-family: Playfair Display;">Still have questions?</h2>
-                <p class="fs-5 mb-4 text-white opacity-75">Our team is happy to help you with detailed answers.</p>
-                <a href="./contact.html"
-                    class="btn btn-primary-custom px-5 py-2 fw-semibold border border-accent">Contact Us</a>
             </div>
         </section>
 
     </main>
 
-    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
-    <!-- jQuery CDN -->
+    <!-- Core Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/navbar-loader.js"></script>
     <script src="../js/footer-loader.js"></script>
 
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
-    <script src="../js/utils.js"></script>
-    <script src="../js/main.js"></script>
     <script>
         $(document).ready(function () {
             $('#faq-search').on('keyup', function () {
                 const query = $(this).val().toLowerCase();
-                let visibleCount = 0;
-
                 $('.faq-item').each(function () {
-                    const questionText = $(this).find('.faq-question-text').text().toLowerCase();
-                    if (questionText.indexOf(query) !== -1) {
-                        $(this).show();
-                        visibleCount++;
-                    } else {
-                        $(this).hide();
-                    }
+                    const text = $(this).find('.faq-question-text').text().toLowerCase();
+                    $(this).toggle(text.indexOf(query) !== -1);
                 });
-
-                // Also manage header visibility based on children natively
-                $('.faq-group').each(function () {
-                    const visibleInGroup = $(this).find('.faq-item:visible').length;
-                    if (visibleInGroup === 0) {
-                        $(this).find('h4').hide();
-                    } else {
-                        $(this).find('h4').show();
-                    }
-                });
-
-                if (visibleCount === 0) {
-                    $('#faq-empty-state').removeClass('d-none');
-                } else {
-                    $('#faq-empty-state').addClass('d-none');
-                }
             });
         });
     </script>
 </body>
-
 </html>
-

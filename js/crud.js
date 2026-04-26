@@ -1,246 +1,250 @@
-/*
-  File: crud.js
-  Made by: [Member Name] | ID: [Student ID]
-*/
+// file: js/crud.js
 
 $(document).ready(function () {
+    let currentModule = 'courses';
+    let moduleData = {
+        courses: [],
+        faculty: [],
+        students: [],
+        specializations: []
+    };
 
     // ----------------------------------------------------
-    // INITIALIZATION & STORE
+    // INITIALIZATION & DATA FETCHING
     // ----------------------------------------------------
-
-    let adminCourses = [];
-
-    async function initData() {
+    async function initModuleData(module) {
         try {
-            const { data, error } = await supabase.from('courses').select('*').order('created_at', { ascending: false });
+            const { data, error } = await supabase
+                .from(module)
+                .select('*')
+                .order('created_at', { ascending: false });
+
             if (error) throw error;
-            adminCourses = data || [];
-            renderTable();
+            moduleData[module] = data;
+            renderTable(module);
+            updateModuleCount(module);
         } catch (err) {
-            console.error("Failed to fetch courses from Supabase: ", err);
-            adminCourses = [];
-            renderTable();
+            console.error(`Error fetching ${module}:`, err);
         }
     }
 
-    // ----------------------------------------------------
-    // RENDER LOGIC
-    // ----------------------------------------------------
-    function renderTable(filterText = '') {
-        let courses = adminCourses;
+    function updateModuleCount(module) {
+        $(`#${module}-count`).text(`${moduleData[module].length} items total`);
+    }
 
-        // Filter logic
-        if (filterText) {
-            const query = filterText.toLowerCase();
-            courses = courses.filter(c =>
-                (c.title && c.title.toLowerCase().includes(query)) ||
-                (c.department && c.department.toLowerCase().includes(query))
-            );
-        }
+    // Load initial data
+    initModuleData('courses');
+    initModuleData('faculty');
+    initModuleData('students');
+    initModuleData('specializations');
 
-        const $tbody = $('#courses-tbody');
+    // ----------------------------------------------------
+    // NAVIGATION
+    // ----------------------------------------------------
+    $('.sidebar-link').on('click', function () {
+        const section = $(this).attr('data-section');
+        if (!section) return;
+
+        $('.sidebar-link').removeClass('active');
+        $(this).addClass('active');
+
+        $('.content-section').addClass('d-none');
+        $(`#section-${section}`).removeClass('d-none');
+        currentModule = section;
+    });
+
+    // ----------------------------------------------------
+    // TABLE RENDERING
+    // ----------------------------------------------------
+    function renderTable(module) {
+        const $tbody = $(`#${module}-tbody`);
         $tbody.empty();
 
-        if (courses.length === 0) {
-            $tbody.html(`<tr><td colspan="7" class="text-center py-4 text-secondary">No courses found matching criteria.</td></tr>`);
-            $('#table-count').text(`Showing 0 courses`);
+        if (moduleData[module].length === 0) {
+            $tbody.append(`<tr><td colspan="5" class="text-center py-4">No ${module} records found.</td></tr>`);
             return;
         }
 
-        $('#table-count').text(`Showing ${courses.length} courses`);
-
-        courses.forEach((c, index) => {
-            const deptClass = window.Utils && window.Utils.getDeptClass ? window.Utils.getDeptClass(c.departmentLabel || c.department) : "dept-cs";
-            const rowHtml = `
-                <tr id="row-${c.id}">
-                    <td class="fw-medium text-secondary">${index + 1}</td>
-                    <td class="fw-bold text-dark">${c.title}</td>
-                    <td><span class="badge border bg-white shadow-sm ${deptClass} text-dark fw-medium px-2 py-1">${c.departmentLabel || c.department}</span></td>
-                    <td class="text-secondary">${c.instructor}</td>
-                    <td class="text-secondary">${c.duration || 'N/A'}</td>
-                    <td class="text-secondary fw-semibold">${c.credits || 0}</td>
-                    <td class="text-end">
-                        <button class="btn btn-sm btn-outline-secondary btn-edit me-1" data-id="${c.id}">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger btn-delete" data-id="${c.id}">Delete</button>
-                    </td>
-                </tr>
-            `;
+        moduleData[module].forEach((item, index) => {
+            let rowHtml = '';
+            if (module === 'courses') {
+                rowHtml = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="fw-bold">${item.title}</td>
+                        <td><span class="badge bg-light text-dark border">${item.department}</span></td>
+                        <td>${item.instructor}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="courses">Edit</button>
+                            <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="courses">Delete</button>
+                        </td>
+                    </tr>`;
+            } else if (module === 'faculty') {
+                rowHtml = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="fw-bold">${item.name}</td>
+                        <td>${item.designation}</td>
+                        <td>${item.department}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="faculty">Edit</button>
+                            <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
+                        </td>
+                    </tr>`;
+            } else if (module === 'students') {
+                rowHtml = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="fw-bold">${item.name}</td>
+                        <td>${new Date(item.enrollment_date).toLocaleDateString()}</td>
+                        <td>${item.department}</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="students">Edit</button>
+                            <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="students">Delete</button>
+                        </td>
+                    </tr>`;
+            } else if (module === 'specializations') {
+                rowHtml = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="fw-bold">${item.title}</td>
+                        <td><span class="badge bg-primary-custom text-white border-0">${item.tag}</span></td>
+                        <td class="small text-secondary">${item.course_count} Courses · ${item.faculty_count} Faculty</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="specializations">Edit</button>
+                            <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="specializations">Delete</button>
+                        </td>
+                    </tr>`;
+            }
             $tbody.append(rowHtml);
         });
     }
 
-    // Initialize the engine automatically
-    initData();
+    // ----------------------------------------------------
+    // MODAL OPENING
+    // ----------------------------------------------------
+    $('#btnAddCourse').on('click', () => { $('#courseForm')[0].reset(); $('#courseModal').removeAttr('data-edit-id'); $('#courseModal').modal('show'); });
+    $('#btnAddFaculty').on('click', () => { $('#facultyForm')[0].reset(); $('#facultyModal').removeAttr('data-edit-id'); $('#facultyModal').modal('show'); });
+    $('#btnAddStudent').on('click', () => { $('#studentForm')[0].reset(); $('#studentModal').removeAttr('data-edit-id'); $('#studentModal').modal('show'); });
+    $('#btnAddSpecialization').on('click', () => { $('#specializationForm')[0].reset(); $('#specializationModal').removeAttr('data-edit-id'); $('#specializationModal').modal('show'); });
 
     // ----------------------------------------------------
-    // LIVE SEARCH
-    // ----------------------------------------------------
-    $('#search-admin').on('keyup', function () {
-        const val = $(this).val().trim();
-        renderTable(val);
-    });
-
-    // ----------------------------------------------------
-    // CREATE / ADD NEW FLOW
-    // ----------------------------------------------------
-    $('#btnAddCourse').on('click', function () {
-        // Reset form completely
-        $('#courseForm')[0].reset();
-        $('.form-control, .form-select').removeClass('is-invalid');
-        $('.invalid-feedback').hide();
-
-        // Reset modal headers and attributes
-        $('#courseModalLabel').text('Add New Course');
-        $('#courseModal').removeAttr('data-edit-id');
-
-        $('#courseModal').modal('show');
-    });
-
-    // ----------------------------------------------------
-    // UPDATE FLOW
+    // EDIT HANDLER
     // ----------------------------------------------------
     $(document).on('click', '.btn-edit', function () {
-        const idToEdit = String($(this).attr('data-id'));
+        const id = $(this).attr('data-id');
+        const module = $(this).attr('data-module');
+        const item = moduleData[module].find(i => String(i.id) === String(id));
+        if (!item) return;
 
-        let courses = adminCourses;
-        const course = courses.find(c => String(c.id) === idToEdit);
-
-        if (course) {
-            // Reset state
-            $('#courseForm')[0].reset();
-            $('.form-control, .form-select').removeClass('is-invalid');
-            $('.invalid-feedback').hide();
-
-            // Populate mapping
-            $('#formTitle').val(course.title);
-
-            // Re-align dept codes intelligently
-            const dpt = course.departmentLabel || course.department;
-            let code = "dept-cse";
-            $('#formDept').val(code);
-
-            $('#formInstructor').val(course.instructor);
-            $('#formDuration').val(course.duration);
-            $('#formCredits').val(course.credits);
-            $('#formLevel').val(course.level || 'Undergraduate');
-            $('#formDesc').val(course.description || '');
-
-            $('#courseModalLabel').text('Edit Course');
-            $('#courseModal').attr('data-edit-id', idToEdit);
-
-            $('#courseModal').modal('show');
+        if (module === 'courses') {
+            $('#formTitle').val(item.title);
+            $('#formInstructor').val(item.instructor);
+            $('#formDesc').val(item.description);
+            $('#courseModal').attr('data-edit-id', id).modal('show');
+        } else if (module === 'faculty') {
+            $('#facultyName').val(item.name);
+            $('#facultyDesignation').val(item.designation);
+            $('#facultyEmail').val(item.email);
+            $('#facultyModal').attr('data-edit-id', id).modal('show');
+        } else if (module === 'students') {
+            $('#studentName').val(item.name);
+            $('#studentModal').attr('data-edit-id', id).modal('show');
+        } else if (module === 'specializations') {
+            $('#specTitle').val(item.title);
+            $('#specTag').val(item.tag);
+            $('#specCourses').val(item.course_count);
+            $('#specFaculty').val(item.faculty_count);
+            $('#specDesc').val(item.description);
+            $('#specializationModal').attr('data-edit-id', id).modal('show');
         }
     });
 
     // ----------------------------------------------------
-    // SUBMISSION HANDLER (Supports both Add & Edit natively)
+    // SAVE HANDLERS
     // ----------------------------------------------------
-    $('#courseForm').on('keypress', function(e) {
-        if (e.which === 13 && e.target.tagName !== 'TEXTAREA') {
-            e.preventDefault();
-            $('#btnSaveCourse').click();
-        }
-    });
+    $('#btnSaveSpecialization').on('click', async function () {
+        const title = $('#specTitle').val().trim();
+        const tag = $('#specTag').val().trim();
+        if (!title || !tag) return alert('Title and Tag are required');
 
-    $('#btnSaveCourse').on('click', async function () {
-        let isValid = true;
-
-        // Form properties
-        const fTitle = $('#formTitle').val().trim();
-        const fDept = $('#formDept').val(); // dept code mapping
-        const fInstructor = $('#formInstructor').val().trim();
-        const fDuration = $('#formDuration').val().trim();
-        const fCredits = parseInt($('#formCredits').val().trim(), 10) || 0;
-        const fLevel = $('#formLevel').val();
-        const fDesc = $('#formDesc').val().trim();
-
-        // Standard Resets
-        $('.form-control, .form-select').removeClass('is-invalid');
-
-        // Validation Rules
-        if (!fTitle) { $('#formTitle').addClass('is-invalid'); isValid = false; }
-        if (!fInstructor) { $('#formInstructor').addClass('is-invalid'); isValid = false; }
-        if (fCredits < 1 || fCredits > 6) { $('#formCredits').addClass('is-invalid'); isValid = false; }
-
-        // Label mapped mechanically from coded `<select>` values
-        const deptLabelMap = {
-            'dept-cse': 'Computer Science'
+        const payload = {
+            title,
+            tag,
+            course_count: parseInt($('#specCourses').val()) || 0,
+            faculty_count: parseInt($('#specFaculty').val()) || 0,
+            description: $('#specDesc').val().trim()
         };
 
-        if (isValid) {
-            const editId = $('#courseModal').attr('data-edit-id');
-            const deptLabel = deptLabelMap[fDept] || 'Computer Science';
-
-            // Constructed course object logic
-            const payload = {
-                title: fTitle,
-                department: 'CSE',
-                departmentLabel: deptLabel,
-                instructor: fInstructor,
-                duration: fDuration || 'N/A',
-                credits: fCredits,
-                level: fLevel,
-                description: fDesc
-            };
-
+        const editId = $('#specializationModal').attr('data-edit-id');
+        try {
             if (editId) {
-                // Update specific iteration
-                try {
-                    const { error } = await supabase.from('courses').update(payload).eq('id', editId);
-                    if (error) throw error;
-                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course updated!', 'success');
-                } catch(err) {
-                    console.error('Update error:', err);
-                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Update failed.', 'danger');
-                }
+                const { error } = await supabase.from('specializations').update(payload).eq('id', editId);
+                if (error) throw error;
             } else {
-                // Append logic uniquely
-                payload.id = window.Utils && window.Utils.generateId ? window.Utils.generateId() : 'C-' + Date.now();
-                try {
-                    const { error } = await supabase.from('courses').insert([payload]);
-                    if (error) throw error;
-                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course added successfully!', 'success');
-                } catch(err) {
-                    console.error('Insert error:', err);
-                    if (window.Utils) window.Utils.showAlert('#admin-alert', 'Insert failed.', 'danger');
-                }
+                const { error } = await supabase.from('specializations').insert([payload]);
+                if (error) throw error;
             }
-
-            $('#courseModal').modal('hide');
-            await initData();
+            $('#specializationModal').modal('hide');
+            initModuleData('specializations');
+            if (window.Utils) window.Utils.showAlert('#admin-alert', 'Specialization saved!', 'success');
+        } catch (err) {
+            console.error('Save Spec Error:', err);
         }
     });
 
+    // (Original save handlers for courses, faculty, students remain but condensed in logic)
+    $('#btnSaveCourse').on('click', async function () {
+        const title = $('#formTitle').val().trim();
+        const instructor = $('#formInstructor').val().trim();
+        if (!title || !instructor) return alert('Title and Instructor required');
+        const payload = { title, instructor, department: 'CSE', description: $('#formDesc').val().trim() };
+        const editId = $('#courseModal').attr('data-edit-id');
+        try {
+            if (editId) await supabase.from('courses').update(payload).eq('id', editId);
+            else { payload.id = 'C-' + Date.now(); await supabase.from('courses').insert([payload]); }
+            $('#courseModal').modal('hide'); initModuleData('courses');
+        } catch (e) { console.error(e); }
+    });
+
+    $('#btnSaveFaculty').on('click', async function () {
+        const name = $('#facultyName').val().trim();
+        if (!name) return alert('Name required');
+        const payload = { name, designation: $('#facultyDesignation').val(), email: $('#facultyEmail').val(), department: $('#facultyDept').val() };
+        const editId = $('#facultyModal').attr('data-edit-id');
+        try {
+            if (editId) await supabase.from('faculty').update(payload).eq('id', editId);
+            else await supabase.from('faculty').insert([payload]);
+            $('#facultyModal').modal('hide'); initModuleData('faculty');
+        } catch (e) { console.error(e); }
+    });
+
+    $('#btnSaveStudent').on('click', async function () {
+        const name = $('#studentName').val().trim();
+        if (!name) return alert('Name required');
+        const payload = { name, department: $('#studentDept').val() };
+        const editId = $('#studentModal').attr('data-edit-id');
+        try {
+            if (editId) await supabase.from('students').update(payload).eq('id', editId);
+            else await supabase.from('students').insert([payload]);
+            $('#studentModal').modal('hide'); initModuleData('students');
+        } catch (e) { console.error(e); }
+    });
+
     // ----------------------------------------------------
-    // DELETE FLOW
+    // DELETE HANDLER
     // ----------------------------------------------------
     $(document).on('click', '.btn-delete', function () {
-        const idToDelete = String($(this).attr('data-id'));
-        $('#deleteModal').data('id', idToDelete);
-        $('#deleteModal').modal('show');
+        $('#deleteModal').attr('data-id', $(this).attr('data-id')).attr('data-module', $(this).attr('data-module')).modal('show');
     });
 
     $('#btnConfirmDelete').on('click', async function () {
-        const targetId = String($('#deleteModal').data('id'));
-        
+        const id = $('#deleteModal').attr('data-id');
+        const module = $('#deleteModal').attr('data-module');
         try {
-            const { error } = await supabase.from('courses').delete().eq('id', targetId);
-            if (error) throw error;
-            
+            await supabase.from(module).delete().eq('id', id);
             $('#deleteModal').modal('hide');
-
-            // Animate out natively
-            $(`#row-${targetId}`).fadeOut(300, async function () {
-                $(this).remove();
-                await initData();
-            });
-
-            if (window.Utils) window.Utils.showAlert('#admin-alert', 'Course deleted.', 'success');
-        } catch(err) {
-            console.error('Delete error:', err);
-            if (window.Utils) window.Utils.showAlert('#admin-alert', 'Delete failed.', 'danger');
-        }
+            initModuleData(module);
+        } catch (e) { console.error(e); }
     });
-
 });

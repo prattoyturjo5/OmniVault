@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="row g-4" id="faculty-grid" style="display: none;">
-                    <!-- Faculty cards dynamically mounted here via AJAX -->
+                    <!-- Faculty cards dynamically mounted here -->
                 </div>
 
                 <div id="no-faculty" class="d-none text-center py-5 my-4 bg-white border rounded shadow-sm">
@@ -128,49 +128,44 @@
 
     </main>
 
-    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
-    <!-- jQuery CDN -->
+    <!-- Core Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/navbar-loader.js"></script>
     <script src="../js/footer-loader.js"></script>
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
-    <script src="../js/utils.js"></script>
-    <script src="../js/main.js"></script>
 
     <!-- PAGE LOGIC -->
     <script>
         $(document).ready(function () {
             let facultyData = [];
 
-            // Fetch Data
-            $.getJSON('../data/faculty.json', function (data) {
-                facultyData = data;
-                $('#loading-spinner').hide();
-                $('#faculty-grid').show();
-                renderFaculty('All');
-            }).fail(function () {
-                console.error('Failed to load faculty.json');
-                $('#loading-spinner').hide();
-                $('#no-faculty').removeClass('d-none').find('p').text('Unable to fetch staff data at this time. Please check your connection.');
-            });
+            // Fetch Data from Supabase
+            async function fetchFaculty() {
+                try {
+                    const { data, error } = await supabase
+                        .from('faculty')
+                        .select('*');
+
+                    if (error) throw error;
+                    
+                    facultyData = data;
+                    $('#loading-spinner').hide();
+                    $('#faculty-grid').show();
+                    renderFaculty('All');
+                } catch (err) {
+                    console.error('Failed to load faculty:', err);
+                    $('#loading-spinner').hide();
+                    $('#no-faculty').removeClass('d-none').find('p').text('Unable to fetch staff data at this time.');
+                }
+            }
+
+            fetchFaculty();
 
             // Tab Filtering Event
             $('.nav-pills-custom .nav-link').on('click', function (e) {
@@ -199,23 +194,25 @@
                 }
 
                 filtered.forEach(staff => {
-                    let initial = staff.name.substring(0, 2).toUpperCase();
-                    if (window.Utils) {
+                    let initial = "OM";
+                    if (window.Utils && window.Utils.getInitials) {
                         initial = window.Utils.getInitials(staff.name);
+                    } else {
+                        initial = staff.name.substring(0, 2).toUpperCase();
                     }
 
-                    // Construct standardized fallback map
-                    const deptLower = staff.department.toLowerCase();
+                    const deptLower = (staff.department || 'CSE').toLowerCase();
                     const avatarColor = `var(--dept-${deptLower})`;
+                    const email = staff.email || 'faculty@omnivault.com';
 
-                    // Use Bootstrap 3/2/1 grid classes explicitly
                     const cardHtml = `
-                    <div class="col-lg-4 col-md-6 col-12 faculty-wrapper" data-dept="${staff.department}">
+                    <div class="col-lg-4 col-md-6 col-12 faculty-wrapper" data-dept="${staff.department || 'CSE'}">
                         <div class="course-card faculty-card h-100 p-4 d-flex flex-column border border-light" style="border-radius: var(--radius-md); background: var(--color-surface);">
                             
                             <!-- Header Block -->
                             <div class="d-flex align-items-center gap-3 mb-3">
-                                <div class="initials-avatar avatar-md flex-shrink-0" style="background-color: ${avatarColor}; color: white; display:flex; align-items:center; justify-content:center; border-radius:50%; font-weight:700;">
+                                <div class="initials-avatar flex-shrink-0 d-flex align-items-center justify-content-center text-white fw-bold rounded-circle" 
+                                     style="background-color: ${avatarColor}; width: 48px; height: 48px; font-size: 1.2rem;">
                                     ${initial}
                                 </div>
                                 <div>
@@ -226,24 +223,27 @@
                             
                             <!-- Tags and Meta -->
                             <div class="mb-3">
-                                <span class="dept-tag dept-${deptLower}">${staff.department}</span>
+                                <span class="dept-tag dept-${deptLower}">${staff.department || 'CSE'}</span>
                             </div>
                             
                             <!-- Contact block anchoring bottom -->
                             <div class="mt-auto pt-3 border-top border-light">
-                                <a href="mailto:${staff.email}" class="small text-secondary text-decoration-none d-inline-flex align-items-center gap-2 hover-primary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> ${staff.email}</a>
+                                <a href="mailto:${email}" class="small text-secondary text-decoration-none d-inline-flex align-items-center gap-2 hover-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg> 
+                                    ${email}
+                                </a>
                             </div>
                             
                         </div>
-                    </div>
-                `;
+                    </div>`;
                     $grid.append(cardHtml);
                 });
             }
         });
     </script>
-    <script src="../js/navbar-loader.js"></script>
 </body>
 
 </html>
-

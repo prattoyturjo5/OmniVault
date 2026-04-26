@@ -63,126 +63,6 @@
             background-repeat: no-repeat;
         }
 
-        .bg-biz {
-            background-color: var(--dept-biz);
-        }
-
-        .bg-des {
-            background-color: var(--dept-design);
-        }
-
-        .bg-sci {
-            background-color: var(--dept-sci);
-        }
-
-        .hero-section {
-            min-height: calc(100vh - 76px);
-            display: flex;
-            align-items: center;
-        }
-    </style>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-
-    <div id="navbar-placeholder"></div>
-
-    <main class="flex-shrink-0 pt-5 mt-1">
-        <!-- SECTION 1 — HERO -->
-        <section class="hero-section">
-            <div class="container py-4">
-                <div class="row align-items-center g-5">
-                    <!-- Left Column: 60% -->
-                    <div class="col-lg-7">
-                        <div class="small fw-bold text-uppercase tracking-wide mb-3 d-flex align-items-center gap-2">
-                            <span class="hero-label">Welcome to OmniVault</span>
-                            <span
-                                style="width: 8px; height: 8px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span>
-                        </div>
-                        <h1 class="hero-title display-4 fw-bold mb-4"
-                            style="font-size: 52px; font-family: Playfair Display;">Master the Future. Code Your Path.
-                        </h1>
-                        <p class="fs-5 text-secondary mb-5" style="font-size: 18px; font-family: Inter;">The specialized
-                            portal for Computer Science excellence. Learn from industry-leading tech faculty.</p>
-
-                        <div class="input-group mb-4 shadow-sm" style="max-width: 500px;">
-<!--
-  Page: Home
-  File: index.html
-  Made by: [Prattoy Barua] | ID: [1171]
--->
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniVault - Home</title>
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
-    <!-- Page Specific CSS -->
-    <link rel="stylesheet" href="css/pages/home.css">
-    <style>
-        /* Hero 2x2 Abstract Grid */
-        .hero-abstract-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 16px;
-            height: 100%;
-            min-height: 400px;
-        }
-
-        .hero-tile {
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 24px;
-            color: #fff;
-            opacity: 0.9;
-            transition: transform 0.3s;
-        }
-
-        .hero-tile:hover {
-            transform: translateY(-5px);
-            opacity: 1;
-        }
-
-        .hero-label {
-            font-size: 20px;
-        }
-
-        .bg-cse {
-            background-image: linear-gradient(rgba(53, 88, 114, 0.4), rgba(53, 88, 114, 0.4)), url('https://thumbs.dreamstime.com/b/line-web-concept-computer-science-vector-banner-education-open-path-76284593.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .bg-biz {
-            background-color: var(--dept-biz);
-        }
-
-        .bg-des {
-            background-color: var(--dept-design);
-        }
-
-        .bg-sci {
-            background-color: var(--dept-sci);
-        }
-
         .hero-section {
             min-height: calc(100vh - 76px);
             display: flex;
@@ -221,9 +101,9 @@
                         </div>
 
                         <div class="d-flex flex-wrap gap-4 small text-secondary fw-medium">
-                            <div><span class="me-1">🎓</span> <span id="stat-students-hero">12,000+</span> Students</div>
+                            <div><span class="me-1">🎓</span> <span id="stat-students-hero">0</span> Students</div>
                             <div><span class="me-1">⭐</span> 4.8 Avg Rating</div>
-                            <div><span class="me-1">📚</span> <span id="stat-courses-hero">50+</span> Specialized Core Courses</div>
+                            <div><span class="me-1">📚</span> <span id="stat-courses-hero">0</span> Specialized Core Courses</div>
                         </div>
                     </div>
 
@@ -376,30 +256,22 @@
             </div>
         </section>
 
-        <!-- TESTIMONIALS REMOVED -->
-
     </main>
 
-    <!-- ========== FOOTER (INDEX.HTML) ========== -->
     <div id="footer-placeholder"></div>
 
-    <!-- jQuery CDN -->
+    <!-- Core Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
-    <!-- Core JS -->
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
-    <!-- Page Specific JS -->
     <script src="js/courses.js"></script>
     <script src="js/blog.js"></script>
     <script src="js/xml-parser.js"></script>
     <script src="js/navbar-loader.js"></script>
     <script src="js/footer-loader.js"></script>
-    <!-- Stats Sync -->
     <script src="js/stats.js"></script>
 </body>
 

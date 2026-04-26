@@ -1,7 +1,7 @@
 <!--
-  Page: About
+  Page: About Us
   File: about.html
-  Made by: Prattoy Barua Turja | ID: 1171
+  Made by: [Prattoy] | ID: [1171]
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniVault - About</title>
+    <title>OmniVault - About Our Institution</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -22,322 +22,194 @@
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
-    <!-- Page Specific CSS (optional if not created yet) -->
-    <link rel="stylesheet" href="../css/pages/about.css">
     <style>
-        /* Timeline CSS */
-        .timeline-container {
+        .milestone-list {
             position: relative;
             padding-left: 32px;
+            list-style: none;
         }
 
-        .timeline-container::before {
+        .milestone-list::before {
             content: '';
             position: absolute;
-            left: 11px;
-            top: 6px;
-            bottom: 6px;
+            left: 7px;
+            top: 0;
+            bottom: 0;
             width: 2px;
-            background-color: var(--color-border);
+            background: var(--color-accent-light);
+            border-radius: 2px;
         }
 
-        .timeline-item {
+        .milestone-item {
             position: relative;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-badge {
+        .milestone-dot {
             position: absolute;
             left: -32px;
-            top: 2px;
-            width: 24px;
-            height: 24px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border: 3px solid var(--color-accent);
             border-radius: 50%;
-            background-color: var(--color-accent);
-            border: 4px solid var(--color-surface);
-            z-index: 2;
+            z-index: 1;
         }
 
-        .dept-card {
-            transition: border-color 0.2s ease-in-out;
+        .milestone-item.active .milestone-dot {
+            background: var(--color-accent);
         }
 
-        .dept-card:hover {
-            border-color: var(--color-accent) !important;
+        .milestone-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 2px;
+            color: var(--color-text-primary);
+        }
+
+        .milestone-desc {
+            font-size: 12px;
+            color: var(--color-text-secondary);
         }
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
 
-    <main class="flex-shrink-0 pt-5 mt-1">
+    <main class="flex-shrink-0 pt-5 mt-4">
 
-        <!-- SECTION 1 — PAGE HEADER -->
-        <section class="page-header" style="padding: 80px 0;">
+        <!-- SECTION 1 — HEADER -->
+        <section style="background-color: var(--color-accent-light); padding: 64px 0;">
             <div class="container">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-3 pt-2">
-                        <li class="breadcrumb-item"><a href="../index.html"
-                                class="text-secondary text-decoration-none hover-primary">Home</a></li>
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none">Home</a></li>
                         <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">About</li>
                     </ol>
                 </nav>
-                <h1 class="display-5 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">About OmniVault</h1>
+                <h1 class="display-4 fw-bold mb-2 text-dark" style="font-family: Playfair Display;">About OmniVault</h1>
                 <p class="fs-5 text-secondary">Building tomorrow's leaders since inception.</p>
             </div>
         </section>
 
-        <!-- SECTION 2 — UNIVERSITY STORY -->
-        <section class="py-5 bg-surface">
-            <div class="container pb-4 pt-2">
+        <!-- SECTION 2 — OUR STORY & MILESTONES -->
+        <section class="py-5 bg-white">
+            <div class="container py-4">
                 <div class="row g-5">
-                    <div class="col-lg-7 text-secondary" style="line-height: 1.7;">
-                        <h3 class="fw-bold mb-4 text-dark">Our Story</h3>
-                        <p>In an era where digital clutter often hinders academic performance, OmniVault emerges as the
-                            definitive solution for modern student resource management. We recognized that students are
-                            constantly overwhelmed by fragmented data—lecture slides on one platform, research papers on
-                            another, and deadlines scattered across many more. OmniVault was engineered to serve as a
-                            high-security, centralized "knowledge bank," consolidating every piece of your academic
-                            journey into a single, intuitive interface that prioritizes clarity over chaos.</p>
-                        <p>Through the evolution of the web and the rise of AI, our methodology has stayed ahead of the
-                            curve. We prioritize deep logic, algorithmic efficiency, and scalable system design. By
-                            partnering with Silicon Valley veterans and research pioneers, we ensure our students don't
-                            just use technology—they invent it.</p>
-                        <p>Today, as an exclusively Computer Science dedicated institution, OmniVault provides a
-                            specialized sanctuary where every line of code matters and every algorithm has the power to
-                            change the world.</p>
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">Our Story</h2>
+                        <p class="text-secondary mb-4" style="line-height: 1.8;">In an era where digital clutter often hinders academic performance, OmniVault emerges as the definitive solution for modern student resource management. We recognized that students are constantly overwhelmed by fragmented data—lecture slides on one platform, research papers on another, and deadlines scattered across many more. OmniVault was engineered to serve as a high-security, centralized "knowledge bank," consolidating every piece of your academic journey into a single, intuitive interface that prioritizes clarity over chaos.</p>
+                        <p class="text-secondary mb-4" style="line-height: 1.8;">Through the evolution of the web and the rise of AI, our methodology has stayed ahead of the curve. We prioritize deep logic, algorithmic efficiency, and scalable system design. By partnering with Silicon Valley veterans and research pioneers, we ensure our students don't just use technology—they invent it.</p>
                     </div>
-                    <div class="col-lg-4 offset-lg-1">
-                        <h4 class="fw-bold mb-4 text-dark pt-2">Milestones</h4>
-                        <div class="timeline-container mb-0">
-                            <div class="timeline-item mb-3">
-                                <div class="timeline-badge"></div>
-                                <h6 class="fw-bold mb-1">Phase 1</h6>
-                                <span class="text-secondary small">Project Genesis</span>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-badge"></div>
-                                <h6 class="fw-bold mb-1">Phase 2</h6>
-                                <span class="text-secondary small">Beta Release</span>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-badge"></div>
-                                <h6 class="fw-bold mb-1">Phase 3</h6>
-                                <span class="text-secondary small">Global Expansion</span>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-badge"></div>
-                                <h6 class="fw-bold mb-1">Current</h6>
-                                <span class="text-secondary small">OmniVault v2.0 Excellence</span>
-                            </div>
-                        </div>
+                    <div class="col-lg-4">
+                        <h4 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">Milestones</h4>
+                        <ul class="milestone-list">
+                            <li class="milestone-item">
+                                <div class="milestone-dot"></div>
+                                <div class="milestone-title">Phase 1</div>
+                                <div class="milestone-desc">Project Genesis</div>
+                            </li>
+                            <li class="milestone-item">
+                                <div class="milestone-dot"></div>
+                                <div class="milestone-title">Phase 2</div>
+                                <div class="milestone-desc">Beta Release</div>
+                            </li>
+                            <li class="milestone-item">
+                                <div class="milestone-dot"></div>
+                                <div class="milestone-title">Phase 3</div>
+                                <div class="milestone-desc">Global Expansion</div>
+                            </li>
+                            <li class="milestone-item active">
+                                <div class="milestone-dot"></div>
+                                <div class="milestone-title">Current</div>
+                                <div class="milestone-desc">OmniVault v2.0 Excellence</div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3 — MISSION / VISION / VALUES -->
+        <!-- SECTION 3 — CORE PRINCIPLES -->
         <section class="py-5" style="background-color: var(--color-bg);">
-            <div class="container pb-4 pt-2">
-                <h2 class="mb-4 pb-2 text-dark">Our Principles</h2>
-
-                <div class="accordion border-0" id="principlesAccordion" style="max-width: 800px;">
-                    <!-- Mission -->
-                    <div class="accordion-item shadow-sm border mb-3"
-                        style="border-radius: var(--radius-md); overflow: hidden;">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseMission" aria-expanded="true"
-                                aria-controls="collapseMission">
-                                Mission
-                            </button>
-                        </h2>
-                        <div id="collapseMission" class="accordion-collapse collapse show border-top"
-                            data-bs-parent="#principlesAccordion">
-                            <div class="accordion-body text-secondary bg-white" style="line-height: 1.6;">
-                                Our mission is to democratize high-level academic achievement by providing rigorous,
-                                adaptable, and globally relevant educational frameworks. We strive to empower our
-                                enrolled students with critical thinking tools, technical prowess, and the ethical
-                                foundations necessary to impact their fields directly after certification.
+            <div class="container py-4">
+                <h2 class="fw-bold mb-4 text-dark text-center" style="font-family: Playfair Display;">Core Principles</h2>
+                <div class="d-flex justify-content-center">
+                    <div class="accordion border-0 w-100" id="principlesAccordion" style="max-width: 800px;">
+                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
+                            <h2 class="accordion-header"><button class="accordion-button bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMission">Mission</button></h2>
+                            <div id="collapseMission" class="accordion-collapse collapse show" data-bs-parent="#principlesAccordion">
+                                <div class="accordion-body text-secondary">Our mission is to democratize high-level academic achievement by providing rigorous, adaptable, and globally relevant educational frameworks.</div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Vision -->
-                    <div class="accordion-item shadow-sm border mb-3"
-                        style="border-radius: var(--radius-md); overflow: hidden;">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-white text-dark fw-bold" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseVision" aria-expanded="false"
-                                aria-controls="collapseVision">
-                                Vision
-                            </button>
-                        </h2>
-                        <div id="collapseVision" class="accordion-collapse collapse border-top"
-                            data-bs-parent="#principlesAccordion">
-                            <div class="accordion-body text-secondary bg-white" style="line-height: 1.6;">
-                                To be the leading academic institution that continuously bridges the gap between
-                                conventional pedagogy and forward-thinking industry innovations, establishing OmniVault
-                                as a global benchmark for modern dynamic learning.
+                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVision">Vision</button></h2>
+                            <div id="collapseVision" class="accordion-collapse collapse" data-bs-parent="#principlesAccordion">
+                                <div class="accordion-body text-secondary">To be the leading academic institution that continuously bridges the gap between conventional pedagogy and forward-thinking industry innovations.</div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Core Values -->
-                    <div class="accordion-item shadow-sm border mb-3"
-                        style="border-radius: var(--radius-md); overflow: hidden;">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-white text-dark fw-bold" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseValues" aria-expanded="false"
-                                aria-controls="collapseValues">
-                                Core Values
-                            </button>
-                        </h2>
-                        <div id="collapseValues" class="accordion-collapse collapse border-top"
-                            data-bs-parent="#principlesAccordion">
-                            <div class="accordion-body text-secondary fw-medium bg-white">
-                                <span class="badge border text-dark bg-light px-3 py-2 me-2 mb-2">Integrity</span>
-                                <span class="badge border text-dark bg-light px-3 py-2 me-2 mb-2">Excellence</span>
-                                <span class="badge border text-dark bg-light px-3 py-2 me-2 mb-2">Innovation</span>
-                                <span class="badge border text-dark bg-light px-3 py-2 mb-2">Inclusion</span>
+                        <div class="accordion-item shadow-sm border mb-3" style="border-radius: var(--radius-md); overflow: hidden;">
+                            <h2 class="accordion-header"><button class="accordion-button collapsed bg-white text-dark fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIdea">Core Idea</button></h2>
+                            <div id="collapseIdea" class="accordion-collapse collapse" data-bs-parent="#principlesAccordion">
+                                <div class="accordion-body text-secondary">OmniVault functions as a secure, scalable repository for academic excellence, ensuring that knowledge is not just stored, but actively deployed for student growth.</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- SECTION 4 — DEPARTMENTS GRID -->
+        <!-- SECTION 4 — SPECIALIZATIONS -->
         <section class="py-5 bg-surface">
-            <div class="container pb-4 pt-2">
-                <h2 class="mb-4 pb-2 text-dark">Our Specializations</h2>
-                <div class="row g-4">
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="course-card dept-card h-100 p-4 shadow-none border"
-                            style="border-radius: var(--radius-md);">
-                            <div class="mb-3">
-                                <span class="dept-tag dept-cse">AI & ML</span>
-                            </div>
-                            <h4 class="fw-bold mb-2 text-dark">Artificial Intelligence</h4>
-                            <div class="small text-secondary mb-3 fw-medium">12 Courses · 15 Faculty</div>
-                            <p class="small text-secondary mb-0 flex-grow-1">Pushing the boundaries of neural networks
-                                and autonomous systems.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="course-card dept-card h-100 p-4 shadow-none border"
-                            style="border-radius: var(--radius-md);">
-                            <div class="mb-3">
-                                <span class="dept-tag dept-cse">DevOps</span>
-                            </div>
-                            <h4 class="fw-bold mb-2 text-dark">Software Engineering</h4>
-                            <div class="small text-secondary mb-3 fw-medium">15 Courses · 20 Faculty</div>
-                            <p class="small text-secondary mb-0 flex-grow-1">Building robust, scalable, and secure
-                                cloud-native architectures.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="course-card dept-card h-100 p-4 shadow-none border"
-                            style="border-radius: var(--radius-md);">
-                            <div class="mb-3">
-                                <span class="dept-tag dept-cse">Security</span>
-                            </div>
-                            <h4 class="fw-bold mb-2 text-dark">Cybersecurity</h4>
-                            <div class="small text-secondary mb-3 fw-medium">8 Courses · 10 Faculty</div>
-                            <p class="small text-secondary mb-0 flex-grow-1">Defending global infrastructure against
-                                advanced persistent threats.</p>
-                        </div>
-                    </div>
-
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold text-dark" style="font-family: Playfair Display;">Our Specializations</h2>
                 </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5 — LEADERSHIP TEAM -->
-        <section class="py-5" style="background-color: var(--color-bg);">
-            <div class="container pb-4 pt-2">
-                <h2 class="mb-4 pb-2 text-dark text-center">Leadership</h2>
-                <div class="row g-4 justify-content-center">
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card h-100 p-4 text-center shadow-none border border-light bg-surface"
-                            style="border-radius: var(--radius-md);">
-                            <div class="initials-avatar avatar-lg mx-auto mb-3"
-                                style="background-color: var(--dept-cse); color: white;">AR</div>
-                            <h5 class="fw-bold mb-1 text-dark">S M Nasrul Quadir</h5>
-                            <div class="text-accent small fw-semibold mb-3">Vice Chancellor</div>
-                            <p class="small text-secondary mb-0">Oversees the core strategic trajectory of OmniVault's
-                                digital integration policies.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card h-100 p-4 text-center shadow-none border border-light bg-surface"
-                            style="border-radius: var(--radius-md);">
-                            <div class="initials-avatar avatar-lg mx-auto mb-3"
-                                style="background-color: var(--dept-cse); color: white;">SF</div>
-                            <h5 class="fw-bold mb-1 text-dark">Dr. Shahid Md. Asif Iqbal</h5>
-                            <div class="text-accent small fw-semibold mb-3">Associate Dean</div>
-                            <p class="small text-secondary mb-0">Manages faculty onboarding and standardizes the
-                                demanding syllabus criteria.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card h-100 p-4 text-center shadow-none border border-light bg-surface"
-                            style="border-radius: var(--radius-md);">
-                            <div class="initials-avatar avatar-lg mx-auto mb-3"
-                                style="background-color: var(--dept-cse); color: white;">MI</div>
-                            <h5 class="fw-bold mb-1 text-dark">S M Nasrul Quadir</h5>
-                            <div class="text-accent small fw-semibold mb-3">Chairman of Computer Science Department
-                            </div>
-                            <p class="small text-secondary mb-0">Responsible for maintaining the absolute quality of the
-                                CSE curriculum.</p>
-                        </div>
-                    </div>
-
+                <div class="row g-4" id="specializations-grid">
+                    <!-- Dynamic rendering -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
-    <!-- jQuery CDN -->
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/navbar-loader.js"></script>
     <script src="../js/footer-loader.js"></script>
 
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
-    <script src="../js/utils.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/navbar-loader.js"></script>
+    <script>
+        $(document).ready(async function () {
+            try {
+                const { data: specs } = await supabase.from('specializations').select('*').order('created_at', { ascending: true });
+                const $grid = $('#specializations-grid');
+                $grid.empty();
+                if (specs && specs.length > 0) {
+                    specs.forEach(s => {
+                        $grid.append(`
+                            <div class="col-lg-4 col-md-6">
+                                <div class="course-card h-100 p-4 shadow-none border bg-white" style="border-radius: var(--radius-md);">
+                                    <div class="mb-3"><span class="badge bg-primary-custom text-white border-0 px-3 py-2 rounded-pill small fw-bold">${s.tag}</span></div>
+                                    <h4 class="fw-bold mb-2 text-dark">${s.title}</h4>
+                                    <div class="small text-secondary mb-3 fw-medium">${s.course_count} Courses · ${s.faculty_count} Faculty</div>
+                                    <p class="small text-secondary mb-0">${s.description || ""}</p>
+                                </div>
+                            </div>
+                        `);
+                    });
+                }
+            } catch (e) { console.error(e); }
+        });
+    </script>
 </body>
-
 </html>
-
