@@ -19,6 +19,15 @@ $(document).ready(function() {
         register: isRoot ? 'pages/register.html' : './register.html',
     };
 
+    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
+    const isLoggedIn = studentUser && studentUser.loggedIn;
+
+    const authButtons = isLoggedIn 
+      ? `<a class="btn btn-ghost ms-2" href="${isRoot ? 'pages/dashboard.html' : './dashboard.html'}">Dashboard</a>
+         <button class="btn btn-primary-custom ms-2" id="btnStudentLogout">Logout</button>`
+      : `<a class="btn btn-ghost ms-2" href="${links.login}">Login</a>
+         <a class="btn btn-primary-custom ms-2" href="${links.register}">Get Started</a>`;
+
     const navbarHtml = `
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
@@ -45,8 +54,7 @@ $(document).ready(function() {
         </div>
         
         <div class="d-none d-lg-flex">
-          <a class="btn btn-ghost ms-2" href="${links.login}">Login</a>
-          <a class="btn btn-primary-custom ms-2" href="${links.register}">Get Started</a>
+          ${authButtons}
         </div>
       </div>
     </nav>
@@ -64,8 +72,7 @@ $(document).ready(function() {
         <a class="nav-link text-white fs-4 my-2" href="${links.events}">Events</a>
         <a class="nav-link text-white fs-4 my-2" href="${links.contact}">Contact</a>
         <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
-          <a class="btn btn-ghost text-white border-white" href="${links.login}">Login</a>
-          <a class="btn btn-primary-custom" href="${links.register}">Get Started</a>
+          ${authButtons}
         </div>
       </div>
     </div>
@@ -76,6 +83,12 @@ $(document).ready(function() {
     `;
 
     $('#navbar-placeholder').html(navbarHtml);
+
+    // Logout Handler for Students
+    $('#btnStudentLogout, .btnStudentLogout').on('click', function() {
+        sessionStorage.removeItem('omnivault_user');
+        window.location.href = links.home;
+    });
 
     // Re-run active link logic from main.js if needed or handle it here
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';

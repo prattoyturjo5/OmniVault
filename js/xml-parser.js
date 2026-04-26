@@ -37,10 +37,11 @@ $(document).ready(function () {
           const itemHtml = `
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between border-bottom pb-3 mb-3 border-dark border-opacity-10">
               <div class="mb-2 mb-md-0 d-flex flex-column flex-md-row gap-md-3 align-items-md-center">
-                 <span class="badge bg-white text-dark border py-2 px-3 fw-medium">${dateFormatted}</span>
+                 <span class="badge bg-white text-dark border py-2 px-3 fw-medium" style="min-width: 130px;">${dateFormatted}</span>
                  <strong class="text-dark fs-5 mt-2 mt-md-0">${title}</strong>
               </div>
-              <button class="btn btn-link fw-semibold text-dark text-decoration-none hover-primary text-nowrap p-0 read-notice-btn" 
+              <button class="btn btn-primary-custom px-4 py-2 text-nowrap read-notice-btn" 
+                      style="font-size: 14px; min-width: 100px;"
                       data-title="${title}" 
                       data-body="${safeBody}"
                       data-date="${dateFormatted}"
@@ -165,6 +166,12 @@ $(document).ready(function () {
     }
 
     $('#noticeModalBody').html(contentHtml);
+    
+    // Add direct "Open File" button if there's an image
+    if (image) {
+        const directBtn = `<a href="${image}" target="_blank" class="btn btn-outline-primary w-100 mt-3 fw-bold">Open Full Document / Image ↗</a>`;
+        $('#noticeModalBody').append(directBtn);
+    }
   });
 
   // Category Pill Filtering

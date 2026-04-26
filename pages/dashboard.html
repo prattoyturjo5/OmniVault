@@ -338,38 +338,69 @@
             $('#profName').val(uName);
             $('#profEmail').val(uEmail);
 
-            function renderEnrollments() {
-                let items = [];
+            async function renderEnrollments() {
                 try {
-                    const ls = localStorage.getItem('enrollments');
-                    if (ls) items = JSON.parse(ls);
-                } catch (e) { }
+                    const { data: userItems, error } = await supabase
+                        .from('course_enrollments')
+                        .select('*')
+                        .eq('student_email', uEmail)
+                        .order('created_at', { ascending: false });
 
-                const userItems = items.filter(i => i.email === uEmail);
-                $('#stat-enrollments').text(userItems.length);
+                    if (error) throw error;
 
-                if (userItems.length === 0) {
-                    $('#enrolled-table').addClass('d-none');
-                    $('#enrolled-empty').removeClass('d-none');
-                } else {
-                    $('#enrolled-empty').addClass('d-none');
-                    $('#enrolled-table').removeClass('d-none');
-                    const $tbody = $('#enrolled-tbody');
-                    $tbody.empty();
-                    userItems.forEach(c => {
-                        $tbody.append(`
-                            <tr>
-                                <td><strong>${c.courseTitle}</strong><br><span class="small text-secondary">${c.courseId}</span></td>
-                                <td>${c.department}</td>
-                                <td>${c.instructor}</td>
-                                <td>${new Date(c.enrolledAt).toLocaleDateString()}</td>
-                                <td class="text-end"><button class="btn btn-sm btn-outline-danger btn-unenroll" data-id="${c.courseId}">Unenroll</button></td>
-                            </tr>
-                        `);
-                    });
+                    $('#stat-enrollments').text(userItems.length);
+
+                    if (!userItems || userItems.length === 0) {
+                        $('#enrolled-table').addClass('d-none');
+                        $('#enrolled-empty').removeClass('d-none');
+                    } else {
+                        $('#enrolled-empty').addClass('d-none');
+                        $('#enrolled-table').removeClass('d-none');
+                        const $tbody = $('#enrolled-tbody');
+                        $tbody.empty();
+                        userItems.forEach(c => {
+                            const dateStr = c.created_at ? new Date(c.created_at).toLocaleDateString() : '—';
+                            $tbody.append(`
+                                <tr>
+                                    <td><strong>${c.course_title}</strong><br><span class="small text-secondary">${c.course_id}</span></td>
+                                    <td>CSE</td>
+                                    <td>OmniVault Faculty</td>
+                                    <td>${dateStr}</td>
+                                    <td class="text-end"><button class="btn btn-sm btn-outline-danger btn-unenroll" data-id="${c.course_id}" data-reg-id="${c.id}">Unenroll</button></td>
+                                </tr>
+                            `);
+                        });
+                    }
+                } catch (err) {
+                    console.error('RenderEnrollments error:', err);
                 }
             }
             renderEnrollments();
+
+            // Unenroll Logic
+            $(document).on('click', '.btn-unenroll', async function() {
+                if(!confirm('Are you sure you want to unenroll from this course?')) return;
+                const courseId = $(this).data('id');
+                const regId = $(this).data('reg-id');
+                
+                try {
+                    const { error } = await supabase.from('course_enrollments').delete().eq('id', regId);
+                    if (error) throw error;
+                    
+                    // Decrement enrolled count in courses table
+                    const { data: courseData } = await supabase.from('courses').select('enrolled').eq('id', courseId).single();
+                    if (courseData) {
+                        const newCount = Math.max(0, (courseData.enrolled || 1) - 1);
+                        await supabase.from('courses').update({ enrolled: newCount }).eq('id', courseId);
+                    }
+                    
+                    renderEnrollments();
+                    if(window.Utils) window.Utils.showAlert('#profile-alert', 'Successfully unenrolled.', 'success');
+                } catch (e) {
+                    console.error('Unenroll error:', e);
+                    alert('Failed to unenroll.');
+                }
+            });
 
             $('.sidebar-link').on('click', function (e) {
                 e.preventDefault();

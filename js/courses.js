@@ -21,6 +21,15 @@ $(document).ready(function () {
       if (error) throw error;
       allCourses = data || [];
       renderCourses();
+      
+      // Real-time listener for course seat updates
+      supabase.channel('public:courses')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'courses' }, payload => {
+            console.log('Course change detected:', payload);
+            fetchCourses(); // Simplest way to keep sync
+        })
+        .subscribe();
+        
     } catch (err) {
       console.error("Failed to load courses from Supabase: ", err);
     }
@@ -110,18 +119,34 @@ $(document).ready(function () {
     toShow.forEach(course => {
       // Relative path adjustments
       const linkHref = isHomePage ? `pages/course-detail.html?id=${course.id}` : `./course-detail.html?id=${course.id}`;
+      
+      const enrolled = course.enrolled || 0;
+      const total = course.seats || 50;
+      const perc = (enrolled / total) * 100;
+      const progressColor = perc > 90 ? 'bg-danger' : (perc > 70 ? 'bg-warning' : 'bg-success');
 
       const cardHtml = `
         <div class="col-lg-4 col-md-6 col-12 mb-4">
           <div class="course-card h-100 d-flex flex-column border" style="border-radius: var(--radius-md); background: var(--color-surface); padding: 24px;">
-            <div class="mb-3">
-              <span class="dept-tag dept-${course.department.toLowerCase()}">${course.department}</span>
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <span class="dept-tag dept-${(course.department || 'CSE').toLowerCase()}">${course.department || 'CSE'}</span>
+              <span class="badge bg-light text-dark border small">${course.level || 'UG'}</span>
             </div>
             <h5 class="mb-2 fw-bold text-dark">${course.title}</h5>
-            <p class="text-secondary small mb-3 flex-grow-1">${course.instructor}</p>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-auto">
-              <span class="small text-secondary fw-medium">${course.duration} · ${course.credits} Credits</span>
-              <a href="${linkHref}" class="fw-semibold text-accent text-decoration-none hover-primary text-nowrap">View Course →</a>
+            <p class="text-secondary small mb-3">${course.instructor}</p>
+            
+            <div class="mt-auto pt-3 border-top border-light">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="xsmall text-secondary fw-semibold">AVAILABILITY</span>
+                    <span class="xsmall text-dark fw-bold">${enrolled}/${total} Enrolled</span>
+                </div>
+                <div class="progress mb-3" style="height: 6px; border-radius: 10px; background-color: #eee;">
+                    <div class="progress-bar ${progressColor}" role="progressbar" style="width: ${perc}%" aria-valuenow="${perc}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="small text-secondary fw-medium">${course.duration || '16 Weeks'}</span>
+                  <a href="${linkHref}" class="fw-semibold text-accent text-decoration-none hover-primary text-nowrap">View Course →</a>
+                </div>
             </div>
           </div>
         </div>
