@@ -358,8 +358,8 @@
                             .maybeSingle();
 
                         if (error || !student) {
-                            alert('Could not find student data.');
-                            window.location.href = './login.html';
+                            if(window.Utils) window.Utils.showAlert('', 'Could not find student data.', 'danger');
+                            setTimeout(() => window.location.href = './login.html', 2000);
                             return;
                         }
                         uName = student.name;
@@ -465,7 +465,7 @@
                     if(window.Utils) window.Utils.showAlert('#profile-alert', 'Successfully unenrolled.', 'success');
                 } catch (e) {
                     console.error('Unenroll error:', e);
-                    alert('Failed to unenroll.');
+                    if(window.Utils) window.Utils.showAlert('', 'Failed to unenroll. Please try again.', 'danger');
                 }
             });
 

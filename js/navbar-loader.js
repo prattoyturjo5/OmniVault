@@ -20,13 +20,24 @@ $(document).ready(function() {
     };
 
     const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
-    const isLoggedIn = studentUser && studentUser.loggedIn;
+    const isStudentLoggedIn = studentUser && studentUser.loggedIn;
+    const isAdminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
 
-    const authButtons = isLoggedIn 
-      ? `<a class="btn btn-ghost ms-2" href="${isRoot ? 'pages/dashboard.html' : './dashboard.html'}">Dashboard</a>
-         <button class="btn btn-primary-custom ms-2" id="btnStudentLogout">Logout</button>`
-      : `<a class="btn btn-ghost ms-2" href="${links.login}">Login</a>
-         <a class="btn btn-primary-custom ms-2" href="${links.register}">Get Started</a>`;
+    let authButtons = '';
+    
+    if (isAdminLoggedIn) {
+        authButtons = `
+          <a class="btn btn-ghost ms-2" href="${isRoot ? 'pages/admin.html' : './admin.html'}">Admin Panel</a>
+          <button class="btn btn-primary-custom ms-2" id="btnAdminLogout">Admin Logout</button>`;
+    } else if (isStudentLoggedIn) {
+        authButtons = `
+          <a class="btn btn-ghost ms-2" href="${isRoot ? 'pages/dashboard.html' : './dashboard.html'}">Dashboard</a>
+          <button class="btn btn-primary-custom ms-2" id="btnStudentLogout">Logout</button>`;
+    } else {
+        authButtons = `
+          <a class="btn btn-ghost ms-2" href="${links.login}">Login</a>
+          <a class="btn btn-primary-custom ms-2" href="${links.register}">Get Started</a>`;
+    }
 
     const navbarHtml = `
     <!-- ========== NAVBAR ========== -->
@@ -87,6 +98,12 @@ $(document).ready(function() {
     // Logout Handler for Students
     $('#btnStudentLogout, .btnStudentLogout').on('click', function() {
         sessionStorage.removeItem('omnivault_user');
+        window.location.href = links.home;
+    });
+
+    // Logout Handler for Admins
+    $(document).on('click', '#btnAdminLogout, .btnAdminLogout', function() {
+        sessionStorage.removeItem('adminLoggedIn');
         window.location.href = links.home;
     });
 

@@ -5,15 +5,6 @@ $(document).ready(async function() {
     const isLoginPage = path.includes('login.html');
     const isAdminPage = path.includes('admin.html');
 
-    // Admin Auth Check
-    if (isAdminPage) {
-        document.body.style.display = 'none';
-        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
-            window.location.href = '../index.html';
-        } else {
-            document.body.style.display = 'flex';
-        }
-    }
 
     // Student Auth Check
     if (isLoginPage) {
@@ -69,10 +60,4 @@ $(document).ready(async function() {
         }
     });
 
-    // Admin Logout Handling (from Admin Panel)
-    $('#btnLogout').on('click', function(e) {
-        e.preventDefault();
-        sessionStorage.removeItem('adminLoggedIn');
-        window.location.href = '../index.html';
-    });
 });

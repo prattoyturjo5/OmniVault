@@ -1,13 +1,11 @@
 // file: js/crud.js
 
 function showAdminAlert(msg, type = 'danger') {
-    const icon = type === 'success' ? '✅' : '⚠️';
-    $('#admin-alert').html(`
-        <div class="alert alert-${type} alert-dismissible fade show py-2 px-3 small" role="alert">
-            ${icon} ${msg}
-            <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="alert"></button>
-        </div>`);
-    setTimeout(() => $('#admin-alert .alert').fadeOut(), 5000);
+    if (window.Utils && window.Utils.showAlert) {
+        window.Utils.showAlert('', msg, type);
+    } else {
+        alert(msg);
+    }
 }
 
 $(document).ready(function () {
@@ -262,7 +260,7 @@ $(document).ready(function () {
     $('#btnSaveEvent').on('click', async function () {
         const title = $('#evTitle').val().trim();
         const date = $('#evDate').val();
-        if (!title || !date) return alert('Title and Date are required');
+        if (!title || !date) return showAdminAlert('Title and Date are required.');
 
         const seats = parseInt($('#evSeats').val()) || 50;
         const editId = $('#eventModal').attr('data-edit-id');
@@ -311,7 +309,7 @@ $(document).ready(function () {
     $('#btnSaveCourse').on('click', async function () {
         const title = $('#formTitle').val().trim();
         const instructor = $('#formInstructor').val().trim();
-        if (!title || !instructor) return alert('Title and Instructor required');
+        if (!title || !instructor) return showAdminAlert('Title and Instructor are required.');
         const payload = { title, instructor, department: 'CSE', description: $('#formDesc').val().trim() };
         const editId = $('#courseModal').attr('data-edit-id');
         try {
@@ -326,7 +324,7 @@ $(document).ready(function () {
     // SAVE FACULTY
     $('#btnSaveFaculty').on('click', async function () {
         const name = $('#facultyName').val().trim();
-        if (!name) return alert('Name required');
+        if (!name) return showAdminAlert('Faculty name is required.');
         const payload = { name, designation: $('#facultyDesignation').val(), email: $('#facultyEmail').val(), department: $('#facultyDept').val() };
         const editId = $('#facultyModal').attr('data-edit-id');
         try {
@@ -341,7 +339,7 @@ $(document).ready(function () {
     // SAVE STUDENT
     $('#btnSaveStudent').on('click', async function () {
         const name = $('#studentName').val().trim();
-        if (!name) return alert('Name required');
+        if (!name) return showAdminAlert('Student name is required.');
         const payload = { 
             name, 
             student_id: $('#studentIdField').val().trim(),
@@ -368,7 +366,7 @@ $(document).ready(function () {
     $('#btnSaveSpecialization').on('click', async function () {
         const title = $('#specTitle').val().trim();
         const tag = $('#specTag').val().trim();
-        if (!title || !tag) return alert('Title and Tag required');
+        if (!title || !tag) return showAdminAlert('Title and Tag are required.');
         const payload = { title, tag, course_count: parseInt($('#specCourses').val()) || 0, faculty_count: parseInt($('#specFaculty').val()) || 0, description: $('#specDesc').val().trim() };
         const editId = $('#specializationModal').attr('data-edit-id');
         try {
