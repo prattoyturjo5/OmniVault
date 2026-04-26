@@ -74,6 +74,8 @@ $(document).ready(function () {
           const date = notice.querySelector('date').textContent;
           const category = notice.querySelector('category').textContent;
           const body = notice.querySelector('content').textContent;
+          const imageEl = notice.querySelector('image');
+          const image = imageEl ? imageEl.textContent : '';
           const dateFormatted = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(date) : date;
 
           // Badge styling
@@ -96,6 +98,7 @@ $(document).ready(function () {
                             data-title="${title}" 
                             data-body="${safeBody}"
                             data-date="${dateFormatted}"
+                            data-image="${image}"
                             data-bs-toggle="modal" 
                             data-bs-target="#noticeModal">
                         Read
@@ -121,12 +124,27 @@ $(document).ready(function () {
     const title = $(this).data('title');
     const body = $(this).data('body');
     const date = $(this).data('date');
+    const image = $(this).data('image');
 
     $('#noticeModalLabel').text(title);
-    $('#noticeModalBody').html(`
+    
+    let contentHtml = `
           <p class="text-secondary small fw-bold mb-3">${date}</p>
           <p style="line-height:1.7; color: var(--color-text-secondary);">${body}</p>
-      `);
+    `;
+
+    if (image) {
+      contentHtml += `
+        <div class="mt-4 p-3 border-0" style="background-color: #F7F8F0; border-radius: var(--radius-md);">
+          <div class="mb-2 small fw-bold text-uppercase text-secondary" style="letter-spacing: 1px;">Attachment:</div>
+          <div class="bg-white p-2 border" style="border: 1px solid rgba(53, 88, 114, 0.2) !important; border-radius: var(--radius-sm);">
+            <img src="${image}" alt="Notice Image" class="img-fluid w-100 shadow-sm" style="border-radius: 2px;">
+          </div>
+        </div>
+      `;
+    }
+
+    $('#noticeModalBody').html(contentHtml);
   });
 
   // Category Pill Filtering

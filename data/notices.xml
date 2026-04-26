@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <notices>
     <notice id="n1">
-        <category>Academic</category>
-        <title>Introduction to AI: Midterm Schedule</title>
+        <category>Exam</category>
+        <title>Final Term Examination Schedule</title>
         <date>2026-04-10</date>
-        <content>The midterm examination for CS101: Introduction to Artificial Intelligence will be held on April 25th in Lab 404 from 10:00 AM to 12:00 PM. Please bring your student ID.</content>
+        <content>The Final Term Examination routine has been officially published. Students are advised to check their respective slots and venues carefully. Examination starts from May 15th.</content>
+        <image>../Images/660870746_10242738132328748_6680086928628862274_n.jpg</image>
     </notice>
     <notice id="n2">
         <category>Event</category>
