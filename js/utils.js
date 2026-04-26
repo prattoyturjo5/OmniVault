@@ -39,29 +39,59 @@ window.Utils = {
     return (targetNames[0].charAt(0) + targetNames[targetNames.length - 1].charAt(0)).toUpperCase();
   },
 
-  // Injects Bootstrap alert HTML into container, auto-dismisses after 3s
-  // type: 'success' | 'error'
+  // Global Toast Notification System (replaces inline alerts)
   showAlert: function (containerSelector, message, type) {
-    const bsType = type === 'error' ? 'danger' : 'success';
-    const alertHtml = `
-      <div class="alert alert-${bsType} alert-dismissible fade show" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    let $toastContainer = $('#custom-toast-container');
+    if ($toastContainer.length === 0) {
+      $('body').append('<div id="custom-toast-container" class="toast-container position-fixed top-0 start-50 translate-middle-x p-4 mt-2" style="z-index: 9999;"></div>');
+      $toastContainer = $('#custom-toast-container');
+    }
+
+    let bsType = 'dark';
+    let iconSvg = '';
+    
+    if (type === 'error' || type === 'danger') {
+        bsType = 'danger';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+    } else if (type === 'success') {
+        bsType = 'success';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+    } else {
+        bsType = 'primary';
+        iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+    }
+
+    const toastId = 'toast-' + Date.now();
+    
+    // Injecting customized Toast (modern styling)
+    const toastHtml = `
+      <div id="${toastId}" class="toast align-items-center text-white bg-${bsType} border-0 shadow-lg mb-3" role="alert" aria-live="assertive" aria-atomic="true" style="border-radius: 10px; font-family: 'Inter', sans-serif;">
+        <div class="d-flex">
+          <div class="toast-body fw-medium fs-6 d-flex align-items-center py-3 px-4">
+            ${iconSvg}
+            ${message}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
       </div>
     `;
-    const $container = $(containerSelector);
-    $container.html(alertHtml);
 
-    // Auto dismiss after 3s
-    setTimeout(() => {
-      // Find the specific alert within this container
-      const $alert = $container.find('.alert');
-      if ($alert.length && typeof $alert.alert === 'function') {
-        $alert.alert('close'); // Bootstrap native close function
-      } else {
-        $alert.remove(); // Fallback if Bootstrap JS is not active
-      }
-    }, 3000);
+    $toastContainer.append(toastHtml);
+    const $toastEl = $('#' + toastId);
+    
+    // Initialize bootstrap toast
+    if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+        const newToast = new bootstrap.Toast($toastEl[0], { delay: 3500 });
+        newToast.show();
+        
+        $toastEl.on('hidden.bs.toast', function () {
+            $(this).remove();
+        });
+    } else {
+        // Fallback if bootstrap JS is missing
+        $toastEl.show();
+        setTimeout(() => $toastEl.fadeOut(400, function() { $(this).remove(); }), 3500);
+    }
   },
 
   // Returns Date.now().toString()

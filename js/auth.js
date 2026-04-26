@@ -27,7 +27,7 @@ $(document).ready(async function() {
     $('#studentLoginForm').on('submit', async function(e) {
         e.preventDefault();
         const email = $('#studentEmail').val().trim();
-        const studentId = $('#studentId').val().trim();
+        const password = $('#studentPassword').val().trim();
 
         $('#loginError').addClass('d-none');
         $('#loginBtn').prop('disabled', true).text('Signing in...');
@@ -38,7 +38,7 @@ $(document).ready(async function() {
                 .from('students')
                 .select('*')
                 .eq('email', email)
-                .eq('student_id', studentId)
+                .eq('password', password)
                 .maybeSingle();
 
             if (error) {

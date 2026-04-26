@@ -213,28 +213,22 @@
                 <p class="text-secondary fs-6 mb-4 fw-medium" id="current-date"></p>
 
                 <div class="row g-3 mb-5">
-                    <div class="col-xl-3 col-sm-6">
+                    <div class="col-xl-4 col-sm-12">
                         <div class="stat-card">
                             <div class="stat-value" id="stat-enrollments">0</div>
                             <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Enrolled Courses</div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="stat-card">
-                            <div class="stat-value">2</div>
+                            <div class="stat-value">0</div>
                             <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Completed</div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="stat-card">
-                            <div class="stat-value">1</div>
+                            <div class="stat-value">0</div>
                             <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Certificates</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="stat-card">
-                            <div class="stat-value text-accent">3.75</div>
-                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Current GPA</div>
                         </div>
                     </div>
                 </div>
@@ -244,8 +238,7 @@
                         <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
                             <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Recent Activity</h5>
                             <ul class="list-unstyled activity-list mb-0" id="activityList">
-                                <li><span class="badge bg-light text-dark fw-medium border me-2">Today</span> Viewed Introduction to Computer Science</li>
-                                <li><span class="badge bg-light text-dark fw-medium border me-2">2 Days Ago</span> Enrolled in Advanced AI Architecture</li>
+                                <li class="text-secondary small py-2">No recent activity.</li>
                             </ul>
                         </div>
                     </div>
@@ -277,26 +270,47 @@
             </div>
 
             <div class="content-section container-fluid" id="section-profile">
-                <h2 class="fw-bold mb-4 text-dark" style="font-family: Playfair Display;">My Profile</h2>
-                <div id="profile-alert"></div>
-                <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md); max-width: 600px;">
-                    <form id="profile-form" class="p-4 p-md-5">
+                <div class="mx-auto" style="max-width: 600px;">
+                    <h2 class="fw-bold mb-4 text-dark text-center" style="font-family: Playfair Display;">My Profile</h2>
+                    <div id="profile-alert"></div>
+                    <div class="card bg-white border border-light shadow-sm" style="border-radius: var(--radius-md);">
+                        <form id="profile-form" class="p-4 p-md-5">
                         <div class="mb-4">
                             <label for="profName" class="form-label fw-semibold text-dark">Full Name</label>
-                            <input type="text" class="form-control py-2" id="profName">
+                            <input type="text" class="form-control py-2 bg-light text-secondary" id="profName" readonly>
                         </div>
                         <div class="mb-4">
                             <label for="profEmail" class="form-label fw-semibold text-dark">Email Address</label>
                             <input type="email" class="form-control py-2 bg-light text-secondary" id="profEmail" readonly>
                         </div>
-                        <div class="mb-5">
+                        <div class="mb-4">
                             <label for="profDept" class="form-label fw-semibold text-dark">Department</label>
-                            <select class="form-select py-2" id="profDept">
+                            <select class="form-select py-2 bg-light text-secondary" id="profDept" disabled>
                                 <option value="Computer Science">Computer Science</option>
+                                <option value="CSE">CSE</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold">Save Changes</button>
+
+                        <hr class="my-5 opacity-25">
+                        <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-4">Change Password</h5>
+                        <p class="small text-secondary mb-4">Leave fields blank if you do not wish to change your password.</p>
+                        
+                        <div class="mb-4">
+                            <label for="currentPassword" class="form-label fw-semibold text-dark">Current Password</label>
+                            <input type="password" class="form-control py-2" id="currentPassword" placeholder="Required for confirmation">
+                        </div>
+                        <div class="mb-4">
+                            <label for="newPassword" class="form-label fw-semibold text-dark">New Password</label>
+                            <input type="password" class="form-control py-2" id="newPassword" placeholder="Minimum 6 characters">
+                        </div>
+                        <div class="mb-5">
+                            <label for="confirmNewPassword" class="form-label fw-semibold text-dark">Confirm New Password</label>
+                            <input type="password" class="form-control py-2" id="confirmNewPassword">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-semibold" id="btnSaveProfile">Save Changes</button>
                     </form>
+                </div>
                 </div>
             </div>
         </div>
@@ -335,7 +349,7 @@
                         .from('course_enrollments')
                         .select('*')
                         .eq('student_email', uEmail)
-                        .order('created_at', { ascending: false });
+                        .order('enrolled_at', { ascending: false });
 
                     if (error) throw error;
 
@@ -350,7 +364,7 @@
                         const $tbody = $('#enrolled-tbody');
                         $tbody.empty();
                         userItems.forEach(c => {
-                            const dateStr = c.created_at ? new Date(c.created_at).toLocaleDateString() : '—';
+                            const dateStr = c.enrolled_at ? new Date(c.enrolled_at).toLocaleDateString() : '—';
                             $tbody.append(`
                                 <tr>
                                     <td><strong>${c.course_title}</strong><br><span class="small text-secondary">${c.course_id}</span></td>
@@ -407,6 +421,65 @@
                 e.preventDefault();
                 sessionStorage.removeItem('omnivault_user');
                 window.location.href = './login.html';
+            });
+
+            // Password Change Logic
+            $('#profile-form').on('submit', async function(e) {
+                e.preventDefault();
+                const curPass = $('#currentPassword').val().trim();
+                const newPass = $('#newPassword').val().trim();
+                const confPass = $('#confirmNewPassword').val().trim();
+
+                $('#profile-alert').empty();
+
+                // If user touches any password field
+                if(curPass || newPass || confPass) {
+                    if(!curPass) {
+                        return window.Utils.showAlert('#profile-alert', 'Please provide your current password to make changes.', 'danger');
+                    }
+                    if(newPass.length < 6) {
+                        return window.Utils.showAlert('#profile-alert', 'New password must be at least 6 characters.', 'danger');
+                    }
+                    if(newPass !== confPass) {
+                        return window.Utils.showAlert('#profile-alert', 'New passwords do not match.', 'danger');
+                    }
+
+                    const btn = $('#btnSaveProfile');
+                    btn.prop('disabled', true).text('Saving...');
+
+                    try {
+                        const { data, error } = await supabase
+                            .from('students')
+                            .select('id')
+                            .eq('email', uEmail)
+                            .eq('password', curPass)
+                            .maybeSingle();
+
+                        if (error) throw error;
+                        
+                        if (!data) {
+                            btn.prop('disabled', false).text('Save Changes');
+                            return window.Utils.showAlert('#profile-alert', 'Incorrect current password.', 'danger');
+                        }
+
+                        const { error: updateErr } = await supabase
+                            .from('students')
+                            .update({ password: newPass })
+                            .eq('id', data.id);
+
+                        if (updateErr) throw updateErr;
+
+                        window.Utils.showAlert('#profile-alert', 'Password updated successfully.', 'success');
+                        $('#currentPassword, #newPassword, #confirmNewPassword').val('');
+                    } catch (err) {
+                        console.error('Password change error', err);
+                        window.Utils.showAlert('#profile-alert', 'Failed to change password. Database column may be missing.', 'danger');
+                    } finally {
+                        btn.prop('disabled', false).text('Save Changes');
+                    }
+                } else {
+                    window.Utils.showAlert('#profile-alert', 'Profile is up to date. No changes made.', 'info');
+                }
             });
         });
     </script>

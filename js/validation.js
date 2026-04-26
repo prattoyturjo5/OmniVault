@@ -111,11 +111,12 @@ $(document).ready(function () {
 
         if (isValid) {
             try {
-                // Insert into Supabase 'students' table for global count and admin visibility
+                // Insert into Supabase 'students' table with password
                 const { error: studentErr } = await supabase.from('students').insert([{
                     name: name,
                     student_id: sId,
                     email: email,
+                    password: pass, // Added password to schema
                     department: dept || 'CSE'
                 }]);
 
@@ -138,7 +139,7 @@ $(document).ready(function () {
 
             } catch (err) {
                 console.error('Registration error:', err);
-                alert('Registration failed: ' + (err.message || 'Check database connection'));
+                alert('Registration failed: ' + (err.message || 'Check database connection. Note: Please ensure a password column exists in the students table.'));
             }
         }
     });
