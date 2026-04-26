@@ -1,11 +1,13 @@
 // file: js/stats.js
 
 $(document).ready(function() {
-    // Only run on the home page (where these elements exist)
+    // Only run if stat elements exist
     if ($('#stat-courses-band').length === 0) return;
 
     async function updateStats() {
         try {
+            console.log("Syncing stats with OmniVault Database...");
+
             // 1. Fetch Course Count
             const { count: courseCount, error: courseError } = await supabase
                 .from('courses')
@@ -13,11 +15,10 @@ $(document).ready(function() {
 
             if (courseError) {
                 console.error("Stats Error (Courses):", courseError.message);
-                $('#stat-courses-band').text("Check DB");
+                $('#stat-courses-band, #stat-courses-hero').text("Check DB");
             } else {
-                const displayCount = courseCount || 0;
-                $('#stat-courses-band').text(displayCount + "+");
-                $('#stat-courses-hero').text(displayCount + "+");
+                const val = courseCount || 0;
+                $('#stat-courses-band, #stat-courses-hero').text(val);
             }
 
             // 2. Fetch Faculty Count
@@ -29,7 +30,7 @@ $(document).ready(function() {
                 console.error("Stats Error (Faculty):", facultyError.message);
                 $('#stat-faculty-band').text("Check DB");
             } else {
-                $('#stat-faculty-band').text((facultyCount || 0) + "+");
+                $('#stat-faculty-band').text(facultyCount || 0);
             }
 
             // 3. Fetch Student Count
@@ -39,18 +40,39 @@ $(document).ready(function() {
 
             if (studentError) {
                 console.error("Stats Error (Students):", studentError.message);
-                $('#stat-students-band').text("Check DB");
+                $('#stat-students-band, #stat-students-hero').text("Check DB");
             } else {
-                const formatted = (studentCount || 0).toLocaleString();
-                $('#stat-students-band').text(formatted);
-                $('#stat-students-hero').text(formatted + "+");
+                const val = studentCount || 0;
+                $('#stat-students-band, #stat-students-hero').text(val);
             }
+
+            // 4. Fetch Specialization Count
+            const { count: specCount, error: specError } = await supabase
+                .from('specializations')
+                .select('*', { count: 'exact', head: true });
+            
+            if (!specError && specCount !== null) {
+                if (specCount > 1) {
+                    $('#stat-spec-band').text(specCount + " Fields");
+                } else if (specCount === 1) {
+                    $('#stat-spec-band').text("CSE Only");
+                }
+            }
+
+            console.log(`Live Stats: ${courseCount} Courses, ${facultyCount} Faculty, ${studentCount} Students.`);
 
             if (courseCount === 0 && facultyCount === 0 && studentCount === 0) {
                 console.warn("All stats returned 0. This strongly suggests RLS is blocking the 'anon' role.");
             }
+
+        } catch (err) {
+            console.error("Stats Sync Error:", err);
+        }
     }
 
-    // Initial load
+    // Initial sync
     updateStats();
+
+    // "Real-time" sync: Refresh every 30 seconds
+    setInterval(updateStats, 30000);
 });
