@@ -60,12 +60,24 @@ $(document).ready(function () {
         const $tbody = $(`#${module}-tbody`);
         $tbody.empty();
 
-        if (moduleData[module].length === 0) {
+        let dataToRender = moduleData[module];
+
+        if (module === 'faculty') {
+            const filterDesig = $('#filterDesignation').val();
+            const filterStat = $('#filterStatus').val();
+            const searchVal = $('#searchFaculty').val() ? $('#searchFaculty').val().toLowerCase() : '';
+
+            if (filterDesig) dataToRender = dataToRender.filter(item => item.designation === filterDesig);
+            if (filterStat) dataToRender = dataToRender.filter(item => item.status === filterStat);
+            if (searchVal) dataToRender = dataToRender.filter(item => item.name && item.name.toLowerCase().includes(searchVal));
+        }
+
+        if (dataToRender.length === 0) {
             $tbody.append(`<tr><td colspan="5" class="text-center py-4">No ${module} records found.</td></tr>`);
             return;
         }
 
-        moduleData[module].forEach((item, index) => {
+        dataToRender.forEach((item, index) => {
             let rowHtml = '';
             if (module === 'courses') {
                 rowHtml = `
@@ -85,7 +97,10 @@ $(document).ready(function () {
                         <td>${index + 1}</td>
                         <td class="fw-bold">${item.name}</td>
                         <td>${item.designation}</td>
-                        <td>${item.department}</td>
+                        <td>
+                            <span class="badge ${item.status === 'Active' || !item.status ? 'bg-success' : 'bg-warning text-dark'} me-1 mb-1">${item.status || 'Active'}</span>
+                            ${item.role ? item.role.split(',').map(r => `<span class="badge bg-primary-custom me-1 mb-1">${r.trim()}</span>`).join('') : ''}
+                        </td>
                         <td class="text-end">
                             <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="faculty">Edit</button>
                             <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
@@ -123,6 +138,9 @@ $(document).ready(function () {
     // ----------------------------------------------------
     // MODAL OPENING
     // ----------------------------------------------------
+    $('#filterDesignation, #filterStatus').on('change', () => renderTable('faculty'));
+    $('#searchFaculty').on('input', () => renderTable('faculty'));
+
     $('#btnAddCourse').on('click', () => { $('#courseForm')[0].reset(); $('#courseModal').removeAttr('data-edit-id'); $('#courseModal').modal('show'); });
     $('#btnAddFaculty').on('click', () => { $('#facultyForm')[0].reset(); $('#facultyModal').removeAttr('data-edit-id'); $('#facultyModal').modal('show'); });
     $('#btnAddStudent').on('click', () => { $('#studentForm')[0].reset(); $('#studentModal').removeAttr('data-edit-id'); $('#studentModal').modal('show'); });
@@ -145,6 +163,8 @@ $(document).ready(function () {
         } else if (module === 'faculty') {
             $('#facultyName').val(item.name);
             $('#facultyDesignation').val(item.designation);
+            $('#facultyStatus').val(item.status || 'Active');
+            $('#facultyRole').val(item.role || '');
             $('#facultyEmail').val(item.email);
             $('#facultyModal').attr('data-edit-id', id).modal('show');
         } else if (module === 'students') {
@@ -210,7 +230,7 @@ $(document).ready(function () {
     $('#btnSaveFaculty').on('click', async function () {
         const name = $('#facultyName').val().trim();
         if (!name) return alert('Name required');
-        const payload = { name, designation: $('#facultyDesignation').val(), email: $('#facultyEmail').val(), department: $('#facultyDept').val() };
+        const payload = { name, designation: $('#facultyDesignation').val(), status: $('#facultyStatus').val(), role: $('#facultyRole').val().trim(), email: $('#facultyEmail').val(), department: $('#facultyDept').val() };
         const editId = $('#facultyModal').attr('data-edit-id');
         try {
             if (editId) await supabase.from('faculty').update(payload).eq('id', editId);
