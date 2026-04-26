@@ -329,7 +329,7 @@
                         </div>`);
                 } else {
                     renderFeatured();
-                    renderGrid('All');
+                    renderGrid($('.filter-pill.active').data('filter') || 'All');
                 }
             } catch (e) {
                 console.error("LoadEvents Error:", e);
@@ -354,7 +354,25 @@
                 }
             }
         }
+
+        // Initialize Real-time subscription
+        function initRealtime() {
+            supabase
+                .channel('public:events')
+                .on('postgres_changes', { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'events' 
+                }, payload => {
+                    console.log('Real-time event change detected:', payload);
+                    // Refresh data from server to stay in sync
+                    loadEvents();
+                })
+                .subscribe();
+        }
+
         await loadEvents();
+        initRealtime();
 
 
         // ════════════════════════════════════════════

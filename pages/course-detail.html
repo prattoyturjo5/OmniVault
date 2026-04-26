@@ -280,15 +280,51 @@
                 id = 'cse101';
             }
 
-            const processCourseData = function (courses) {
-                const course = courses.find(c => String(c.id) === String(id));
+            // Fetch Course Data from Supabase
+            async function fetchCourseData() {
+                try {
+                    const { data, error } = await supabase
+                        .from('courses')
+                        .select('*')
+                        .eq('id', id)
+                        .single();
 
-                if (!course) {
+                    if (error) throw error;
+                    if (!data) throw new Error('Course not found');
+
+                    renderCourse(data);
+                    
+                    // Enable Real-time listener for this specific course
+                    supabase
+                        .channel(`course-realtime-${id}`)
+                        .on('postgres_changes', { 
+                            event: 'UPDATE', 
+                            schema: 'public', 
+                            table: 'courses', 
+                            filter: `id=eq.${id}` 
+                        }, payload => {
+                            console.log('Course updated in real-time:', payload.new);
+                            updateSeatsUI(payload.new);
+                        })
+                        .subscribe();
+
+                } catch (err) {
+                    console.error('Fetch error:', err);
                     $('#loading-container').addClass('d-none');
                     $('#error-container').removeClass('d-none');
-                    return;
                 }
+            }
 
+            function updateSeatsUI(course) {
+                const seatsFilled = course.enrolled || 0;
+                const seatsTotal = course.seats || 50; // Default to 50 if missing
+                $('#seats-text').text(`${seatsFilled}/${seatsTotal} enrolled`);
+                let perc = 0;
+                if (seatsTotal > 0) perc = (seatsFilled / seatsTotal) * 100;
+                $('#seats-progress').css('width', `${perc}%`);
+            }
+
+            function renderCourse(course) {
                 // Expose context globally for validation.js
                 window.enrollmentContext = {
                     courseId: course.id,
@@ -301,27 +337,21 @@
                 document.title = "OmniVault - " + course.title;
                 $('#breadcrumb-title').text(course.title);
 
-                const deptLower = course.department.toLowerCase();
-                $('#hero-dept-tag').html(`<span class="dept-tag dept-${deptLower}">${course.department}</span>`);
+                const deptLower = (course.department || 'CSE').toLowerCase();
+                $('#hero-dept-tag').html(`<span class="dept-tag dept-${deptLower}">${course.department || 'CSE'}</span>`);
                 $('#hero-title').text(course.title);
                 $('#hero-instructor').text(`Taught by ${course.instructor}`);
 
-                $('#pill-duration').text(course.duration);
-                $('#pill-credits').text(`${course.credits} Credits`);
-                $('#pill-level').text(course.level);
+                $('#pill-duration').text(course.duration || '16 Weeks');
+                $('#pill-credits').text(`${course.credits || 3} Credits`);
+                $('#pill-level').text(course.level || 'Undergraduate');
                 $('#hero-desc').text(course.description);
 
-                // Setup Progress
-                const seatsFilledText = course.enrolled ? course.enrolled : 0;
-                const seatsTotal = course.seats ? course.seats : 0;
-                $('#seats-text').text(`${seatsFilledText}/${seatsTotal} enrolled`);
-                let perc = 0;
-                if (seatsTotal > 0) perc = (seatsFilledText / seatsTotal) * 100;
-                $('#seats-progress').css('width', `${perc}%`);
+                updateSeatsUI(course);
 
-                $('#info-credits').text(course.credits);
-                $('#info-level').text(course.level);
-                $('#info-duration').text(course.duration);
+                $('#info-credits').text(course.credits || 3);
+                $('#info-level').text(course.level || 'Undergraduate');
+                $('#info-duration').text(course.duration || '16 Weeks');
 
                 $('#enrollModalLabel').text(`Enroll in ${course.title}`);
 
@@ -329,12 +359,11 @@
                 const $syllabusArgs = $('#syllabusAccordion');
                 $syllabusArgs.empty();
                 if (course.syllabus && course.syllabus.length > 0) {
-                    course.syllabus.forEach((item, index) => {
-                        // Expect format "Week 1: Title"
+                    const syllabusArr = Array.isArray(course.syllabus) ? course.syllabus : JSON.parse(course.syllabus);
+                    syllabusArr.forEach((item, index) => {
                         const parts = item.split(':');
                         let title = parts[0];
                         let desc = parts.length > 1 ? parts.slice(1).join(':').trim() : "Details for this module.";
-
                         const openClass = index === 0 ? 'show' : '';
                         const btnClass = index === 0 ? '' : 'collapsed';
 
@@ -357,75 +386,72 @@
                     $syllabusArgs.html('<p class="text-secondary mb-0">Syllabus details coming soon.</p>');
                 }
 
-                // Sync with Faculty
-                $.getJSON('../data/faculty.json', function (faculty) {
-                    // Approximate match by name string
-                    const matchName = course.instructor.replace(/Dr\.|Prof\.|Mr\.|Ms\./g, '').trim();
-                    const matchedProf = faculty.find(f => f.name.includes(matchName));
-
-                    if (matchedProf) {
-                        $('#inst-name').text(matchedProf.name);
-                        $('#inst-dept').text(matchedProf.designation + ' - ' + matchedProf.department);
-                        $('#inst-bio').text(matchedProf.bio);
-                        if (window.Utils) {
-                            $('#inst-avatar').text(window.Utils.getInitials(matchedProf.name));
-                            $('#inst-avatar').css('background-color', `var(--dept-${deptLower})`); // fallback logic could use matchedProf.department style map as well
-                        }
-                    } else {
-                        $('#inst-bio').text('A leading expert in their respective field committed to academic excellence.');
-                        if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor)).css('background-color', `var(--dept-${deptLower})`);
-                    }
-                }).fail(function () {
-                    if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(course.instructor));
-                });
-
-                // Related Courses
-                const $related = $('#related-courses');
-                $related.empty();
-                const relatedOpts = courses.filter(c => c.department === course.department && c.id !== course.id);
-                const loadRelated = relatedOpts.slice(0, 3);
-
-                if (loadRelated.length === 0) {
-                    $related.html('<div class="col-12"><p class="text-secondary">No other specific courses in this department at this time.</p></div>');
-                } else {
-                    loadRelated.forEach(rc => {
-                        const linkHref = `./course-detail.html?id=${rc.id}`;
-                        $related.append(`
-                        <div class="col-lg-4 col-md-6 col-12 mb-4">
-                          <div class="course-card h-100 d-flex flex-column border" style="border-radius: var(--radius-md); background: var(--color-surface); padding: 24px;">
-                            <div class="mb-3">
-                              <span class="dept-tag dept-${rc.department.toLowerCase()}">${rc.department}</span>
-                            </div>
-                            <h5 class="mb-2 fw-bold text-dark">${rc.title}</h5>
-                            <p class="text-secondary small mb-3 flex-grow-1">${rc.instructor}</p>
-                            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-auto">
-                              <span class="small text-secondary fw-medium">${rc.duration} · ${rc.credits} Credits</span>
-                              <a href="${linkHref}" class="fw-semibold text-accent text-decoration-none hover-primary text-nowrap">View Course →</a>
-                            </div>
-                          </div>
-                        </div>
-                      `);
-                    });
-                }
-
                 // Reveal UI
                 $('#loading-container').addClass('d-none');
                 $('#course-content-container').removeClass('d-none');
-
-            };
-
-            const storedAdminCourses = localStorage.getItem('adminCourses');
-            if (storedAdminCourses) {
-                processCourseData(JSON.parse(storedAdminCourses));
-            } else {
-                $.getJSON('../data/courses.json', function (courses) {
-                    localStorage.setItem('adminCourses', JSON.stringify(courses));
-                    processCourseData(courses);
-                }).fail(function () {
-                    $('#loading-container').addClass('d-none');
-                    $('#error-container').removeClass('d-none');
-                });
+                
+                // Fetch Instructor info
+                fetchInstructor(course.instructor, deptLower);
+                
+                // Fetch Related
+                fetchRelated(course.department, course.id);
             }
+
+            async function fetchInstructor(name, deptLower) {
+                try {
+                    // Try to find in Supabase faculty table
+                    const { data } = await supabase.from('faculty').select('*').ilike('name', `%${name.replace(/Dr\.|Prof\.|Mr\.|Ms\./g, '').trim()}%`).maybeSingle();
+                    
+                    if (data) {
+                        $('#inst-name').text(data.name);
+                        $('#inst-dept').text(data.designation + ' - ' + data.department);
+                        $('#inst-bio').text(data.bio || 'A leading expert in their respective field committed to academic excellence.');
+                        if (window.Utils) {
+                            $('#inst-avatar').text(window.Utils.getInitials(data.name));
+                            $('#inst-avatar').css('background-color', `var(--dept-${deptLower})`);
+                        }
+                    } else {
+                        throw new Error('Not found');
+                    }
+                } catch (e) {
+                    $('#inst-bio').text('A leading expert in their respective field committed to academic excellence.');
+                    if (window.Utils) $('#inst-avatar').text(window.Utils.getInitials(name)).css('background-color', `var(--dept-${deptLower})`);
+                }
+            }
+
+            async function fetchRelated(dept, currentId) {
+                try {
+                    const { data } = await supabase.from('courses').select('*').eq('department', dept).neq('id', currentId).limit(3);
+                    const $related = $('#related-courses');
+                    $related.empty();
+                    
+                    if (!data || data.length === 0) {
+                        $related.html('<div class="col-12"><p class="text-secondary">No other specific courses in this department at this time.</p></div>');
+                    } else {
+                        data.forEach(rc => {
+                            $related.append(`
+                                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                  <div class="course-card h-100 d-flex flex-column border" style="border-radius: var(--radius-md); background: var(--color-surface); padding: 24px;">
+                                    <div class="mb-3">
+                                      <span class="dept-tag dept-${(rc.department || 'CSE').toLowerCase()}">${rc.department || 'CSE'}</span>
+                                    </div>
+                                    <h5 class="mb-2 fw-bold text-dark">${rc.title}</h5>
+                                    <p class="text-secondary small mb-3 flex-grow-1">${rc.instructor}</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-auto">
+                                      <span class="small text-secondary fw-medium">${rc.duration || '16 Weeks'} · ${rc.credits || 3} Credits</span>
+                                      <a href="./course-detail.html?id=${rc.id}" class="fw-semibold text-accent text-decoration-none hover-primary text-nowrap">View Course →</a>
+                                    </div>
+                                  </div>
+                                </div>
+                            `);
+                        });
+                    }
+                } catch (e) {
+                    console.error('Related fetch error:', e);
+                }
+            }
+
+            fetchCourseData();
 
         });
     </script>

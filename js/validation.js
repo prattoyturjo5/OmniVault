@@ -30,17 +30,31 @@ $(document).ready(function () {
                     .from('course_enrollments')
                     .select('id')
                     .eq('course_id', courseId)
-                    .eq('student_id', studentId)
+                    .eq('student_email', email) // Check by email instead of studentId for better auth match
                     .maybeSingle();
 
                 if (existing) {
-                    $('#enrollStudentId').addClass('is-invalid');
-                    $('#enrollStudentIdErr').text('Already enrolled in this course.').show();
+                    $('#enrollEmail').addClass('is-invalid');
+                    $('#enrollEmailErr').text('Already enrolled in this course.').show();
+                    return;
+                }
+
+                // Verify seat availability first
+                const { data: courseData, error: fetchErr } = await supabase
+                    .from('courses')
+                    .select('enrolled, seats')
+                    .eq('id', courseId)
+                    .single();
+                
+                if (fetchErr) throw fetchErr;
+
+                if (courseData.enrolled >= courseData.seats) {
+                    alert('Sorry, this course is currently full.');
                     return;
                 }
 
                 // Insert into Supabase
-                const { error } = await supabase.from('course_enrollments').insert([{
+                const { error: insErr } = await supabase.from('course_enrollments').insert([{
                     course_id: courseId,
                     course_title: courseTitle,
                     student_id: studentId,
@@ -48,7 +62,11 @@ $(document).ready(function () {
                     student_email: email
                 }]);
 
-                if (error) throw error;
+                if (insErr) throw insErr;
+
+                // Increment enrollment count
+                const newCount = (courseData.enrolled || 0) + 1;
+                await supabase.from('courses').update({ enrolled: newCount }).eq('id', courseId);
 
                 // Success UI
                 $('#enrollFormContainer').hide();
@@ -63,7 +81,7 @@ $(document).ready(function () {
 
             } catch (err) {
                 console.error('Enrollment error:', err);
-                alert('Failed to process enrollment. Please try again.');
+                alert('Failed to process enrollment: ' + (err.message || 'Unknown error'));
             }
         }
     });
@@ -93,24 +111,34 @@ $(document).ready(function () {
 
         if (isValid) {
             try {
-                // In a real app, you'd use supabase.auth.signUp
-                // For this project, we'll also record them in our 'students' table for the counter
+                // Insert into Supabase 'students' table for global count and admin visibility
                 const { error: studentErr } = await supabase.from('students').insert([{
                     name: name,
+                    student_id: sId,
+                    email: email,
                     department: dept || 'CSE'
                 }]);
 
                 if (studentErr) throw studentErr;
 
-                // Also store locally for mock login session if needed
-                localStorage.setItem('last_registered_email', email);
+                // Create student session for dashboard.html
+                const userData = {
+                    name: name,
+                    email: email,
+                    studentId: sId,
+                    department: dept || 'CSE',
+                    loggedIn: true
+                };
+                sessionStorage.setItem('omnivault_user', JSON.stringify(userData));
 
-                if (window.Utils) window.Utils.showAlert('#reg-alert', 'Account created! Redirecting...', 'success');
-                setTimeout(() => window.location.href = './login.html', 1500);
+                if (window.Utils) window.Utils.showAlert('#reg-alert', 'Account created! Welcome to OmniVault.', 'success');
+                
+                // Redirect to Dashboard instead of Login/Admin
+                setTimeout(() => window.location.href = './dashboard.html', 1500);
 
             } catch (err) {
                 console.error('Registration error:', err);
-                alert('Registration failed.');
+                alert('Registration failed: ' + (err.message || 'Check database connection'));
             }
         }
     });

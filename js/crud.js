@@ -40,11 +40,23 @@ $(document).ready(function () {
     }
 
     // Load all modules on startup
-    initModuleData('courses');
-    initModuleData('faculty');
-    initModuleData('students');
-    initModuleData('events');
-    initModuleData('specializations');
+    const modules = ['courses', 'faculty', 'students', 'events', 'specializations'];
+    modules.forEach(m => initModuleData(m));
+
+    // Initialize Real-time for all modules
+    function initRealtime() {
+        supabase
+            .channel('admin-realtime')
+            .on('postgres_changes', { event: '*', schema: 'public' }, payload => {
+                console.log('Admin detected change:', payload);
+                const table = payload.table;
+                if (modules.includes(table)) {
+                    initModuleData(table); // Refresh the specific table
+                }
+            })
+            .subscribe();
+    }
+    initRealtime();
 
     // ────────────────────────────────────────────
     // SIDEBAR NAVIGATION
@@ -94,16 +106,17 @@ $(document).ready(function () {
                         <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
                     </td></tr>`;
             } else if (module === 'students') {
-                const d = item.enrollment_date ? new Date(item.enrollment_date).toLocaleDateString() : '—';
                 row = `<tr>
                     <td>${i + 1}</td>
                     <td class="fw-semibold">${item.name}</td>
-                    <td>${d}</td>
-                    <td>${item.department || '—'}</td>
+                    <td><code class="small text-accent">${item.student_id || '—'}</code></td>
+                    <td class="small text-secondary">${item.email || '—'}</td>
+                    <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
                     <td class="text-end">
                         <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="students">Edit</button>
                         <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="students">Delete</button>
-                    </td></tr>`;
+                    </td>
+                </tr>`;
             } else if (module === 'events') {
                 const date = item.event_date ? new Date(item.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
                 const filled = item.seats_total - (item.seats_remaining ?? item.seats_total);
@@ -179,6 +192,8 @@ $(document).ready(function () {
             $('#facultyModal').attr('data-edit-id', id).modal('show');
         } else if (module === 'students') {
             $('#studentName').val(item.name);
+            $('#studentIdField').val(item.student_id);
+            $('#studentEmail').val(item.email);
             $('#studentDept').val(item.department);
             $('#studentModal').attr('data-edit-id', id).modal('show');
         } else if (module === 'events') {
@@ -323,14 +338,25 @@ $(document).ready(function () {
     $('#btnSaveStudent').on('click', async function () {
         const name = $('#studentName').val().trim();
         if (!name) return alert('Name required');
-        const payload = { name, department: $('#studentDept').val() };
+        const payload = { 
+            name, 
+            student_id: $('#studentIdField').val().trim(),
+            email: $('#studentEmail').val().trim(),
+            department: $('#studentDept').val() 
+        };
         const editId = $('#studentModal').attr('data-edit-id');
         try {
-            if (editId) { const { error } = await supabase.from('students').update(payload).eq('id', editId); if (error) throw error; }
-            else { const { error } = await supabase.from('students').insert([payload]); if (error) throw error; }
+            if (editId) { 
+                const { error } = await supabase.from('students').update(payload).eq('id', editId); 
+                if (error) throw error; 
+            }
+            else { 
+                const { error } = await supabase.from('students').insert([payload]); 
+                if (error) throw error; 
+            }
             $('#studentModal').modal('hide');
             initModuleData('students');
-            showAdminAlert('Student saved!', 'success');
+            showAdminAlert('Student record saved!', 'success');
         } catch (e) { console.error(e); showAdminAlert('Save failed: ' + e.message); }
     });
 
