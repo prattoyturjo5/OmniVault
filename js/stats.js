@@ -11,8 +11,11 @@ $(document).ready(function() {
                 .from('courses')
                 .select('*', { count: 'exact', head: true });
 
-            if (!courseError) {
-                const displayCount = courseCount > 0 ? courseCount : 0;
+            if (courseError) {
+                console.error("Stats Error (Courses):", courseError.message);
+                $('#stat-courses-band').text("Check DB");
+            } else {
+                const displayCount = courseCount || 0;
                 $('#stat-courses-band').text(displayCount + "+");
                 $('#stat-courses-hero').text(displayCount + "+");
             }
@@ -22,13 +25,11 @@ $(document).ready(function() {
                 .from('faculty')
                 .select('*', { count: 'exact', head: true });
 
-            if (!facultyError) {
-                // If we have very few real rows but want to keep the "vibe", 
-                // we can either show real or real + offset. 
-                // For a "real" sync, we show real.
-                $('#stat-faculty-band').text((facultyCount || 0) + "+");
+            if (facultyError) {
+                console.error("Stats Error (Faculty):", facultyError.message);
+                $('#stat-faculty-band').text("Check DB");
             } else {
-                console.warn("Faculty table might not exist yet. Run stats_setup.sql");
+                $('#stat-faculty-band').text((facultyCount || 0) + "+");
             }
 
             // 3. Fetch Student Count
@@ -36,18 +37,18 @@ $(document).ready(function() {
                 .from('students')
                 .select('*', { count: 'exact', head: true });
 
-            if (!studentError) {
-                // Formatting large numbers with commas
+            if (studentError) {
+                console.error("Stats Error (Students):", studentError.message);
+                $('#stat-students-band').text("Check DB");
+            } else {
                 const formatted = (studentCount || 0).toLocaleString();
                 $('#stat-students-band').text(formatted);
                 $('#stat-students-hero').text(formatted + "+");
-            } else {
-                console.warn("Students table might not exist yet. Run stats_setup.sql");
             }
 
-        } catch (err) {
-            console.error("Error fetching stats:", err);
-        }
+            if (courseCount === 0 && facultyCount === 0 && studentCount === 0) {
+                console.warn("All stats returned 0. This strongly suggests RLS is blocking the 'anon' role.");
+            }
     }
 
     // Initial load
