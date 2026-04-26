@@ -319,11 +319,24 @@
 
             function updateSeatsUI(course) {
                 const seatsFilled = course.enrolled || 0;
-                const seatsTotal = course.seats || 50; // Default to 50 if missing
-                $('#seats-text').text(`${seatsFilled}/${seatsTotal} enrolled`);
+                const seatsTotal = course.seats || 50; 
+                const remaining = Math.max(0, seatsTotal - seatsFilled);
+                
+                $('#seats-text').html(`
+                    <span class="fw-bold text-dark">${seatsFilled}/${seatsTotal}</span> enrolled 
+                    <span class="mx-2 text-muted">|</span> 
+                    <span class="badge ${remaining > 5 ? 'bg-light text-success' : 'bg-danger text-white'} border">
+                        ${remaining} Seats Remaining
+                    </span>
+                `);
+
                 let perc = 0;
                 if (seatsTotal > 0) perc = (seatsFilled / seatsTotal) * 100;
                 $('#seats-progress').css('width', `${perc}%`);
+                
+                // Set progress bar color based on fullness
+                if (perc >= 90) $('#seats-progress').addClass('bg-danger').removeClass('bg-primary');
+                else $('#seats-progress').addClass('bg-primary').removeClass('bg-danger');
             }
 
             function renderCourse(course) {

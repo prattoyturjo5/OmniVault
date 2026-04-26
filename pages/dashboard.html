@@ -142,8 +142,11 @@
 
     <!-- AUTH GUARD -->
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdminView = urlParams.has('view_email');
         const activeUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
-        if (!activeUser || !activeUser.loggedIn) {
+        
+        if (!isAdminView && (!activeUser || !activeUser.loggedIn)) {
             window.location.href = './login.html';
         }
     </script>
@@ -294,6 +297,14 @@
                         </div>
 
                         <hr class="my-5 opacity-25">
+                        
+                        <!-- Admin-only Password View -->
+                        <div id="admin-pass-view" class="mb-4 d-none">
+                            <label for="profPass" class="form-label fw-semibold text-accent">Student Password (Admin Only)</label>
+                            <input type="text" class="form-control py-2 bg-light border-accent text-dark fw-bold" id="profPass" readonly>
+                            <p class="small text-accent mt-1">This field is only visible to administrators.</p>
+                        </div>
+
                         <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-4">Change Password</h5>
                         <p class="small text-secondary mb-4">Leave fields blank if you do not wish to change your password.</p>
                         
@@ -330,20 +341,64 @@
 
     <script>
         $(document).ready(function () {
-            const user = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
-            const uName = user.name || "Student User";
-            const uDept = user.department || "CSE";
-            const uEmail = user.email || "user@omnivault.edu";
+            // Check for View Mode (Admin Access)
+            const urlParams = new URLSearchParams(window.location.search);
+            const viewEmail = urlParams.get('view_email');
+            const isAdminView = !!viewEmail;
 
-            const initial = window.Utils && window.Utils.getInitials ? window.Utils.getInitials(uName) : uName.substring(0, 2).toUpperCase();
-            $('#dash-avatar').text(initial);
-            $('#dash-name').text(uName);
-            $('#dash-dept').text(uDept);
-            $('#welcome-msg').text(`Welcome, ${uName}! 👋`);
-            $('#current-date').text(new Date().toLocaleDateString());
+            let uName, uDept, uEmail;
 
-            $('#profName').val(uName);
-            $('#profEmail').val(uEmail);
+            async function initDashboard() {
+                if (isAdminView) {
+                    try {
+                        const { data: student, error } = await supabase
+                            .from('students')
+                            .select('name, department, email, password')
+                            .eq('email', viewEmail)
+                            .maybeSingle();
+
+                        if (error || !student) {
+                            alert('Could not find student data.');
+                            window.location.href = './login.html';
+                            return;
+                        }
+                        uName = student.name;
+                        uDept = student.department || 'CSE';
+                        uEmail = student.email;
+                        const uPass = student.password || '—';
+
+                        // UI Adjustments for Admin View
+                        $('#admin-pass-view').removeClass('d-none');
+                        $('#profPass').val(uPass);
+
+                        // UI Adjustments for Admin View
+                        $('#btnLogout').parent().hide(); // Hide Logout sidebar link
+                        $('#btnSaveProfile').hide();     // Hide Save Changes button
+                        $('#welcome-msg').html(`<span class="badge bg-primary mb-2">Admin View</span><br>Profile: ${uName}`);
+                        $('#profDept').attr('disabled', true);
+                    } catch (e) {
+                        console.error('Admin Init error:', e);
+                    }
+                } else {
+                    const user = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+                    uName = user.name || "Student User";
+                    uDept = user.department || "CSE";
+                    uEmail = user.email || "user@omnivault.edu";
+                    $('#welcome-msg').text(`Welcome, ${uName}! 👋`);
+                }
+
+                const initial = window.Utils && window.Utils.getInitials ? window.Utils.getInitials(uName) : uName.substring(0, 2).toUpperCase();
+                $('#dash-avatar').text(initial);
+                $('#dash-name').text(uName);
+                $('#dash-dept').text(uDept);
+                $('#current-date').text(new Date().toLocaleDateString());
+
+                $('#profName').val(uName);
+                $('#profEmail').val(uEmail);
+                $('#profDept').val(uDept === 'CSE' ? 'CSE' : 'Computer Science');
+
+                renderEnrollments();
+            }
 
             async function renderEnrollments() {
                 try {
@@ -367,13 +422,17 @@
                         $tbody.empty();
                         userItems.forEach(c => {
                             const dateStr = c.enrolled_at ? new Date(c.enrolled_at).toLocaleDateString() : '—';
+                            const actionBtn = isAdminView 
+                                ? `<span class="badge bg-light text-secondary border">View Only</span>`
+                                : `<button class="btn btn-sm btn-outline-danger btn-unenroll" data-id="${c.course_id}" data-reg-id="${c.id}">Unenroll</button>`;
+                            
                             $tbody.append(`
                                 <tr>
                                     <td><strong>${c.course_title}</strong><br><span class="small text-secondary">${c.course_id}</span></td>
                                     <td>CSE</td>
                                     <td>OmniVault Faculty</td>
                                     <td>${dateStr}</td>
-                                    <td class="text-end"><button class="btn btn-sm btn-outline-danger btn-unenroll" data-id="${c.course_id}" data-reg-id="${c.id}">Unenroll</button></td>
+                                    <td class="text-end">${actionBtn}</td>
                                 </tr>
                             `);
                         });
@@ -382,7 +441,8 @@
                     console.error('RenderEnrollments error:', err);
                 }
             }
-            renderEnrollments();
+
+            initDashboard();
 
             // Unenroll Logic
             $(document).on('click', '.btn-unenroll', async function() {
@@ -428,6 +488,8 @@
             // Password Change Logic
             $('#profile-form').on('submit', async function(e) {
                 e.preventDefault();
+                if (isAdminView) return; // Guard for admin view
+
                 const curPass = $('#currentPassword').val().trim();
                 const newPass = $('#newPassword').val().trim();
                 const confPass = $('#confirmNewPassword').val().trim();
@@ -487,5 +549,3 @@
     </script>
 </body>
 </html>
-
-

@@ -108,7 +108,11 @@ $(document).ready(function () {
             } else if (module === 'students') {
                 row = `<tr>
                     <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.name}</td>
+                    <td class="fw-semibold">
+                        <a href="dashboard.html?view_email=${item.email}" class="text-decoration-none text-dark hover-accent fw-bold" target="_blank" title="View Student Dashboard">
+                            ${item.name}
+                        </a>
+                    </td>
                     <td><code class="small text-accent">${item.student_id || '—'}</code></td>
                     <td class="small text-secondary">${item.email || '—'}</td>
                     <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
