@@ -291,6 +291,9 @@
         let currentEventTitle = '';
         let countdownInterval = null;
 
+        // Local State for Persistence (localStorage)
+        let registeredEvents = JSON.parse(localStorage.getItem('omnivault_registrations') || '[]');
+
         // ════════════════════════════════════════════
         // LOAD EVENTS FROM SUPABASE
         // ════════════════════════════════════════════
@@ -389,6 +392,7 @@
             }
 
             const isFull = rem <= 0;
+            const hasRegistered = registeredEvents.includes(ev.id);
 
             // Seat bar fill color: green → orange → red
             let fillColor = '#28a745'; // green
@@ -396,7 +400,7 @@
             else if (pct >= 70)  fillColor = '#fd7e14'; // orange
             else if (pct >= 50)  fillColor = '#ffc107'; // yellow
 
-            return { rem, total, pct, isFull, isEnded, fillColor };
+            return { rem, total, pct, isFull, isEnded, fillColor, hasRegistered };
         }
 
         // ════════════════════════════════════════════
@@ -408,7 +412,7 @@
 
             $('#featured-event-wrapper').removeClass('d-none');
 
-            const { rem, total, pct, isFull, isEnded, fillColor } = getEventStatus(feat);
+            const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(feat);
 
             // Populate text
             const dateStr = feat.event_date
@@ -440,10 +444,12 @@
             const $btn = $('#feat-register-btn');
             if (isEnded) {
                 $btn.prop('disabled', true).text('Registration Closed').removeClass('btn-primary-custom').addClass('btn-secondary');
+            } else if (hasRegistered) {
+                $btn.prop('disabled', true).text('Already Registered').removeClass('btn-primary-custom').addClass('btn-success');
             } else if (isFull) {
                 $btn.prop('disabled', true).text('Seats Over').removeClass('btn-primary-custom').addClass('btn-danger');
             } else {
-                $btn.prop('disabled', false).text('Register Now').addClass('btn-primary-custom').removeClass('btn-secondary btn-danger')
+                $btn.prop('disabled', false).text('Register Now').addClass('btn-primary-custom').removeClass('btn-secondary btn-danger btn-success')
                     .attr('data-event-id', feat.id).attr('data-event-title', feat.title);
             }
 
@@ -522,7 +528,7 @@
                     ? new Date(ev.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
                     : '—';
 
-                const { rem, total, pct, isFull, isEnded, fillColor } = getEventStatus(ev);
+                const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(ev);
 
                 // Status badge
                 let statusBadge = '';
@@ -535,6 +541,11 @@
                     btnText = 'Registration Closed';
                     btnDisabled = 'disabled';
                     btnClass = 'btn-secondary';
+                } else if (hasRegistered) {
+                    statusBadge = '<span class="badge bg-success ms-2">Registered</span>';
+                    btnText = 'Already Registered';
+                    btnDisabled = 'disabled';
+                    btnClass = 'btn-success text-white border-0';
                 } else if (isFull) {
                     statusBadge = '<span class="badge-full ms-2">Seats Over</span>';
                     btnText = 'Seats Over';
@@ -677,13 +688,23 @@
                     ev.seats_remaining = newRem; // update local state
                 }
 
+                // Update Local State for Persistence
+                if (!registeredEvents.includes(currentEventId)) {
+                    registeredEvents.push(currentEventId);
+                    localStorage.setItem('omnivault_registrations', JSON.stringify(registeredEvents));
+                }
+
                 // Show success
                 $('#registerForm').hide();
                 $('#register-success').removeClass('d-none');
                 $('#btnSubmitRegister').hide();
                 $('#registerFooter .btn-ghost').text('Close');
 
-                // Refresh cards
+                // Refresh UI immediately
+                renderFeatured();
+                renderGrid($('.filter-pill.active').data('filter') || 'All');
+
+                // Reload from DB in background to ensure sync
                 await loadEvents();
 
             } catch (e) {
