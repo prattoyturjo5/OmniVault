@@ -5,69 +5,71 @@ $(document).ready(async function() {
     const isLoginPage = path.includes('login.html');
     const isAdminPage = path.includes('admin.html');
 
-    // Hide admin body until auth is verified to prevent flickering
+    // Admin Auth Check
     if (isAdminPage) {
         document.body.style.display = 'none';
+        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = '../index.html';
+        } else {
+            document.body.style.display = 'flex';
+        }
     }
 
-    try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (isAdminPage) {
-            if (!session) {
-                // Not authenticated, redirect to login
-                window.location.href = 'login.html';
-            } else {
-                // Authenticated, show page
-                document.body.style.display = 'flex'; // It's a flex-column min-vh-100 body
-            }
+    // Student Auth Check
+    if (isLoginPage) {
+        const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
+        if (studentUser && studentUser.loggedIn) {
+            window.location.href = 'dashboard.html';
         }
-
-        if (isLoginPage) {
-            if (session) {
-                // Already logged in, go to admin
-                window.location.href = 'admin.html';
-            }
-        }
-    } catch(err) {
-        console.error("Auth check failed: ", err);
     }
 
-    // Auth Form Submission
-    $('#loginForm').on('submit', async function(e) {
+    // Student Login Form Submission
+    $('#studentLoginForm').on('submit', async function(e) {
         e.preventDefault();
-        const email = $('#email').val().trim();
-        const password = $('#password').val().trim();
+        const email = $('#studentEmail').val().trim();
+        const studentId = $('#studentId').val().trim();
 
         $('#loginError').addClass('d-none');
         $('#loginBtn').prop('disabled', true).text('Signing in...');
 
         try {
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
+            // Check students table for a match
+            const { data, error } = await supabase
+                .from('students')
+                .select('*')
+                .eq('email', email)
+                .eq('student_id', studentId)
+                .maybeSingle();
 
             if (error) {
                 throw error;
             }
 
-            // Success, redirect to admin
-            window.location.href = 'admin.html';
+            if (!data) {
+                throw new Error('No student account matches that Email and Student ID.');
+            }
+
+            // Success, create session and redirect to dashboard
+            const userData = {
+                name: data.name,
+                email: data.email,
+                studentId: data.student_id,
+                department: data.department || 'CSE',
+                loggedIn: true
+            };
+            sessionStorage.setItem('omnivault_user', JSON.stringify(userData));
+            
+            window.location.href = 'dashboard.html';
         } catch(err) {
-            $('#loginError').removeClass('d-none').text(err.message || 'Invalid login credentials.');
+            $('#loginError').removeClass('d-none').text(err.message || 'Invalid login details.');
             $('#loginBtn').prop('disabled', false).text('Sign In');
         }
     });
 
-    // Logout Handling
-    $('#btnLogout').on('click', async function(e) {
+    // Admin Logout Handling (from Admin Panel)
+    $('#btnLogout').on('click', function(e) {
         e.preventDefault();
-        try {
-            await supabase.auth.signOut();
-            window.location.href = '../index.html';
-        } catch(err) {
-            console.error("Logout failed: ", err);
-        }
+        sessionStorage.removeItem('adminLoggedIn');
+        window.location.href = '../index.html';
     });
 });
