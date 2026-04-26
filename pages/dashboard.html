@@ -26,17 +26,20 @@
     <style>
         .dashboard-layout {
             display: flex;
-            background-color: #f8f9fa;
-            min-height: 100vh;
+            background-color: var(--color-bg);
+            height: calc(100vh - 72px);
+            margin-top: 72px;
+            overflow: hidden;
         }
 
         /* Sidebar Styling */
         .sidebar {
             width: 250px;
-            background-color: #ffffff;
-            border-right: 1px solid #dee2e6;
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
 
         .sidebar-user {
@@ -206,7 +209,7 @@
         <!-- ========== MAIN AREA ========== -->
         <div class="main-area">
             <div class="content-section active container-fluid" id="section-overview">
-                <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;" id="welcome-msg">Good morning! 👋</h2>
+                <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family: Playfair Display;" id="welcome-msg">Welcome! 👋</h2>
                 <p class="text-secondary fs-6 mb-4 fw-medium" id="current-date"></p>
 
                 <div class="row g-3 mb-5">
@@ -237,23 +240,13 @@
                 </div>
 
                 <div class="row g-4">
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
                             <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Recent Activity</h5>
                             <ul class="list-unstyled activity-list mb-0" id="activityList">
                                 <li><span class="badge bg-light text-dark fw-medium border me-2">Today</span> Viewed Introduction to Computer Science</li>
                                 <li><span class="badge bg-light text-dark fw-medium border me-2">2 Days Ago</span> Enrolled in Advanced AI Architecture</li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card bg-white border border-light p-4 shadow-sm" style="border-radius: var(--radius-md);">
-                            <h5 class="fw-bold text-dark border-bottom border-light pb-3 mb-3">Latest Notices</h5>
-                            <div id="notice-board-teaser">
-                                <div class="text-center py-3">
-                                    <div class="spinner-border spinner-border-sm text-secondary"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -306,8 +299,6 @@
                     </form>
                 </div>
             </div>
-
-            <div id="footer-placeholder" class="mt-auto"></div>
         </div>
     </div>
 
@@ -332,7 +323,7 @@
             $('#dash-avatar').text(initial);
             $('#dash-name').text(uName);
             $('#dash-dept').text(uDept);
-            $('#welcome-msg').text(`Good morning, ${uName}! 👋`);
+            $('#welcome-msg').text(`Welcome, ${uName}! 👋`);
             $('#current-date').text(new Date().toLocaleDateString());
 
             $('#profName').val(uName);

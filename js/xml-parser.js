@@ -8,8 +8,10 @@ $(document).ready(function () {
   // 1. INDEX.HTML: Homepage Notice Teaser Logic
   // --------------------------------------------------------
   if ($('#notice-board-teaser').length) {
+    const isRoot = !window.location.pathname.includes('/pages/');
+    const xmlUrl = isRoot ? 'data/notices.xml' : '../data/notices.xml';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'data/notices.xml', true);
+    xhr.open('GET', xmlUrl, true);
     xhr.onload = function () {
       if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText)) {
         const parser = new DOMParser();
