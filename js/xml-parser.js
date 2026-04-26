@@ -29,13 +29,26 @@ $(document).ready(function () {
           const date = notices[i].getElementsByTagName('date')[0].textContent;
           const dateFormatted = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(date) : date;
 
+          const body = notices[i].getElementsByTagName('content')[0].textContent;
+          const imageEl = notices[i].getElementsByTagName('image')[0];
+          const image = imageEl ? imageEl.textContent : '';
+          const safeBody = body.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
           const itemHtml = `
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between border-bottom pb-3 mb-3 border-dark border-opacity-10">
               <div class="mb-2 mb-md-0 d-flex flex-column flex-md-row gap-md-3 align-items-md-center">
                  <span class="badge bg-white text-dark border py-2 px-3 fw-medium">${dateFormatted}</span>
                  <strong class="text-dark fs-5 mt-2 mt-md-0">${title}</strong>
               </div>
-              <a href="pages/noticeboard.html" class="fw-semibold text-accent text-decoration-none hover-primary text-nowrap">View →</a>
+              <button class="btn btn-link fw-semibold text-dark text-decoration-none hover-primary text-nowrap p-0 read-notice-btn" 
+                      data-title="${title}" 
+                      data-body="${safeBody}"
+                      data-date="${dateFormatted}"
+                      data-image="${image}"
+                      data-bs-toggle="modal" 
+                      data-bs-target="#noticeModal">
+                View →
+              </button>
             </div>
           `;
           $container.append(itemHtml);
@@ -124,7 +137,14 @@ $(document).ready(function () {
     const title = $(this).data('title');
     const body = $(this).data('body');
     const date = $(this).data('date');
-    const image = $(this).data('image');
+    let image = $(this).data('image');
+    if (image && !image.startsWith('http')) {
+        // Adjust path if on home page (root) vs pages/ subfolder
+        const isRoot = !window.location.pathname.includes('/pages/');
+        if (isRoot && image.startsWith('../')) {
+            image = image.replace('../', '');
+        }
+    }
 
     $('#noticeModalLabel').text(title);
     
