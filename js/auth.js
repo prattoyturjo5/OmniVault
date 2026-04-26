@@ -29,7 +29,6 @@ $(document).ready(async function() {
         const email = $('#studentEmail').val().trim();
         const password = $('#studentPassword').val().trim();
 
-        $('#loginError').addClass('d-none');
         $('#loginBtn').prop('disabled', true).text('Signing in...');
 
         try {
@@ -46,7 +45,7 @@ $(document).ready(async function() {
             }
 
             if (!data) {
-                throw new Error('No student account matches that Email and Student ID.');
+                throw new Error('Wrong Email or Password.');
             }
 
             // Success, create session and redirect to dashboard
@@ -61,7 +60,11 @@ $(document).ready(async function() {
             
             window.location.href = 'dashboard.html';
         } catch(err) {
-            $('#loginError').removeClass('d-none').text(err.message || 'Invalid login details.');
+            if (window.Utils) {
+                window.Utils.showAlert('', err.message || 'Invalid login details.', 'danger');
+            } else {
+                alert(err.message || 'Invalid login details.');
+            }
             $('#loginBtn').prop('disabled', false).text('Sign In');
         }
     });
