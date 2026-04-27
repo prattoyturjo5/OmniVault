@@ -30,9 +30,9 @@
   display: inline-block;
   width: 10px;
   height: 10px;
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-light);
   border-radius: var(--radius-circle);
-  box-shadow: 0 0 10px var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent-light);
 }
 
 .navbar-omnivault .nav-link {
@@ -49,9 +49,20 @@
 }
 
 .navbar-omnivault .nav-link.active {
-  color: var(--color-accent);
+  color: var(--color-surface);
+  font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+.navbar-omnivault .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--color-surface);
+}
+
+.navbar-omnivault .btn-ghost:hover {
+  background-color: var(--color-surface);
+  color: var(--color-dark-band);
 }
 
 /* Buttons */
