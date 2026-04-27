@@ -3,3 +3,9 @@ cleanup_duplicates.ps1
 inject_supabase.ps1
 revised_cleanup.ps1
 users.md
+events_rls_fix.sql
+events_rls_fix.sql
+events_rls_fix.sql
+events_setup.sql
+specializations_setup.sql
+students_patch_v2.sql
