@@ -107,11 +107,15 @@
             display: flex;
             flex-direction: column;
             min-width: 0;
+            width: 100%;
         }
 
         .content-section {
             padding: 32px;
             flex-grow: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .admin-table th {
@@ -322,126 +326,124 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- STUDENTS -->
-        <div id="section-students" class="content-section d-none">
-            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
-                <div>
-                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage Students
-                    </h2><span id="students-count" class="text-secondary small fw-semibold">Loading...</span>
+            <!-- STUDENTS -->
+            <div id="section-students" class="content-section d-none">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage Students
+                        </h2><span id="students-count" class="text-secondary small fw-semibold">Loading...</span>
+                    </div>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddStudent">+ Add
+                        Student</button>
                 </div>
-                <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddStudent">+ Add
-                    Student</button>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
+                    <div class="table-responsive">
+                        <table class="table admin-table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Dept</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
-                <div class="table-responsive">
-                    <table class="table admin-table mb-0 align-middle">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Dept</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="students-tbody"></tbody>
-                    </table>
+
+            <!-- EVENTS -->
+            <div id="section-events" class="content-section d-none">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage Events
+                        </h2><span id="events-count" class="text-secondary small fw-semibold">Loading...</span>
+                    </div>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddEvent">+ Add
+                        Event</button>
+                </div>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
+                    <div class="table-responsive">
+                        <table class="table admin-table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Date & Time</th>
+                                    <th>Location</th>
+                                    <th>Seats</th>
+                                    <th>Featured</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPECIALIZATIONS -->
+            <div id="section-specializations" class="content-section d-none">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage
+                            Specializations</h2><span id="specializations-count"
+                            class="text-secondary small fw-semibold">Loading...</span>
+                    </div>
+                    <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddSpecialization">+ Add
+                        Specialization</button>
+                </div>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
+                    <div class="table-responsive">
+                        <table class="table admin-table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Tag</th>
+                                    <th>Stats</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="specializations-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MESSAGES -->
+            <div id="section-contact_messages" class="content-section d-none">
+                <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Contact Messages
+                        </h2><span id="contact_messages-count"
+                            class="text-secondary small fw-semibold">Loading...</span>
+                    </div>
+                </div>
+                <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
+                    <div class="table-responsive">
+                        <table class="table admin-table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Sender</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contact_messages-tbody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- EVENTS -->
-        <div id="section-events" class="content-section d-none">
-            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
-                <div>
-                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage Events
-                    </h2><span id="events-count" class="text-secondary small fw-semibold">Loading...</span>
-                </div>
-                <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddEvent">+ Add
-                    Event</button>
-            </div>
-            <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
-                <div class="table-responsive">
-                    <table class="table admin-table mb-0 align-middle">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Date & Time</th>
-                                <th>Location</th>
-                                <th>Seats</th>
-                                <th>Featured</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="events-tbody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- SPECIALIZATIONS -->
-        <div id="section-specializations" class="content-section d-none">
-            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
-                <div>
-                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Manage
-                        Specializations</h2><span id="specializations-count"
-                        class="text-secondary small fw-semibold">Loading...</span>
-                </div>
-                <button type="button" class="btn btn-primary-custom px-4 shadow-sm" id="btnAddSpecialization">+ Add
-                    Specialization</button>
-            </div>
-            <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
-                <div class="table-responsive">
-                    <table class="table admin-table mb-0 align-middle">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Tag</th>
-                                <th>Stats</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="specializations-tbody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- MESSAGES -->
-        <div id="section-contact_messages" class="content-section d-none">
-            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
-                <div>
-                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Contact Messages
-                    </h2><span id="contact_messages-count"
-                        class="text-secondary small fw-semibold">Loading...</span>
-                </div>
-            </div>
-            <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
-                <div class="table-responsive">
-                    <table class="table admin-table mb-0 align-middle">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Sender</th>
-                                <th>Subject</th>
-                                <th>Message</th>
-                                <th>Date</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="contact_messages-tbody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
     </div>
 
     <!-- ======================== MODALS ======================== -->
@@ -641,7 +643,7 @@
             </div>
         </div>
     </div>
-    </div>
+
 
     <!-- Student Modal -->
     <div class="modal fade" id="studentModal" tabindex="-1" aria-hidden="true">
