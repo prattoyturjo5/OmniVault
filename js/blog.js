@@ -1,7 +1,4 @@
-/*
-  File: blog.js
-  Updated by: Gemini | Theme: Premier University
-*/
+
 $(document).ready(function () {
 
     // DOM Identifiers
