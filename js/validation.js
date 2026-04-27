@@ -38,47 +38,57 @@ $(document).ready(function () {
             const { courseId, courseTitle } = window.enrollmentContext;
 
             try {
-                // Check if already enrolled in this specific course
+                // 1. ID Verification & Data Type Logging
+                console.log(`[Enrollment Debug] Submitting enrollment for course: ${courseId}`);
+                console.log(`[Enrollment Debug] student_id being sent: '${studentId}'`);
+                console.log(`[Enrollment Debug] student_id data type: ${typeof studentId}`);
+                // Note: Not using parseInt() because IDs like '21-XXXXX-1' are strings.
+                // If your Supabase table requires an integer, you must change your ID format.
+
+                // Check if already enrolled in this specific course (using student_id now)
                 const { data: existing } = await supabase
-                    .from('course_enrollments')
+                    .from('enrollments')
                     .select('id')
                     .eq('course_id', courseId)
-                    .eq('student_email', email) // Check by email instead of studentId for better auth match
+                    .eq('student_id', studentId)
                     .maybeSingle();
 
                 if (existing) {
-                    $('#enrollEmail').addClass('is-invalid');
-                    $('#enrollEmailErr').text('Already enrolled in this course.').show();
+                    $('#enrollStudentId').addClass('is-invalid');
+                    $('#enrollStudentIdErr').text('You are already enrolled in this course.').show();
                     return;
                 }
 
                 // Verify seat availability first
                 const { data: courseData, error: fetchErr } = await supabase
                     .from('courses')
-                    .select('enrolled, seats')
+                    .select('enrolled') // Removed 'seats' because it does not exist in the database
                     .eq('id', courseId)
                     .single();
                 
                 if (fetchErr) throw fetchErr;
 
-                if (courseData.enrolled >= courseData.seats) {
+                const currentEnrolled = courseData.enrolled || 0;
+                const totalSeats = window.enrollmentContext?.seats || 50; // Fallback to 50
+
+                if (currentEnrolled >= totalSeats) {
                     alert('Sorry, this course is currently full.');
                     return;
                 }
 
-                // Insert into Supabase
-                const { error: insErr } = await supabase.from('course_enrollments').insert([{
+                // Insert into Supabase 'enrollments' table
+                const { error: insErr } = await supabase.from('enrollments').insert([{
                     course_id: courseId,
                     course_title: courseTitle,
                     student_id: studentId,
-                    student_name: name,
-                    student_email: email
+                    status: 'active',
+                    certificate_count: 0
                 }]);
 
                 if (insErr) throw insErr;
 
-                // Increment enrollment count
-                const newCount = (courseData.enrolled || 0) + 1;
+                // Increment enrollment count in courses table
+                const newCount = currentEnrolled + 1;
                 await supabase.from('courses').update({ enrolled: newCount }).eq('id', courseId);
 
                 // Success UI
@@ -88,13 +98,21 @@ $(document).ready(function () {
                         <div class="display-3 mb-3">✅</div>
                         <h4 class="fw-bold mb-3">You're enrolled!</h4>
                         <p class="text-secondary mb-4">You have successfully joined ${courseTitle}.</p>
-                        <button type="button" class="btn btn-primary-custom w-100" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary-custom w-100" data-bs-dismiss="modal" onclick="window.location.reload()">Close & Refresh</button>
                     </div>
                 `);
 
             } catch (err) {
-                console.error('Enrollment error:', err);
-                alert('Failed to process enrollment: ' + (err.message || 'Unknown error'));
+                // 3. Detailed Error Logging
+                console.error('[Enrollment Debug] Complete Error Object:', err);
+                if (err.message) console.error('[Enrollment Debug] Exact Message:', err.message);
+                if (err.details) console.error('[Enrollment Debug] Exact Details:', err.details);
+                if (err.hint) console.error('[Enrollment Debug] Error Hint:', err.hint);
+                
+                // Show exact error in the alert so user can screenshot it
+                const errorMsg = err.message || JSON.stringify(err) || 'Unknown error';
+                const errorDetails = err.details || 'No details provided';
+                alert(`Enrollment Failed!\n\nError: ${errorMsg}\n\nDetails: ${errorDetails}\n\nPlease share this message.`);
             }
         }
     });

@@ -140,6 +140,7 @@ $(document).ready(function () {
                     <td class="small text-secondary">${item.email || '—'}</td>
                     <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
                     <td class="text-end">
+                        <button class="btn btn-sm btn-ghost text-primary btn-student-details" data-id="${item.student_id}" data-name="${item.name.replace(/"/g,'&quot;')}">Details</button>
                         <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="students">Edit</button>
                         <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="students">Delete</button>
                     </td>
@@ -286,6 +287,78 @@ $(document).ready(function () {
             });
         } catch (e) {
             $('#registrations-tbody').html(`<tr><td colspan="5" class="text-center text-danger">${e.message}</td></tr>`);
+        }
+    });
+
+    // ────────────────────────────────────────────
+    // STUDENT ENROLLMENTS & OVERRIDES
+    // ────────────────────────────────────────────
+    $(document).on('click', '.btn-student-details', async function () {
+        const studentId = $(this).attr('data-id');
+        const studentName = $(this).attr('data-name');
+        
+        $('#enrollmentsOverrideModalTitle').text(`Enrollments — ${studentName}`);
+        $('#student-enrollments-tbody').html('<tr><td colspan="4" class="text-center py-3"><div class="spinner-border spinner-border-sm text-secondary"></div></td></tr>');
+        $('#enrollmentsOverrideModal').modal('show');
+
+        fetchStudentEnrollments(studentId);
+    });
+
+    async function fetchStudentEnrollments(studentId) {
+        try {
+            const { data, error } = await supabase
+                .from('enrollments')
+                .select('*')
+                .eq('student_id', studentId)
+                .order('enrolled_at', { ascending: false });
+
+            if (error) throw error;
+            
+            const $tbody = $('#student-enrollments-tbody');
+            $tbody.empty();
+            
+            if (!data || data.length === 0) {
+                $tbody.html('<tr><td colspan="4" class="text-center py-3 text-secondary">No enrollments found.</td></tr>');
+                return;
+            }
+
+            data.forEach(e => {
+                const statusClass = e.status === 'completed' ? 'bg-success' : 'bg-primary';
+                $tbody.append(`
+                    <tr>
+                        <td><strong>${e.course_title}</strong><br><small class="text-secondary">${e.course_id}</small></td>
+                        <td><span class="badge ${statusClass}">${e.status}</span></td>
+                        <td><span class="fw-bold">${e.certificate_count || 0}</span></td>
+                        <td class="text-end">
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-secondary btn-toggle-status" data-id="${e.id}" data-status="${e.status}" data-sid="${studentId}" title="Toggle Completion Status">
+                                    ${e.status === 'completed' ? 'Mark Active' : 'Mark Completed'}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+            });
+        } catch (e) {
+            $('#student-enrollments-tbody').html(`<tr><td colspan="4" class="text-center text-danger">${e.message}</td></tr>`);
+        }
+    }
+
+    $(document).on('click', '.btn-toggle-status', async function () {
+        const id = $(this).attr('data-id');
+        const currentStatus = $(this).attr('data-status');
+        const studentId = $(this).attr('data-sid');
+        const newStatus = currentStatus === 'completed' ? 'active' : 'completed';
+        const newCertCount = newStatus === 'completed' ? 1 : 0;
+        
+        try {
+            const { error } = await supabase.from('enrollments')
+                .update({ status: newStatus, certificate_count: newCertCount })
+                .eq('id', id);
+            if (error) throw error;
+            fetchStudentEnrollments(studentId);
+        } catch (e) {
+            alert('Failed to update status: ' + e.message);
         }
     });
 

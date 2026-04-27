@@ -341,7 +341,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Date</th>
+                                <th>ID</th>
+                                <th>Email</th>
                                 <th>Dept</th>
                                 <th class="text-end">Actions</th>
                             </tr>
@@ -656,6 +657,38 @@
             </form></div>
             <div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveStudent">Save</button></div>
         </div></div>
+    </div>
+
+    <!-- Student Enrollments & Overrides Modal -->
+    <div class="modal fade" id="enrollmentsOverrideModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold" id="enrollmentsOverrideModalTitle">Student Enrollments</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="enrollment-list-container">
+                        <table class="table admin-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Status</th>
+                                    <th>Certificates</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-enrollments-tbody">
+                                <tr><td colspan="4" class="text-center py-3">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-custom" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Read Message Modal -->
     <div class="modal fade" id="readMessageModal" tabindex="-1" aria-hidden="true">

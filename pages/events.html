@@ -293,8 +293,8 @@
         let currentEventTitle = '';
         let countdownInterval = null;
 
-        // Local State for Persistence (localStorage)
-        let registeredEvents = JSON.parse(localStorage.getItem('omnivault_registrations') || '[]');
+        // Will hold event IDs the current user has registered for
+        let registeredEvents = [];
 
         // ════════════════════════════════════════════
         // LOAD EVENTS FROM SUPABASE
@@ -305,6 +305,21 @@
             );
 
             try {
+                // Fetch the logged-in student's registrations first
+                const role = await window.Utils.getUserRole();
+                if (role === 'student') {
+                    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+                    if (studentUser.email) {
+                        const { data: myRegs } = await supabase
+                            .from('event_registrations')
+                            .select('event_id')
+                            .eq('student_email', studentUser.email);
+                        if (myRegs) {
+                            registeredEvents = myRegs.map(r => r.event_id);
+                        }
+                    }
+                }
+
                 console.log("Fetching events...");
                 const fetchPromise = supabase
                     .from('events')
@@ -749,7 +764,6 @@
 
                 if (!registeredEvents.includes(currentEventId)) {
                     registeredEvents.push(currentEventId);
-                    localStorage.setItem('omnivault_registrations', JSON.stringify(registeredEvents));
                 }
 
                 $('#registerForm').hide();

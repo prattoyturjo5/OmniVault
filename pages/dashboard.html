@@ -226,14 +226,23 @@
                     </div>
                     <div class="col-xl-4 col-sm-6">
                         <div class="stat-card">
-                            <div class="stat-value">0</div>
+                            <div class="stat-value" id="stat-completed">0</div>
                             <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Completed</div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-sm-6">
                         <div class="stat-card">
-                            <div class="stat-value">0</div>
+                            <div class="stat-value" id="stat-certificates">0</div>
                             <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Certificates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-xl-4 col-sm-12">
+                        <div class="stat-card" style="border-top: 4px solid var(--color-accent);">
+                            <div class="stat-value" id="stat-events">0</div>
+                            <div class="text-secondary small fw-semibold text-uppercase letter-spacing-1">Registered Events</div>
                         </div>
                     </div>
                 </div>
@@ -346,14 +355,14 @@
             const viewEmail = urlParams.get('view_email');
             const isAdminView = !!viewEmail;
 
-            let uName, uDept, uEmail;
+            let uName, uDept, uEmail, studentId;
 
             async function initDashboard() {
                 if (isAdminView) {
                     try {
                         const { data: student, error } = await supabase
                             .from('students')
-                            .select('name, department, email, password')
+                            .select('name, department, email, password, student_id')
                             .eq('email', viewEmail)
                             .maybeSingle();
 
@@ -365,6 +374,7 @@
                         uName = student.name;
                         uDept = student.department || 'CSE';
                         uEmail = student.email;
+                        studentId = student.student_id;
                         const uPass = student.password || '—';
 
                         // UI Adjustments for Admin View
@@ -384,6 +394,7 @@
                     uName = user.name || "Student User";
                     uDept = user.department || "CSE";
                     uEmail = user.email || "user@omnivault.edu";
+                    studentId = user.studentId;
                     $('#welcome-msg').text(`Welcome, ${uName}! 👋`);
                 }
 
@@ -402,17 +413,36 @@
 
             async function renderEnrollments() {
                 try {
-                    const { data: userItems, error } = await supabase
-                        .from('course_enrollments')
+                    // 1. Fetch Course Enrollments
+                    const { data: courseItems, error: courseErr } = await supabase
+                        .from('enrollments')
                         .select('*')
-                        .eq('student_email', uEmail)
+                        .eq('student_id', studentId) // Assuming we have studentId
                         .order('enrolled_at', { ascending: false });
 
-                    if (error) throw error;
+                    if (courseErr) throw courseErr;
 
-                    $('#stat-enrollments').text(userItems.length);
+                    // 2. Fetch Event Registrations
+                    const { data: eventItems, error: eventErr } = await supabase
+                        .from('event_registrations')
+                        .select('*')
+                        .eq('student_id', studentId)
+                        .order('registered_at', { ascending: false });
 
-                    if (!userItems || userItems.length === 0) {
+                    if (eventErr) throw eventErr;
+
+                    // Update Counters
+                    $('#stat-enrollments').text(courseItems.length);
+                    $('#stat-events').text(eventItems.length);
+                    
+                    const completedCount = courseItems.filter(c => c.status === 'completed').length;
+                    $('#stat-completed').text(completedCount);
+                    
+                    const certCount = courseItems.reduce((acc, c) => acc + (c.certificate_count || 0), 0);
+                    $('#stat-certificates').text(certCount);
+
+                    // Render Course Table
+                    if (!courseItems || courseItems.length === 0) {
                         $('#enrolled-table').addClass('d-none');
                         $('#enrolled-empty').removeClass('d-none');
                     } else {
@@ -420,15 +450,23 @@
                         $('#enrolled-table').removeClass('d-none');
                         const $tbody = $('#enrolled-tbody');
                         $tbody.empty();
-                        userItems.forEach(c => {
+                        courseItems.forEach(c => {
                             const dateStr = c.enrolled_at ? new Date(c.enrolled_at).toLocaleDateString() : '—';
+                            const statusBadge = c.status === 'completed' 
+                                ? `<span class="badge bg-success">Completed</span>` 
+                                : `<span class="badge bg-primary">Active</span>`;
+                            
                             const actionBtn = isAdminView 
                                 ? `<span class="badge bg-light text-secondary border">View Only</span>`
                                 : `<button class="btn btn-sm btn-outline-danger btn-unenroll" data-id="${c.course_id}" data-reg-id="${c.id}">Unenroll</button>`;
                             
                             $tbody.append(`
                                 <tr>
-                                    <td><strong>${c.course_title}</strong><br><span class="small text-secondary">${c.course_id}</span></td>
+                                    <td>
+                                        <strong>${c.course_title}</strong><br>
+                                        <span class="small text-secondary">${c.course_id}</span>
+                                        <div class="mt-1">${statusBadge}</div>
+                                    </td>
                                     <td>CSE</td>
                                     <td>OmniVault Faculty</td>
                                     <td>${dateStr}</td>
@@ -437,8 +475,56 @@
                             `);
                         });
                     }
+
+                    // Render Recent Activity Log
+                    renderRecentActivity(courseItems, eventItems);
+
                 } catch (err) {
-                    console.error('RenderEnrollments error:', err);
+                    console.error('RenderDashboard error:', err);
+                }
+            }
+
+            function renderRecentActivity(courses, events) {
+                const activities = [];
+                
+                courses.forEach(c => {
+                    activities.push({
+                        type: 'Enrollment',
+                        title: c.course_title,
+                        date: new Date(c.enrolled_at),
+                        icon: '📚'
+                    });
+                });
+
+                events.forEach(e => {
+                    activities.push({
+                        type: 'Event Registration',
+                        title: e.event_title,
+                        date: new Date(e.registered_at),
+                        icon: '📅'
+                    });
+                });
+
+                // Sort by date descending
+                activities.sort((a, b) => b.date - a.date);
+
+                const $list = $('#activityList');
+                $list.empty();
+
+                if (activities.length === 0) {
+                    $list.append('<li class="text-secondary small py-2">No recent activity.</li>');
+                } else {
+                    activities.slice(0, 10).forEach(act => {
+                        $list.append(`
+                            <li class="d-flex align-items-center gap-3 py-3">
+                                <div class="fs-4">${act.icon}</div>
+                                <div>
+                                    <div class="fw-bold text-dark">${act.type}: ${act.title}</div>
+                                    <div class="small text-secondary">${act.date.toLocaleString()}</div>
+                                </div>
+                            </li>
+                        `);
+                    });
                 }
             }
 
@@ -451,7 +537,7 @@
                 const regId = $(this).data('reg-id');
                 
                 try {
-                    const { error } = await supabase.from('course_enrollments').delete().eq('id', regId);
+                    const { error } = await supabase.from('enrollments').delete().eq('id', regId);
                     if (error) throw error;
                     
                     // Decrement enrolled count in courses table
