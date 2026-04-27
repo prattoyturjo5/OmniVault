@@ -189,6 +189,13 @@
                     </svg>
                     Manage Specializations
                 </a>
+                <a class="sidebar-link" data-section="contact_messages">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Messages <span id="contact_messages-badge" class="badge bg-danger ms-auto rounded-pill d-none">0</span>
+                </a>
                 <hr class="mx-4 opacity-25 my-2">
                 <a href="#" class="sidebar-link" id="btnLogout">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -369,6 +376,33 @@
             </div>
         </div>
 
+        <!-- MESSAGES -->
+        <div id="section-contact_messages" class="content-section d-none">
+            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                <div>
+                    <h2 class="display-6 fw-bold mb-1 text-dark" style="font-family:Playfair Display;">Contact Messages
+                    </h2><span id="contact_messages-count"
+                        class="text-secondary small fw-semibold">Loading...</span>
+                </div>
+            </div>
+            <div class="card bg-white border border-light shadow-sm" style="border-radius:var(--radius-md);">
+                <div class="table-responsive">
+                    <table class="table admin-table mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sender</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contact_messages-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </div>
     </div>
@@ -586,6 +620,35 @@
             </form></div>
             <div class="modal-footer"><button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary-custom" id="btnSaveStudent">Save</button></div>
         </div></div>
+    </div>
+    <!-- Read Message Modal -->
+    <div class="modal fade" id="readMessageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold">Read Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <div>
+                            <h6 class="fw-bold mb-1" id="readMsgName">Name</h6>
+                            <p class="text-secondary small mb-0" id="readMsgEmail">Email</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-light text-dark border mb-1" id="readMsgSubject">Subject</span>
+                            <p class="text-secondary small mb-0" id="readMsgDate">Date</p>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-0" id="readMsgContent" style="white-space: pre-wrap; font-size: 1.05rem; line-height: 1.6; color: #333;"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-custom" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Delete Confirmation Modal -->

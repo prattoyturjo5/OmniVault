@@ -10,7 +10,7 @@ function showAdminAlert(msg, type = 'danger') {
 
 $(document).ready(function () {
     let currentModule = 'courses';
-    let moduleData = { courses: [], faculty: [], students: [], events: [], specializations: [] };
+    let moduleData = { courses: [], faculty: [], students: [], events: [], specializations: [], contact_messages: [] };
 
     // ────────────────────────────────────────────
     // DATA FETCHING
@@ -35,10 +35,19 @@ $(document).ready(function () {
 
     function updateCount(module) {
         $(`#${module}-count`).text(`${moduleData[module].length} items total`);
+        if (module === 'contact_messages') {
+            const count = moduleData[module].length;
+            const $badge = $('#contact_messages-badge');
+            if (count > 0) {
+                $badge.text(count).removeClass('d-none');
+            } else {
+                $badge.addClass('d-none');
+            }
+        }
     }
 
     // Load all modules on startup
-    const modules = ['courses', 'faculty', 'students', 'events', 'specializations'];
+    const modules = ['courses', 'faculty', 'students', 'events', 'specializations', 'contact_messages'];
     modules.forEach(m => initModuleData(m));
 
     // Initialize Real-time for all modules
@@ -152,6 +161,18 @@ $(document).ready(function () {
                         <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="specializations">Edit</button>
                         <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="specializations">Delete</button>
                     </td></tr>`;
+            } else if (module === 'contact_messages') {
+                const date = new Date(item.created_at).toLocaleString();
+                row = `<tr>
+                    <td>${i + 1}</td>
+                    <td class="fw-semibold">${item.name}<br><small class="text-secondary fw-normal">${item.email}</small></td>
+                    <td><span class="badge bg-light text-dark border">${item.subject || 'General'}</span></td>
+                    <td><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.message.replace(/"/g, '&quot;')}">${item.message}</div></td>
+                    <td class="small text-secondary">${date}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-ghost text-primary btn-read-msg" data-id="${item.id}">Read</button>
+                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="contact_messages">Delete</button>
+                    </td></tr>`;
             }
             $tbody.append(row);
         });
@@ -250,6 +271,23 @@ $(document).ready(function () {
         } catch (e) {
             $('#registrations-tbody').html(`<tr><td colspan="5" class="text-center text-danger">${e.message}</td></tr>`);
         }
+    });
+
+    // ────────────────────────────────────────────
+    // READ MESSAGE
+    // ────────────────────────────────────────────
+    $(document).on('click', '.btn-read-msg', function () {
+        const id = $(this).attr('data-id');
+        const item = moduleData['contact_messages'].find(i => String(i.id) === String(id));
+        if (!item) return;
+
+        $('#readMsgName').text(item.name);
+        $('#readMsgEmail').text(item.email);
+        $('#readMsgDate').text(new Date(item.created_at).toLocaleString());
+        $('#readMsgSubject').text(item.subject || 'General Inquiry');
+        $('#readMsgContent').text(item.message);
+
+        $('#readMessageModal').modal('show');
     });
 
     // ────────────────────────────────────────────

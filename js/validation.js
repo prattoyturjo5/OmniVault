@@ -147,10 +147,47 @@ $(document).ready(function () {
     // ----------------------------------------------------
     // CONTACT FORM
     // ----------------------------------------------------
-    $('#contact-form').on('submit', function (e) {
+    $('#contact-form').on('submit', async function (e) {
         e.preventDefault();
-        if (window.Utils) window.Utils.showAlert('#form-alert', 'Message sent! We will contact you soon.', 'success');
-        $(this)[0].reset();
+        const btn = $(this).find('button[type="submit"]');
+        const originalText = btn.text();
+        btn.text('Sending...').prop('disabled', true);
+
+        const name = $('#contactName').val().trim();
+        const email = $('#contactEmail').val().trim();
+        const subject = $('#contactSubject').val() || 'General Inquiry';
+        const message = $('#contactMessage').val().trim();
+
+        // Basic validation
+        let isValid = true;
+        if (!name) { $('#contactName').addClass('is-invalid'); isValid = false; }
+        else { $('#contactName').removeClass('is-invalid'); }
+        
+        if (!email || !emailRegex.test(email)) { $('#contactEmail').addClass('is-invalid'); isValid = false; }
+        else { $('#contactEmail').removeClass('is-invalid'); }
+        
+        if (!message || message.length < 20) { $('#contactMessage').addClass('is-invalid'); isValid = false; }
+        else { $('#contactMessage').removeClass('is-invalid'); }
+
+        if (isValid) {
+            try {
+                const { error } = await supabase.from('contact_messages').insert([{
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message
+                }]);
+
+                if (error) throw error;
+
+                if (window.Utils) window.Utils.showAlert('#form-alert', 'Message sent successfully! We will contact you soon.', 'success');
+                $(this)[0].reset();
+            } catch (err) {
+                console.error('Contact form error:', err);
+                if (window.Utils) window.Utils.showAlert('#form-alert', 'Failed to send message. Please try again later.', 'danger');
+            }
+        }
+        btn.text(originalText).prop('disabled', false);
     });
 
     // Password strength & matching (simplified)
