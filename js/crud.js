@@ -109,11 +109,11 @@ $(document).ready(function () {
             let row = '';
             if (module === 'courses') {
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.title}</td>
-                    <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
-                    <td>${item.instructor || '—'}</td>
-                    <td class="text-end">
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Title" class="fw-semibold">${item.title}</td>
+                    <td data-label="Department"><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
+                    <td data-label="Instructor">${item.instructor || '—'}</td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="courses">Edit</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="courses">Delete</button>
@@ -121,11 +121,11 @@ $(document).ready(function () {
                     </td></tr>`;
             } else if (module === 'faculty') {
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.name}</td>
-                    <td>${item.designation}</td>
-                    <td>${item.department}</td>
-                    <td class="text-end">
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Name" class="fw-semibold">${item.name}</td>
+                    <td data-label="Designation">${item.designation}</td>
+                    <td data-label="Department">${item.department}</td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="faculty">Edit</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
@@ -133,16 +133,16 @@ $(document).ready(function () {
                     </td></tr>`;
             } else if (module === 'students') {
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Name" class="fw-semibold">
                         <a href="dashboard.html?view_email=${item.email}" class="text-decoration-none text-dark hover-accent fw-bold" target="_blank" title="View Student Dashboard">
                             ${item.name}
                         </a>
                     </td>
-                    <td><code class="small text-accent">${item.student_id || '—'}</code></td>
-                    <td class="small text-secondary">${item.email || '—'}</td>
-                    <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
-                    <td class="text-end">
+                    <td data-label="Student ID"><code class="small text-accent">${item.student_id || '—'}</code></td>
+                    <td data-label="Email" class="small text-secondary">${item.email || '—'}</td>
+                    <td data-label="Department"><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-student-details" data-id="${item.student_id}" data-name="${item.name.replace(/"/g,'&quot;')}">Details</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="students">Edit</button>
@@ -158,17 +158,17 @@ $(document).ready(function () {
                     ? `<span class="badge bg-warning text-dark border-0">⭐ Featured</span>`
                     : `<span class="badge bg-light text-secondary border">—</span>`;
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.title}</td>
-                    <td><span class="badge bg-light text-dark border">${item.type}</span></td>
-                    <td>${date}<span class="event-time">${item.event_time || ''}</span></td>
-                    <td class="small">${item.location || '—'}</td>
-                    <td>
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Title" class="fw-semibold">${item.title}</td>
+                    <td data-label="Type"><span class="badge bg-light text-dark border">${item.type}</span></td>
+                    <td data-label="Date & Time">${date}<span class="event-time">${item.event_time || ''}</span></td>
+                    <td data-label="Location" class="small">${item.location || '—'}</td>
+                    <td data-label="Seats">
                         <div class="small fw-semibold">${item.seats_remaining ?? item.seats_total} / ${item.seats_total}</div>
                         <div class="seat-bar"><div class="seat-bar-fill" style="width:${pct}%"></div></div>
                     </td>
-                    <td>${featured}</td>
-                    <td class="text-end">
+                    <td data-label="Featured">${featured}</td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-view-regs" data-id="${item.id}" data-title="${item.title.replace(/"/g,'&quot;')}">Regs</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="events">Edit</button>
@@ -177,11 +177,11 @@ $(document).ready(function () {
                     </td></tr>`;
             } else if (module === 'specializations') {
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.title}</td>
-                    <td><span class="badge bg-primary text-white" style="background:var(--color-accent)!important">${item.tag}</span></td>
-                    <td class="small text-secondary">${item.course_count} Courses · ${item.faculty_count} Faculty</td>
-                    <td class="text-end">
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Title" class="fw-semibold">${item.title}</td>
+                    <td data-label="Tag"><span class="badge bg-primary text-white" style="background:var(--color-accent)!important">${item.tag}</span></td>
+                    <td data-label="Stats" class="small text-secondary">${item.course_count} Courses · ${item.faculty_count} Faculty</td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="specializations">Edit</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="specializations">Delete</button>
@@ -190,12 +190,12 @@ $(document).ready(function () {
             } else if (module === 'contact_messages') {
                 const date = new Date(item.created_at).toLocaleString();
                 row = `<tr>
-                    <td>${i + 1}</td>
-                    <td class="fw-semibold">${item.name}<br><small class="text-secondary fw-normal">${item.email}</small></td>
-                    <td><span class="badge bg-light text-dark border">${item.subject || 'General'}</span></td>
-                    <td><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.message.replace(/"/g, '&quot;')}">${item.message}</div></td>
-                    <td class="small text-secondary">${date}</td>
-                    <td class="text-end">
+                    <td data-label="#">${i + 1}</td>
+                    <td data-label="Sender" class="fw-semibold">${item.name}<br><small class="text-secondary fw-normal">${item.email}</small></td>
+                    <td data-label="Subject"><span class="badge bg-light text-dark border">${item.subject || 'General'}</span></td>
+                    <td data-label="Message"><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.message.replace(/"/g, '&quot;')}">${item.message}</div></td>
+                    <td data-label="Date" class="small text-secondary">${date}</td>
+                    <td data-label="Actions" class="text-end">
                         <div class="actions-column">
                             <button class="btn btn-ghost btn-admin-action btn-action-brand btn-read-msg" data-id="${item.id}">Read</button>
                             <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="contact_messages">Delete</button>

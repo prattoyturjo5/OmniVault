@@ -71,7 +71,7 @@ $(document).ready(function() {
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div class="mobile-menu-overlay" style="display: none; position: fixed; inset: 0; background: rgba(53, 88, 114, 0.98); z-index: 1050;">
+    <div class="mobile-menu-overlay d-flex flex-column">
       <button class="mobile-menu-close btn text-white fs-1 position-absolute top-0 end-0 m-3" style="background: none; border: none; line-height: 1;">&times;</button>
       <div class="mobile-menu-content d-flex flex-column align-items-center justify-content-center h-100 text-center">
         <a class="nav-link text-white fs-4 my-2" href="${links.home}">Home</a>
@@ -82,14 +82,40 @@ $(document).ready(function() {
         <a class="nav-link text-white fs-4 my-2" href="${links.noticeboard}">Notice Board</a>
         <a class="nav-link text-white fs-4 my-2" href="${links.events}">Events</a>
         <a class="nav-link text-white fs-4 my-2" href="${links.contact}">Contact</a>
-        <div class="mt-4 d-flex flex-column gap-3 w-50 mx-auto">
+        <div class="mt-4 d-flex flex-column gap-3 w-75 mx-auto">
           ${authButtons}
         </div>
       </div>
     </div>
     <style>
-      body.menu-open .mobile-menu-overlay { display: block !important; }
+      .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(53, 88, 114, 0.98);
+        z-index: 1050;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      }
+      body.menu-open .mobile-menu-overlay { 
+        opacity: 1; 
+        visibility: visible; 
+        transform: translateX(0); 
+      }
       body.menu-open { overflow: hidden; }
+      
+      /* Ensure the hamburger icon is highly visible */
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+      }
+      .navbar-toggler {
+        border-color: rgba(255,255,255,0.3) !important;
+        padding: 4px 8px;
+      }
+      .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25) !important;
+      }
     </style>
     `;
 
