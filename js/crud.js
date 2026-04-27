@@ -66,17 +66,33 @@ $(document).ready(function () {
     initRealtime();
 
     // ────────────────────────────────────────────
-    // SIDEBAR NAVIGATION
+    // NAVIGATION (Sidebar & Mobile)
     // ────────────────────────────────────────────
     $('.sidebar-link').on('click', function () {
         const section = $(this).attr('data-section');
         if (!section) return;
+        switchSection(section);
+    });
+
+    // Mobile Navigation Selector
+    $('#mobile-section-select').on('change', function() {
+        switchSection($(this).val());
+    });
+
+    function switchSection(section) {
         $('.sidebar-link').removeClass('active');
-        $(this).addClass('active');
+        $(`.sidebar-link[data-section="${section}"]`).addClass('active');
+        
+        // Sync the mobile select dropdown
+        $('#mobile-section-select').val(section);
+        
         $('.content-section').addClass('d-none');
         $(`#section-${section}`).removeClass('d-none');
         currentModule = section;
-    });
+        
+        // Ensure the scroll area resets
+        $('.main-area').scrollTop(0);
+    }
 
     // ────────────────────────────────────────────
     // TABLE RENDERING
@@ -433,5 +449,14 @@ $(document).ready(function () {
             initModuleData(module);
             showAdminAlert('Record deleted.', 'success');
         } catch (e) { console.error(e); showAdminAlert('Delete failed: ' + e.message); }
+    });
+
+    // Logout Handlers
+    $('#btnLogout, #btnMobileLogout').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to logout?')) {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = '../index.html';
+        }
     });
 });

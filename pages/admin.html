@@ -29,10 +29,25 @@
     <style>
         .dashboard-layout {
             display: flex;
-            height: calc(100vh - 80px);
+            min-height: calc(100vh - 80px);
             margin-top: 80px;
-            overflow: hidden;
             background-color: var(--color-bg);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-layout {
+                margin-top: 70px;
+                height: auto;
+                min-height: calc(100vh - 70px);
+            }
+            .main-area {
+                margin-left: 0;
+                overflow-y: visible;
+                height: auto;
+            }
+            .content-section {
+                padding: 16px;
+            }
         }
 
         .sidebar {
@@ -42,7 +57,12 @@
             border-right: 1px solid var(--color-border);
             display: flex;
             flex-direction: column;
+            position: fixed;
+            top: 80px;
+            bottom: 0;
+            left: 0;
             overflow-y: auto;
+            z-index: 100;
         }
 
         .sidebar-header {
@@ -83,9 +103,10 @@
 
         .main-area {
             flex-grow: 1;
+            margin-left: 240px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            min-width: 0;
         }
 
         .content-section {
@@ -210,6 +231,21 @@
 
         <!-- MAIN AREA -->
         <div class="main-area">
+            <!-- MOBILE NAVIGATION -->
+            <div class="d-md-none bg-white border-bottom p-3 sticky-top shadow-sm" style="top: 0px; z-index: 100;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="small fw-bold text-secondary mb-0">Admin Menu</label>
+                    <button class="btn btn-sm btn-ghost text-danger p-0 fw-bold" id="btnMobileLogout">Logout</button>
+                </div>
+                <select class="form-select border-primary-custom" id="mobile-section-select">
+                    <option value="courses">Manage Courses</option>
+                    <option value="faculty">Manage Faculty</option>
+                    <option value="students">Manage Students</option>
+                    <option value="events">Manage Events</option>
+                    <option value="specializations">Manage Specializations</option>
+                    <option value="contact_messages">Manage Messages</option>
+                </select>
+            </div>
             <div id="admin-alert" class="mx-4 mt-3"></div>
 
             <!-- COURSES -->
