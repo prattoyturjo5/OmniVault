@@ -66,10 +66,7 @@ $(document).ready(function () {
             const $imageContainer = $('#featured-post .spinner-border').parent();
             $imageContainer.html(`
                 <div class="w-100 h-100 position-relative" 
-                     style="background: url('../Images/151179702_534599881276239_3150779437365920771_n.jpg') center/cover no-repeat; min-height: 400px; border-left: 1px solid var(--color-border);">
-                     <div class="p-4">
-                        <span class="fs-5 fw-bold text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Premier University CSE</span>
-                     </div>
+                     style="background: url('../Images/151179702_534599881276239_3150779437365920771_n.jpg') center/cover no-repeat; min-height: 400px; filter: brightness(0.7) contrast(1.1) saturate(0.9);">
                 </div>
             `);
 
