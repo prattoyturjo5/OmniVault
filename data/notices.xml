@@ -3,9 +3,9 @@
     <notice id="n1">
         <category>Exam</category>
         <title>Final Term Examination Schedule</title>
-        <date>2026-04-10</date>
-        <content>The Final Term Examination routine has been officially published. Students are advised to check their respective slots and venues carefully. Examination starts from May 15th.</content>
-        <image>../Images/660870746_10242738132328748_6680086928628862274_n.jpg</image>
+        <date>2026-04-27</date>
+        <content>The Final Term Examination routine has been officially published. Students are advised to check their respective slots and venues carefully. Examination starts from May 3rd.</content>
+        <image>../Images/Screenshot 2026-04-27 213256.png</image>
     </notice>
     <notice id="n2">
         <category>Event</category>
@@ -15,9 +15,9 @@
     </notice>
     <notice id="n3">
         <category>Administrative</category>
-        <title>New Lab 404 Access Policy</title>
+        <title>New Lab 905 Access Policy</title>
         <date>2026-04-15</date>
-        <content>Starting next week, Lab 404 will be open 24/7 for senior-year students working on their thesis. Use your biometric ID for entry. Please maintain the hardware properly.</content>
+        <content>Starting next week, Lab 905 will be open 24/7 for senior-year students working on their thesis. Use your biometric ID for entry. Please maintain the hardware properly.</content>
     </notice>
     <notice id="n4">
         <category>Academic</category>
@@ -27,7 +27,7 @@
     </notice>
     <notice id="n5">
         <category>Event</category>
-        <title>ACM ICPC Regional Preliminary Mock Test</title>
+        <title>ICPC Regional Preliminary Mock Test</title>
         <date>2026-04-20</date>
         <content>A mock competitive programming contest will be held this Saturday. All participants are encouraged to join to test their problem-solving speed and team coordination.</content>
     </notice>

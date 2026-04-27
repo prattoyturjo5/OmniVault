@@ -16,7 +16,15 @@ $(document).ready(function () {
       if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText)) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
-        const notices = xmlDoc.getElementsByTagName('notice');
+        let notices = Array.from(xmlDoc.getElementsByTagName('notice'));
+        
+        // Sort by date descending (latest first)
+        notices.sort((a, b) => {
+          const dateA = a.getElementsByTagName('date')[0].textContent;
+          const dateB = b.getElementsByTagName('date')[0].textContent;
+          return new Date(dateB) - new Date(dateA);
+        });
+
         const $container = $('#notice-board-teaser');
         $container.empty();
 
@@ -81,7 +89,14 @@ $(document).ready(function () {
       .then(xmlText => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        const notices = xmlDoc.querySelectorAll('notice');
+        let notices = Array.from(xmlDoc.querySelectorAll('notice'));
+
+        // Sort by date descending (latest first)
+        notices.sort((a, b) => {
+          const dateA = a.querySelector('date').textContent;
+          const dateB = b.querySelector('date').textContent;
+          return new Date(dateB) - new Date(dateA);
+        });
 
         $tbody.empty();
 
