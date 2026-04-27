@@ -410,7 +410,7 @@
             $('#featured-event-wrapper').removeClass('d-none');
 
             const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(feat);
-            const loggedIn = await window.Utils.isLoggedIn();
+            const role = await window.Utils.getUserRole();
 
             // Populate text
             const dateStr = feat.event_date
@@ -441,9 +441,17 @@
             // Register button state
             const $btn = $('#feat-register-btn');
             
-            if (!loggedIn) {
+            if (role === 'guest') {
+                $btn.prop('disabled', false).text('Can not register')
+                    .addClass('btn-outline-primary border-primary-custom text-primary-custom')
+                    .removeClass('btn-primary-custom d-none')
+                    .off('click').on('click', function(e) {
+                        e.preventDefault();
+                        window.Utils.requireAuth();
+                    });
+            } else if (role === 'admin') {
                 $btn.addClass('d-none');
-            } else {
+            } else if (role === 'student') {
                 $btn.removeClass('d-none');
                 if (isEnded) {
                     $btn.prop('disabled', true).text('Registration Closed').removeClass('btn-primary-custom').addClass('btn-secondary');
@@ -526,7 +534,7 @@
             }
             $('#events-empty').addClass('d-none');
 
-            const loggedIn = await window.Utils.isLoggedIn();
+            const role = await window.Utils.getUserRole();
 
             filtered.forEach(ev => {
                 const dateStr = ev.event_date
@@ -538,7 +546,7 @@
                 let statusBadge = '';
                 if (isEnded) {
                     statusBadge = '<span class="badge-ended ms-2">Event Ended</span>';
-                } else if (hasRegistered) {
+                } else if (hasRegistered && role === 'student') {
                     statusBadge = '<span class="badge bg-success ms-2">Registered</span>';
                 } else if (isFull) {
                     statusBadge = '<span class="badge-full ms-2">Seats Over</span>';
@@ -554,7 +562,14 @@
                 }
 
                 let btnHtml = '';
-                if (loggedIn) {
+                if (role === 'guest') {
+                    btnHtml = `
+                    <button class="btn btn-outline-primary border-primary-custom text-primary-custom w-100 fw-semibold"
+                        onclick="window.Utils.requireAuth();">
+                        Can not register
+                    </button>
+                    `;
+                } else if (role === 'student') {
                     let btnText = 'Register Now';
                     let btnDisabled = '';
                     let btnClass = 'btn-primary-custom';
@@ -625,9 +640,10 @@
         // OPEN REGISTRATION MODAL
         // ════════════════════════════════════════════
         async function openRegisterModal(eventId, eventTitle) {
-            const loggedIn = await window.Utils.isLoggedIn();
-            if (!loggedIn) {
-                window.Utils.requireAuth();
+            const role = await window.Utils.getUserRole();
+            if (role !== 'student') {
+                if (role === 'guest') window.Utils.requireAuth();
+                else alert('Only students can register for events.');
                 return;
             }
 
@@ -652,28 +668,26 @@
             modal.show();
         }
 
-        // Featured register button
         $('#feat-register-btn').on('click', async function () {
             const id = $(this).attr('data-event-id');
             const title = $(this).attr('data-event-title');
             
-            const loggedIn = await window.Utils.isLoggedIn();
-            if (!loggedIn) {
-                window.Utils.requireAuth();
+            const role = await window.Utils.getUserRole();
+            if (role !== 'student') {
+                if (role === 'guest') window.Utils.requireAuth();
                 return;
             }
             
             if (id) openRegisterModal(id, title);
         });
 
-        // Grid register buttons
         $(document).on('click', '.btn-open-register', async function () {
             const id = $(this).attr('data-event-id');
             const title = $(this).attr('data-event-title');
 
-            const loggedIn = await window.Utils.isLoggedIn();
-            if (!loggedIn) {
-                window.Utils.requireAuth();
+            const role = await window.Utils.getUserRole();
+            if (role !== 'student') {
+                if (role === 'guest') window.Utils.requireAuth();
                 return;
             }
 
@@ -684,9 +698,9 @@
         // SUBMIT REGISTRATION
         // ════════════════════════════════════════════
         $('#btnSubmitRegister').on('click', async function () {
-            const loggedIn = await window.Utils.isLoggedIn();
-            if (!loggedIn) {
-                $('#register-error').removeClass('d-none').text('⚠️ Your session has expired. Please login again.');
+            const role = await window.Utils.getUserRole();
+            if (role !== 'student') {
+                $('#register-error').removeClass('d-none').text('⚠️ Only students can register. Please login with a student account.');
                 return;
             }
 

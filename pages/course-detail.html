@@ -438,17 +438,38 @@
             }
 
             async function applyAuthGuard() {
-                const loggedIn = await window.Utils.isLoggedIn();
-                if (!loggedIn) {
-                    // Do nothing, buttons remain hidden via d-none
-                } else {
+                const role = await window.Utils.getUserRole();
+                const $btns = $('.enroll-btn');
+
+                if (role === 'guest') {
+                    $btns.text('Can not enroll now')
+                         .removeClass('d-none btn-primary-custom')
+                         .addClass('btn-outline-primary border-primary-custom text-primary-custom')
+                         .removeAttr('data-bs-toggle')
+                         .removeAttr('data-bs-target')
+                         .on('click', function(e) {
+                             e.preventDefault();
+                             window.Utils.requireAuth();
+                         });
+                } else if (role === 'admin') {
+                    $btns.text('Manage Course')
+                         .removeClass('d-none')
+                         .removeAttr('data-bs-toggle')
+                         .removeAttr('data-bs-target')
+                         .on('click', function(e) {
+                             e.preventDefault();
+                             window.location.href = './admin.html';
+                         });
+                } else if (role === 'student') {
                     const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
                     if (studentUser.name) {
                         $('#enrollName').val(studentUser.name).prop('readonly', true);
                         $('#enrollEmail').val(studentUser.email).prop('readonly', true);
                         $('#enrollStudentId').val(studentUser.studentId).prop('readonly', true);
                     }
-                    $('.enroll-btn').removeClass('d-none').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#enrollModal');
+                    $btns.removeClass('d-none')
+                         .attr('data-bs-toggle', 'modal')
+                         .attr('data-bs-target', '#enrollModal');
                 }
             }
 

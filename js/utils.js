@@ -139,5 +139,30 @@ window.Utils = {
       return false;
     }
     return true;
+  },
+
+  // Get user role for RBAC: returns 'admin', 'student', or 'guest'
+  getUserRole: async function () {
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        return 'admin';
+    }
+    
+    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
+    if (studentUser && studentUser.loggedIn) {
+        return 'student';
+    }
+
+    if (window.supabase && window.supabase.auth) {
+        try {
+            const { data } = await window.supabase.auth.getSession();
+            if (data && data.session) {
+                const role = data.session.user.user_metadata?.role;
+                if (role === 'admin') return 'admin';
+                return 'student';
+            }
+        } catch (e) { console.error("Role check failed:", e); }
+    }
+
+    return 'guest';
   }
 };

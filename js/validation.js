@@ -10,10 +10,14 @@ $(document).ready(function () {
         e.preventDefault();
         
         // Final security check for a professional implementation
-        const loggedIn = window.Utils ? await window.Utils.isLoggedIn() : false;
-        if (!loggedIn) {
-            alert('Your session has expired or you are not logged in. Please login to enroll.');
-            if (window.Utils) window.Utils.requireAuth();
+        const role = window.Utils ? await window.Utils.getUserRole() : 'guest';
+        if (role !== 'student') {
+            if (role === 'guest') {
+                alert('Your session has expired or you are not logged in. Please login to enroll.');
+                if (window.Utils) window.Utils.requireAuth();
+            } else {
+                alert('Only students can enroll in courses.');
+            }
             return;
         }
 
