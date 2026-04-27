@@ -514,10 +514,24 @@
                         <div class="row g-3 mb-3">
                             <div class="col-6"><label class="form-label small fw-bold">Dept</label><select
                                     class="form-select" id="formDept">
-                                    <option value="dept-cse">CSE</option>
+                                    <option value="CSE">CSE</option>
                                 </select></div>
                             <div class="col-6"><label class="form-label small fw-bold">Instructor</label><input
                                     type="text" class="form-control" id="formInstructor" required></div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Course Level</label>
+                                <select class="form-select" id="formLevel" required>
+                                    <option value="" disabled selected>Select Level</option>
+                                    <option value="Undergraduate">Undergraduate</option>
+                                    <option value="Postgraduate">Postgraduate</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Course Duration (Weeks)</label>
+                                <input type="number" class="form-control" id="formDuration" min="1" required>
+                            </div>
                         </div>
                         <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea
                                 class="form-control" id="formDesc" rows="3"></textarea></div>

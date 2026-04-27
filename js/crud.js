@@ -233,6 +233,8 @@ $(document).ready(function () {
         if (module === 'courses') {
             $('#formTitle').val(item.title);
             $('#formInstructor').val(item.instructor);
+            $('#formLevel').val(item.level || '');
+            $('#formDuration').val(item.duration_weeks || (item.duration ? parseInt(item.duration) : ''));
             $('#formDesc').val(item.description);
             $('#courseModal').attr('data-edit-id', id).modal('show');
         } else if (module === 'faculty') {
@@ -447,8 +449,22 @@ $(document).ready(function () {
     $('#btnSaveCourse').on('click', async function () {
         const title = $('#formTitle').val().trim();
         const instructor = $('#formInstructor').val().trim();
-        if (!title || !instructor) return showAdminAlert('Title and Instructor are required.');
-        const payload = { title, instructor, department: 'CSE', description: $('#formDesc').val().trim() };
+        const level = $('#formLevel').val();
+        const durationInput = $('#formDuration').val();
+        
+        if (!title || !instructor || !level || !durationInput) return showAdminAlert('Title, Instructor, Level, and Duration are required.');
+        
+        const durationWeeks = parseInt(durationInput);
+        if (isNaN(durationWeeks) || durationWeeks <= 0) return showAdminAlert('Duration must be a positive integer.');
+
+        const payload = { 
+            title, 
+            instructor, 
+            department: 'CSE', 
+            description: $('#formDesc').val().trim(),
+            level: level,
+            duration: durationWeeks + ' Weeks'
+        };
         const editId = $('#courseModal').attr('data-edit-id');
         try {
             if (editId) { const { error } = await supabase.from('courses').update(payload).eq('id', editId); if (error) throw error; }
