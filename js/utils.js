@@ -109,5 +109,35 @@ window.Utils = {
   getUrlParam: function (paramName) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(paramName);
+  },
+
+  // Checks if a student is logged in (via sessionStorage or Supabase)
+  isLoggedIn: async function () {
+    // 1. Check legacy/custom session
+    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || 'null');
+    if (studentUser && studentUser.loggedIn) return true;
+
+    // 2. Check Supabase Auth session if available
+    if (window.supabase && window.supabase.auth) {
+      try {
+        const { data } = await window.supabase.auth.getSession();
+        if (data && data.session) return true;
+      } catch (e) { console.error("Auth check failed:", e); }
+    }
+
+    return false;
+  },
+
+  // Redirect to login if not authenticated
+  requireAuth: async function (redirectUrl) {
+    const defaultLogin = window.location.pathname.includes('/pages/') ? './login.html' : './pages/login.html';
+    const finalRedirect = redirectUrl || defaultLogin;
+    
+    const loggedIn = await this.isLoggedIn();
+    if (!loggedIn) {
+      window.location.href = finalRedirect;
+      return false;
+    }
+    return true;
   }
 };

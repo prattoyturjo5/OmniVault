@@ -105,8 +105,7 @@
                                 description goes here.</p>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn"
-                                    data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
+                                <button class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn d-none">Enroll Now</button>
                             </div>
                         </div>
 
@@ -146,8 +145,7 @@
                                     </li>
                                 </ul>
 
-                                <button class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0"
-                                    data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll Now</button>
+                                <button class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0 d-none">Enroll Now</button>
                             </div>
                         </div>
 
@@ -248,29 +246,15 @@
     <!-- ========== FOOTER (NESTED PAGES) ========== -->
     <div id="footer-placeholder"></div>
 
-    <!-- jQuery CDN -->
+    <!-- Core Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/navbar-loader.js"></script>
     <script src="../js/footer-loader.js"></script>
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-client.js"></script>
-    <!-- Core JS -->
-    <script src="../js/utils.js"></script>
-    <script src="../js/main.js"></script>
     <script src="../js/validation.js"></script>
 
     <!-- PAGE LOGIC -->
@@ -278,11 +262,9 @@
         $(document).ready(function () {
             let id = window.Utils ? window.Utils.getUrlParam('id') : new URLSearchParams(window.location.search).get('id');
             if (!id) {
-                // Default to a course if opened directly without an ID parameter
                 id = 'cse101';
             }
 
-            // Fetch Course Data from Supabase
             async function fetchCourseData() {
                 try {
                     const { data, error } = await supabase
@@ -296,7 +278,6 @@
 
                     renderCourse(data);
                     
-                    // Enable Real-time listener for this specific course
                     supabase
                         .channel(`course-realtime-${id}`)
                         .on('postgres_changes', { 
@@ -334,13 +315,11 @@
                 if (seatsTotal > 0) perc = (seatsFilled / seatsTotal) * 100;
                 $('#seats-progress').css('width', `${perc}%`);
                 
-                // Set progress bar color based on fullness
                 if (perc >= 90) $('#seats-progress').addClass('bg-danger').removeClass('bg-primary');
                 else $('#seats-progress').addClass('bg-primary').removeClass('bg-danger');
             }
 
             function renderCourse(course) {
-                // Expose context globally for validation.js
                 window.enrollmentContext = {
                     courseId: course.id,
                     courseTitle: course.title,
@@ -348,7 +327,6 @@
                     instructor: course.instructor
                 };
 
-                // Setup Details
                 document.title = "OmniVault - " + course.title;
                 $('#breadcrumb-title').text(course.title);
 
@@ -370,7 +348,6 @@
 
                 $('#enrollModalLabel').text(`Enroll in ${course.title}`);
 
-                // Setup Syllabus Accordion
                 const $syllabusArgs = $('#syllabusAccordion');
                 $syllabusArgs.empty();
                 if (course.syllabus && course.syllabus.length > 0) {
@@ -401,22 +378,17 @@
                     $syllabusArgs.html('<p class="text-secondary mb-0">Syllabus details coming soon.</p>');
                 }
 
-                // Reveal UI
                 $('#loading-container').addClass('d-none');
                 $('#course-content-container').removeClass('d-none');
+                applyAuthGuard();
                 
-                // Fetch Instructor info
                 fetchInstructor(course.instructor, deptLower);
-                
-                // Fetch Related
                 fetchRelated(course.department, course.id);
             }
 
             async function fetchInstructor(name, deptLower) {
                 try {
-                    // Try to find in Supabase faculty table
                     const { data } = await supabase.from('faculty').select('*').ilike('name', `%${name.replace(/Dr\.|Prof\.|Mr\.|Ms\./g, '').trim()}%`).maybeSingle();
-                    
                     if (data) {
                         $('#inst-name').text(data.name);
                         $('#inst-dept').text(data.designation + ' - ' + data.department);
@@ -439,7 +411,6 @@
                     const { data } = await supabase.from('courses').select('*').eq('department', dept).neq('id', currentId).limit(3);
                     const $related = $('#related-courses');
                     $related.empty();
-                    
                     if (!data || data.length === 0) {
                         $related.html('<div class="col-12"><p class="text-secondary">No other specific courses in this department at this time.</p></div>');
                     } else {
@@ -466,13 +437,23 @@
                 }
             }
 
-            fetchCourseData();
+            async function applyAuthGuard() {
+                const loggedIn = await window.Utils.isLoggedIn();
+                if (!loggedIn) {
+                    // Do nothing, buttons remain hidden via d-none
+                } else {
+                    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+                    if (studentUser.name) {
+                        $('#enrollName').val(studentUser.name).prop('readonly', true);
+                        $('#enrollEmail').val(studentUser.email).prop('readonly', true);
+                        $('#enrollStudentId').val(studentUser.studentId).prop('readonly', true);
+                    }
+                    $('.enroll-btn').removeClass('d-none').attr('data-bs-toggle', 'modal').attr('data-bs-target', '#enrollModal');
+                }
+            }
 
+            fetchCourseData();
         });
     </script>
 </body>
-
 </html>
-
-
-
