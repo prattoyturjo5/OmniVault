@@ -286,7 +286,6 @@
                             table: 'courses', 
                             filter: `id=eq.${id}` 
                         }, payload => {
-                            console.log('Course updated in real-time:', payload.new);
                             updateSeatsUI(payload.new);
                         })
                         .subscribe();

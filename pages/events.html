@@ -320,7 +320,6 @@
                     }
                 }
 
-                console.log("Fetching events...");
                 const fetchPromise = supabase
                     .from('events')
                     .select('*')
@@ -330,7 +329,6 @@
 
                 if (error) throw error;
                 allEvents = data || [];
-                console.log("Events fetched:", allEvents.length);
                 
                 $('#events-loading').addClass('d-none');
 
@@ -379,7 +377,6 @@
                     schema: 'public', 
                     table: 'events' 
                 }, payload => {
-                    console.log('Real-time event change detected:', payload);
                     loadEvents();
                 })
                 .subscribe();

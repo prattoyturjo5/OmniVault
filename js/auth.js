@@ -48,6 +48,7 @@ $(document).ready(async function() {
                 loggedIn: true
             };
             sessionStorage.setItem('omnivault_user', JSON.stringify(userData));
+            sessionStorage.removeItem('adminLoggedIn'); // Clear any sticky admin session
             
             window.location.href = 'dashboard.html';
         } catch(err) {

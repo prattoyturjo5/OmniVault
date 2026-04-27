@@ -169,6 +169,7 @@ $(document).ready(function () {
               const creds = JSON.parse(localStorage.getItem('adminCreds'));
               if ($('#admin-username').val() === creds.username && $('#admin-password').val() === creds.password) {
                   sessionStorage.setItem('adminLoggedIn', 'true');
+                  sessionStorage.removeItem('omnivault_user'); // Clear student session to prevent sticky roles
                   $('#adminLoginModal').modal('hide');
                   window.location.href = adminUrl;
               } else {

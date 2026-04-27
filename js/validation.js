@@ -38,10 +38,6 @@ $(document).ready(function () {
             const { courseId, courseTitle } = window.enrollmentContext;
 
             try {
-                // 1. ID Verification & Data Type Logging
-                console.log(`[Enrollment Debug] Submitting enrollment for course: ${courseId}`);
-                console.log(`[Enrollment Debug] student_id being sent: '${studentId}'`);
-                console.log(`[Enrollment Debug] student_id data type: ${typeof studentId}`);
                 // Note: Not using parseInt() because IDs like '21-XXXXX-1' are strings.
                 // If your Supabase table requires an integer, you must change your ID format.
 
@@ -103,12 +99,6 @@ $(document).ready(function () {
                 `);
 
             } catch (err) {
-                // 3. Detailed Error Logging
-                console.error('[Enrollment Debug] Complete Error Object:', err);
-                if (err.message) console.error('[Enrollment Debug] Exact Message:', err.message);
-                if (err.details) console.error('[Enrollment Debug] Exact Details:', err.details);
-                if (err.hint) console.error('[Enrollment Debug] Error Hint:', err.hint);
-                
                 // Show exact error in the alert so user can screenshot it
                 const errorMsg = err.message || JSON.stringify(err) || 'Unknown error';
                 const errorDetails = err.details || 'No details provided';

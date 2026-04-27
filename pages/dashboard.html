@@ -409,6 +409,23 @@
                 $('#profDept').val(uDept === 'CSE' ? 'CSE' : 'Computer Science');
 
                 renderEnrollments();
+                initRealtime();
+            }
+
+            function initRealtime() {
+                if (!studentId) return;
+                
+                // Watch enrollments
+                supabase.channel('dashboard-enrollments')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'enrollments', filter: `student_id=eq.${studentId}` }, payload => {
+                        renderEnrollments();
+                    }).subscribe();
+
+                // Watch event registrations
+                supabase.channel('dashboard-events')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'event_registrations', filter: `student_id=eq.${studentId}` }, payload => {
+                        renderEnrollments();
+                    }).subscribe();
             }
 
             async function renderEnrollments() {

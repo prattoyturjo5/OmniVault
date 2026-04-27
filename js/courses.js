@@ -25,7 +25,6 @@ $(document).ready(function () {
       // Real-time listener for course seat updates
       supabase.channel('public:courses')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'courses' }, payload => {
-            console.log('Course change detected:', payload);
             fetchCourses(); // Simplest way to keep sync
         })
         .subscribe();

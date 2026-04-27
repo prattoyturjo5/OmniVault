@@ -55,7 +55,6 @@ $(document).ready(function () {
         supabase
             .channel('admin-realtime')
             .on('postgres_changes', { event: '*', schema: 'public' }, payload => {
-                console.log('Admin detected change:', payload);
                 const table = payload.table;
                 if (modules.includes(table)) {
                     initModuleData(table); // Refresh the specific table

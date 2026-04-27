@@ -6,8 +6,6 @@ $(document).ready(function() {
 
     async function updateStats() {
         try {
-            console.log("Syncing stats with OmniVault Database...");
-
             // 1. Fetch Course Count
             const { count: courseCount, error: courseError } = await supabase
                 .from('courses')
@@ -58,8 +56,6 @@ $(document).ready(function() {
                     $('#stat-spec-band').text("CSE Only");
                 }
             }
-
-            console.log(`Live Stats: ${courseCount} Courses, ${facultyCount} Faculty, ${studentCount} Students.`);
 
             if (courseCount === 0 && facultyCount === 0 && studentCount === 0) {
                 console.warn("All stats returned 0. This strongly suggests RLS is blocking the 'anon' role.");
