@@ -8,6 +8,15 @@ $(document).ready(function () {
     // ----------------------------------------------------
     $('#enrollForm').on('submit', async function (e) {
         e.preventDefault();
+        
+        // Final security check for a professional implementation
+        const loggedIn = window.Utils ? await window.Utils.isLoggedIn() : false;
+        if (!loggedIn) {
+            alert('Your session has expired or you are not logged in. Please login to enroll.');
+            if (window.Utils) window.Utils.requireAuth();
+            return;
+        }
+
         let isValid = true;
 
         const name = $('#enrollName').val().trim();
