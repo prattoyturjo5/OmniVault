@@ -49,17 +49,14 @@ $(document).ready(function () {
         // 2. BLOG.HTML (Overview Grid + Featured)
         // ----------------------------------------------------
         if ($blogPage.length > 0) {
-            // Force Custom Featured Content for Premier University
+            // Use Featured Content from JSON
             const featured = data[0];
-            const customTitle = "Empowering Premier University: The New Era of CSE Education";
-            const customAuthor = "Raisul Islam";
-            const customExcerpt = "OmniVault is officially partnering with the Premier University community to provide world-class Computer Science resources and academic excellence.";
-            const featDateStr = "April 5"; // Hardcoded as requested
+            const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(featured.date) : featured.date;
 
-            $('#featured-category').text("Announcements");
-            $('#featured-title').text(customTitle);
-            $('#featured-excerpt').text(customExcerpt);
-            $('#featured-meta').text(`By ${customAuthor} · ${featDateStr}`);
+            $('#featured-category').text(featured.category);
+            $('#featured-title').text(featured.title);
+            $('#featured-excerpt').text(featured.excerpt);
+            $('#featured-meta').text(`By ${featured.author} · ${dateStr}`);
             $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
 
             // Replace spinner with campus background image and title overlay
@@ -75,13 +72,9 @@ $(document).ready(function () {
             $grid.empty();
 
             data.forEach((blog, index) => {
-                // Apply the same custom naming to the first card in the grid if it matches the featured ID
-                let displayTitle = blog.title;
-                let displayAuthor = blog.author;
-                if (index === 0) {
-                    displayTitle = customTitle;
-                    displayAuthor = customAuthor;
-                }
+                // Use real data from JSON
+                const displayTitle = blog.title;
+                const displayAuthor = blog.author;
 
                 const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(blog.date) : blog.date;
                 const excerpt = window.Utils && window.Utils.truncate ? window.Utils.truncate(blog.excerpt, 100) : blog.excerpt;
@@ -134,10 +127,9 @@ $(document).ready(function () {
                 return;
             }
 
-            // If this is the first post, override details
-            const isFirstPost = data[0].id === id;
-            const displayTitle = isFirstPost ? "Empowering Premier University: The New Era of CSE Education" : post.title;
-            const displayAuthor = isFirstPost ? "Raisul Islam" : post.author;
+            // Use actual post details
+            const displayTitle = post.title;
+            const displayAuthor = post.author;
             const dateStr = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(post.date) : post.date;
 
             document.title = `OmniVault - ${displayTitle}`;
@@ -158,8 +150,8 @@ $(document).ready(function () {
             const $sidebarLatest = $('#sidebar-latest');
             $sidebarLatest.empty();
 
-            latestPosts.forEach((lp, i) => {
-                const lpTitle = (i === 0) ? "Empowering Premier University: The New Era of CSE Education" : lp.title;
+            latestPosts.forEach((lp) => {
+                const lpTitle = lp.title;
                 const lpDate = window.Utils && window.Utils.formatDate ? window.Utils.formatDate(lp.date) : lp.date;
                 $sidebarLatest.append(`
                  <div class="mb-3 border-bottom border-light pb-3">
