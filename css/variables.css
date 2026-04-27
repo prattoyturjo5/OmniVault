@@ -8,9 +8,9 @@
   --color-surface: #FFFFFF;
   --color-text-primary: #355872;
   --color-text-secondary: #5A7B95;
-  --color-accent: #9CD5FF;
-  --color-accent-light: #E0F2FF;
-  --color-border: #7AAACE;
+  --color-accent: #2C5282;         /* Darkened for visibility (Blue 700) */
+  --color-accent-light: #E2E8F0;    /* Updated corresponding light shade */
+  --color-border: #CBD5E0;         /* Slightly more visible border */
   --color-dark-band: #355872;
   /* Deep Slate Blue */
 
