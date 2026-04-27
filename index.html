@@ -19,6 +19,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- Core CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
@@ -26,6 +28,45 @@
     <!-- Page Specific CSS -->
     <link rel="stylesheet" href="css/pages/home.css">
     <style>
+        /* How It Works Section Styling */
+        .how-it-works-section {
+            background-color: #F7F8F0 !important;
+        }
+
+        .step-col {
+            position: relative;
+            padding: 0 44px;
+        }
+
+        @media (min-width: 768px) {
+            .step-col:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 25%;
+                height: 50%;
+                width: 1px;
+                background-color: rgba(122, 170, 206, 0.3);
+            }
+        }
+
+        .bg-number {
+            display: block;
+            font-size: 80px;
+            font-weight: 800;
+            color: #355872;
+            z-index: 1;
+            user-select: none;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .step-description {
+            line-height: 1.8;
+            letter-spacing: 0.2px;
+            font-size: 14px;
+        }
+
         /* Hero 2x2 Abstract Grid */
         .hero-abstract-grid {
             display: grid;
@@ -194,33 +235,24 @@
         </section>
 
         <!-- SECTION 4 — HOW IT WORKS -->
-        <section class="bg-light pb-5 pt-0" style="background-color: var(--color-bg);">
+        <section class="how-it-works-section pb-5 pt-0">
             <div class="container py-5 mt-4">
-                <h2 class="text-center mb-5 pb-3">How It Works</h2>
-                <div class="row g-5">
-                    <div class="col-md-4 text-center px-4 position-relative">
-                        <div
-                            style="font-size: 80px; font-weight: 800; color: var(--color-border); line-height: 1; margin-bottom: 16px; opacity: 0.4; user-select: none;">
-                            01</div>
-                        <h4 class="fw-bold mb-2">Select Track</h4>
-                        <p class="text-secondary">Choose your specialization from our curated list of high-demand tech
-                            tracks.</p>
+                <h2 class="text-center mb-5 pb-2 fw-bold" style="font-family: Playfair Display;">How It Works</h2>
+                <div class="row g-0">
+                    <div class="col-md-4 text-center step-col">
+                        <div class="bg-number">01</div>
+                        <h5 class="fw-bold mb-3 text-dark">Select Track</h5>
+                        <p class="text-secondary step-description px-lg-3">Choose your specialization from our curated list of high-demand tech tracks tailored for future excellence.</p>
                     </div>
-                    <div class="col-md-4 text-center px-4 position-relative">
-                        <div
-                            style="font-size: 80px; font-weight: 800; color: var(--color-border); line-height: 1; margin-bottom: 16px; opacity: 0.4; user-select: none;">
-                            02</div>
-                        <h4 class="fw-bold mb-2">Register & Enroll</h4>
-                        <p class="text-secondary">Sign up easily, select your courses, and process enrollment
-                            seamlessly.</p>
+                    <div class="col-md-4 text-center step-col">
+                        <div class="bg-number">02</div>
+                        <h5 class="fw-bold mb-3 text-dark">Register & Enroll</h5>
+                        <p class="text-secondary step-description px-lg-3">Sign up easily, select your specialized courses, and navigate the enrollment process with seamless precision.</p>
                     </div>
-                    <div class="col-md-4 text-center px-4 position-relative">
-                        <div
-                            style="font-size: 80px; font-weight: 800; color: var(--color-border); line-height: 1; margin-bottom: 16px; opacity: 0.4; user-select: none;">
-                            03</div>
-                        <h4 class="fw-bold mb-2">Learn & Get Certified</h4>
-                        <p class="text-secondary">Attend classes, complete assignments, and earn your recognized
-                            certification.</p>
+                    <div class="col-md-4 text-center step-col">
+                        <div class="bg-number">03</div>
+                        <h5 class="fw-bold mb-3 text-dark">Learn & Get Certified</h5>
+                        <p class="text-secondary step-description px-lg-3">Attend expert-led sessions, complete rigorous assignments, and earn your globally recognized career certification.</p>
                     </div>
                 </div>
             </div>
