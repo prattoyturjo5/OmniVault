@@ -44,7 +44,7 @@ $(document).ready(function() {
     <nav class="navbar navbar-omnivault navbar-expand-lg fixed-top">
       <div class="container">
         <a class="navbar-brand logo" href="${links.home}">
-            <span class="logo-dot" style="width: 10px; height: 10px; background: var(--color-accent); border-radius: 50%; display: inline-block;"></span> OmniVault
+            <span class="logo-dot" style="width: 10px; height: 10px; background: #fff; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px rgba(255,255,255,0.5);"></span> OmniVault
         </a>
         
         <button class="navbar-toggler border-0" type="button" aria-label="Toggle navigation">
