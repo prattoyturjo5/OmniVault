@@ -62,13 +62,16 @@ $(document).ready(function () {
             $('#featured-meta').text(`By ${customAuthor} · ${featDateStr}`);
             $('#featured-link').attr('href', `./blog-detail.html?id=${featured.id}`);
 
-            // Replace spinner with featured image
-            const featImg = featured.image || '../assets/images/placeholder.jpg';
-            $('#featured-post .spinner-border').parent().html(`
-              <img src="${featImg}" class="w-100 h-100 object-fit-cover" 
-              alt="Premier University CSE" 
-              style="min-height: 400px; border-left: 1px solid var(--color-border);">
-          `);
+            // Replace spinner with campus background image and title overlay
+            const $imageContainer = $('#featured-post .spinner-border').parent();
+            $imageContainer.html(`
+                <div class="w-100 h-100 position-relative" 
+                     style="background: url('../Images/151179702_534599881276239_3150779437365920771_n.jpg') center/cover no-repeat; min-height: 400px; border-left: 1px solid var(--color-border);">
+                     <div class="p-4">
+                        <span class="fs-5 fw-bold text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.4);">Premier University CSE</span>
+                     </div>
+                </div>
+            `);
 
             // Grid the rest
             const $grid = $('#blog-grid');
