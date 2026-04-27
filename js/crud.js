@@ -114,8 +114,10 @@ $(document).ready(function () {
                     <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
                     <td>${item.instructor || '—'}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="courses">Edit</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="courses">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="courses">Edit</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="courses">Delete</button>
+                        </div>
                     </td></tr>`;
             } else if (module === 'faculty') {
                 row = `<tr>
@@ -124,8 +126,10 @@ $(document).ready(function () {
                     <td>${item.designation}</td>
                     <td>${item.department}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="faculty">Edit</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="faculty">Edit</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="faculty">Delete</button>
+                        </div>
                     </td></tr>`;
             } else if (module === 'students') {
                 row = `<tr>
@@ -139,9 +143,11 @@ $(document).ready(function () {
                     <td class="small text-secondary">${item.email || '—'}</td>
                     <td><span class="badge bg-light text-dark border">${item.department || 'CSE'}</span></td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost text-primary btn-student-details" data-id="${item.student_id}" data-name="${item.name.replace(/"/g,'&quot;')}">Details</button>
-                        <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="students">Edit</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="students">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-student-details" data-id="${item.student_id}" data-name="${item.name.replace(/"/g,'&quot;')}">Details</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="students">Edit</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="students">Delete</button>
+                        </div>
                     </td>
                 </tr>`;
             } else if (module === 'events') {
@@ -155,7 +161,7 @@ $(document).ready(function () {
                     <td>${i + 1}</td>
                     <td class="fw-semibold">${item.title}</td>
                     <td><span class="badge bg-light text-dark border">${item.type}</span></td>
-                    <td>${date}<br><span class="small text-secondary">${item.event_time || ''}</span></td>
+                    <td>${date}<span class="event-time">${item.event_time || ''}</span></td>
                     <td class="small">${item.location || '—'}</td>
                     <td>
                         <div class="small fw-semibold">${item.seats_remaining ?? item.seats_total} / ${item.seats_total}</div>
@@ -163,9 +169,11 @@ $(document).ready(function () {
                     </td>
                     <td>${featured}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost btn-view-regs" data-id="${item.id}" data-title="${item.title.replace(/"/g,'&quot;')}">Regs</button>
-                        <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="events">Edit</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="events">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-view-regs" data-id="${item.id}" data-title="${item.title.replace(/"/g,'&quot;')}">Regs</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="events">Edit</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="events">Delete</button>
+                        </div>
                     </td></tr>`;
             } else if (module === 'specializations') {
                 row = `<tr>
@@ -174,8 +182,10 @@ $(document).ready(function () {
                     <td><span class="badge bg-primary text-white" style="background:var(--color-accent)!important">${item.tag}</span></td>
                     <td class="small text-secondary">${item.course_count} Courses · ${item.faculty_count} Faculty</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost btn-edit" data-id="${item.id}" data-module="specializations">Edit</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="specializations">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-edit" data-id="${item.id}" data-module="specializations">Edit</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="specializations">Delete</button>
+                        </div>
                     </td></tr>`;
             } else if (module === 'contact_messages') {
                 const date = new Date(item.created_at).toLocaleString();
@@ -186,8 +196,10 @@ $(document).ready(function () {
                     <td><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.message.replace(/"/g, '&quot;')}">${item.message}</div></td>
                     <td class="small text-secondary">${date}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-ghost text-primary btn-read-msg" data-id="${item.id}">Read</button>
-                        <button class="btn btn-sm btn-ghost text-danger btn-delete" data-id="${item.id}" data-module="contact_messages">Delete</button>
+                        <div class="actions-column">
+                            <button class="btn btn-ghost btn-admin-action btn-action-brand btn-read-msg" data-id="${item.id}">Read</button>
+                            <button class="btn btn-ghost btn-admin-action btn-action-danger btn-delete" data-id="${item.id}" data-module="contact_messages">Delete</button>
+                        </div>
                     </td></tr>`;
             }
             $tbody.append(row);
