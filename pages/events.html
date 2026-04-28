@@ -1,10 +1,11 @@
 <!--
   Page: Events
   File: events.html
-  Made by: [Prattoy] | ID: [1171]
+  Made by: [Minhaz] | ID: [1195]
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
@@ -27,8 +30,9 @@
             width: 84px;
             padding: 16px 8px 12px;
             text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
+
         .cd-num {
             font-size: 2rem;
             font-weight: 800;
@@ -36,6 +40,7 @@
             color: var(--color-dark-band);
             line-height: 1;
         }
+
         .cd-label {
             font-size: 10px;
             font-weight: 700;
@@ -53,13 +58,15 @@
             border: 1px solid var(--color-border);
             overflow: hidden;
             margin-top: 6px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
         }
+
         .seat-bar-fill {
             height: 100%;
             border-radius: 6px;
             transition: width 0.5s ease, background 0.4s ease;
         }
+
         /* Status badges */
         .badge-ended {
             background: #6c757d;
@@ -69,6 +76,7 @@
             padding: 5px 12px;
             border-radius: 999px;
         }
+
         .badge-full {
             background: #dc3545;
             color: #fff;
@@ -83,9 +91,10 @@
             border-radius: var(--radius-md);
             transition: transform 0.22s ease, box-shadow 0.22s ease;
         }
+
         .event-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.10) !important;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10) !important;
         }
 
         /* Filter pills override */
@@ -100,14 +109,17 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .filter-pill:hover, .filter-pill.active {
+
+        .filter-pill:hover,
+        .filter-pill.active {
             background: var(--color-accent);
             border-color: var(--color-accent);
             color: #fff;
         }
     </style>
-	<link rel='icon' type='image/png' href='../Images/favicon.png'>
+    <link rel='icon' type='image/png' href='../Images/favicon.png'>
 </head>
+
 <body class="d-flex flex-column min-vh-100 bg-surface">
 
     <div id="navbar-placeholder"></div>
@@ -121,12 +133,14 @@
             <div class="container text-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-3">
-                        <li class="breadcrumb-item"><a href="../index.html" class="text-secondary text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../index.html"
+                                class="text-secondary text-decoration-none">Home</a></li>
                         <li class="breadcrumb-item active text-dark fw-medium" aria-current="page">Events</li>
                     </ol>
                 </nav>
                 <h1 class="display-5 fw-bold mb-3 text-dark" style="font-family: Playfair Display;">Upcoming Events</h1>
-                <p class="fs-5 text-secondary mx-auto mb-0" style="max-width: 600px;">Workshops, seminars, hackathons and campus activities at OmniVault.</p>
+                <p class="fs-5 text-secondary mx-auto mb-0" style="max-width: 600px;">Workshops, seminars, hackathons
+                    and campus activities at OmniVault.</p>
             </div>
         </section>
 
@@ -143,11 +157,16 @@
                         <div class="row align-items-center g-5">
                             <!-- Left: Event Details -->
                             <div class="col-lg-6">
-                                <span class="badge bg-white border px-3 py-2 fw-bold text-uppercase rounded-pill mb-3 shadow-sm"
-                                    style="color: var(--color-accent); border-color: var(--color-accent) !important;">⭐ Featured Event</span>
-                                <h2 class="display-6 fw-bold text-dark mb-2" style="font-family: Playfair Display;" id="feat-title">—</h2>
-                                <p class="fw-semibold mb-3 d-flex align-items-center gap-2" style="color: var(--color-accent);" id="feat-meta">—</p>
-                                <p class="text-secondary mb-4" id="feat-desc" style="max-width: 480px; line-height: 1.7;">—</p>
+                                <span
+                                    class="badge bg-white border px-3 py-2 fw-bold text-uppercase rounded-pill mb-3 shadow-sm"
+                                    style="color: var(--color-accent); border-color: var(--color-accent) !important;">⭐
+                                    Featured Event</span>
+                                <h2 class="display-6 fw-bold text-dark mb-2" style="font-family: Playfair Display;"
+                                    id="feat-title">—</h2>
+                                <p class="fw-semibold mb-3 d-flex align-items-center gap-2"
+                                    style="color: var(--color-accent);" id="feat-meta">—</p>
+                                <p class="text-secondary mb-4" id="feat-desc"
+                                    style="max-width: 480px; line-height: 1.7;">—</p>
 
                                 <!-- Seat info under description -->
                                 <div class="mb-4">
@@ -168,15 +187,30 @@
 
                             <!-- Right: Countdown Timer -->
                             <div class="col-lg-6 text-center">
-                                <p class="small fw-bold text-uppercase text-secondary mb-3" style="letter-spacing: 1px;">Event starts in</p>
+                                <p class="small fw-bold text-uppercase text-secondary mb-3"
+                                    style="letter-spacing: 1px;">Event starts in</p>
                                 <div class="d-inline-flex gap-3" id="countdown-wrapper">
-                                    <div class="cd-box"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
-                                    <div class="cd-box"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
-                                    <div class="cd-box"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Mins</div></div>
-                                    <div class="cd-box"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Secs</div></div>
+                                    <div class="cd-box">
+                                        <div class="cd-num" id="cd-days">00</div>
+                                        <div class="cd-label">Days</div>
+                                    </div>
+                                    <div class="cd-box">
+                                        <div class="cd-num" id="cd-hours">00</div>
+                                        <div class="cd-label">Hours</div>
+                                    </div>
+                                    <div class="cd-box">
+                                        <div class="cd-num" id="cd-mins">00</div>
+                                        <div class="cd-label">Mins</div>
+                                    </div>
+                                    <div class="cd-box">
+                                        <div class="cd-num" id="cd-secs">00</div>
+                                        <div class="cd-label">Secs</div>
+                                    </div>
                                 </div>
                                 <div id="cd-ended" class="d-none mt-4">
-                                    <span class="badge bg-white border shadow-sm text-dark px-4 py-3 rounded-pill fw-bold fs-6">Event has ended</span>
+                                    <span
+                                        class="badge bg-white border shadow-sm text-dark px-4 py-3 rounded-pill fw-bold fs-6">Event
+                                        has ended</span>
                                 </div>
                             </div>
                         </div>
@@ -243,28 +277,34 @@
                     <div id="register-success" class="d-none text-center py-3">
                         <div style="font-size: 52px;">🎉</div>
                         <h5 class="fw-bold text-dark mt-3 mb-2">You're Registered!</h5>
-                        <p class="text-secondary small mb-0">Your seat has been confirmed. We'll reach out via email with further details.</p>
+                        <p class="text-secondary small mb-0">Your seat has been confirmed. We'll reach out via email
+                            with further details.</p>
                     </div>
                     <!-- Form -->
                     <form id="registerForm">
                         <div id="register-error" class="alert alert-danger d-none small py-2 mb-3"></div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
+                            <label class="form-label fw-semibold small">Full Name <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="regName" placeholder="Your full name" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold small">Email Address <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="regEmail" placeholder="your@email.com" required>
+                            <label class="form-label fw-semibold small">Email Address <span
+                                    class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="regEmail" placeholder="your@email.com"
+                                required>
                         </div>
                         <div class="mb-1">
-                            <label class="form-label fw-semibold small">Student ID <span class="text-secondary fw-normal">(optional)</span></label>
+                            <label class="form-label fw-semibold small">Student ID <span
+                                    class="text-secondary fw-normal">(optional)</span></label>
                             <input type="text" class="form-control" id="regStudentId" placeholder="e.g. CSE-1171">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer px-4 py-3" id="registerFooter">
                     <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary-custom fw-semibold px-4" id="btnSubmitRegister">Confirm Registration</button>
+                    <button type="button" class="btn btn-primary-custom fw-semibold px-4" id="btnSubmitRegister">Confirm
+                        Registration</button>
                 </div>
             </div>
         </div>
@@ -281,326 +321,326 @@
     <script src="../js/footer-loader.js"></script>
 
     <script>
-    $(document).ready(async function () {
-        if (typeof supabase === 'undefined' || typeof supabase.from !== 'function') {
-            $('#events-loading').addClass('d-none');
-            $('#events-empty').removeClass('d-none').html('<div class="alert alert-warning">Database connection error. Please refresh the page.</div>');
-            return;
-        }
+        $(document).ready(async function () {
+            if (typeof supabase === 'undefined' || typeof supabase.from !== 'function') {
+                $('#events-loading').addClass('d-none');
+                $('#events-empty').removeClass('d-none').html('<div class="alert alert-warning">Database connection error. Please refresh the page.</div>');
+                return;
+            }
 
-        let allEvents = [];
-        let currentEventId = null;
-        let currentEventTitle = '';
-        let countdownInterval = null;
+            let allEvents = [];
+            let currentEventId = null;
+            let currentEventTitle = '';
+            let countdownInterval = null;
 
-        // Will hold event IDs the current user has registered for
-        let registeredEvents = [];
+            // Will hold event IDs the current user has registered for
+            let registeredEvents = [];
 
-        // ════════════════════════════════════════════
-        // LOAD EVENTS FROM SUPABASE
-        // ════════════════════════════════════════════
-        async function loadEvents() {
-            const timeout = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('timeout')), 8000)
-            );
+            // ════════════════════════════════════════════
+            // LOAD EVENTS FROM SUPABASE
+            // ════════════════════════════════════════════
+            async function loadEvents() {
+                const timeout = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('timeout')), 8000)
+                );
 
-            try {
-                // Fetch the logged-in student's registrations first
-                const role = await window.Utils.getUserRole();
-                if (role === 'student') {
-                    const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
-                    if (studentUser.email) {
-                        const { data: myRegs } = await supabase
-                            .from('event_registrations')
-                            .select('event_id')
-                            .eq('student_email', studentUser.email);
-                        if (myRegs) {
-                            registeredEvents = myRegs.map(r => r.event_id);
+                try {
+                    // Fetch the logged-in student's registrations first
+                    const role = await window.Utils.getUserRole();
+                    if (role === 'student') {
+                        const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+                        if (studentUser.email) {
+                            const { data: myRegs } = await supabase
+                                .from('event_registrations')
+                                .select('event_id')
+                                .eq('student_email', studentUser.email);
+                            if (myRegs) {
+                                registeredEvents = myRegs.map(r => r.event_id);
+                            }
                         }
                     }
-                }
 
-                const fetchPromise = supabase
-                    .from('events')
-                    .select('*')
-                    .order('event_date', { ascending: true });
+                    const fetchPromise = supabase
+                        .from('events')
+                        .select('*')
+                        .order('event_date', { ascending: true });
 
-                const { data, error } = await Promise.race([fetchPromise, timeout]);
+                    const { data, error } = await Promise.race([fetchPromise, timeout]);
 
-                if (error) throw error;
-                allEvents = data || [];
-                
-                $('#events-loading').addClass('d-none');
+                    if (error) throw error;
+                    allEvents = data || [];
 
-                if (allEvents.length === 0) {
-                    $('#events-empty').removeClass('d-none').html(`
+                    $('#events-loading').addClass('d-none');
+
+                    if (allEvents.length === 0) {
+                        $('#events-empty').removeClass('d-none').html(`
                         <div class="py-5">
                             <div style="font-size:48px;">📋</div>
                             <h5 class="fw-bold text-dark mt-3 mb-2">No events available</h5>
                             <p class="text-secondary small">Events might be scheduled but not yet public. Check back later.</p>
                             <div class="mt-3 small text-muted">Verification: Database connected, but returned 0 rows.</div>
                         </div>`);
-                } else {
-                    await renderFeatured();
-                    await renderGrid($('.filter-pill.active').data('filter') || 'All');
-                }
-            } catch (e) {
-                console.error("LoadEvents Error:", e);
-                $('#events-loading').addClass('d-none');
-                const msg = e.message || 'Unknown error';
-                
-                if (msg === 'timeout') {
-                    $('#events-empty').removeClass('d-none').html(`
+                    } else {
+                        await renderFeatured();
+                        await renderGrid($('.filter-pill.active').data('filter') || 'All');
+                    }
+                } catch (e) {
+                    console.error("LoadEvents Error:", e);
+                    $('#events-loading').addClass('d-none');
+                    const msg = e.message || 'Unknown error';
+
+                    if (msg === 'timeout') {
+                        $('#events-empty').removeClass('d-none').html(`
                         <div class="py-4">
                             <div style="font-size:48px;">⏳</div>
                             <h5 class="fw-bold text-dark mt-3 mb-2">Connection Timeout</h5>
                             <p class="text-secondary small">Taking too long to fetch events. Please refresh the page.</p>
                         </div>`);
-                } else {
-                    $('#events-empty').removeClass('d-none').html(`
+                    } else {
+                        $('#events-empty').removeClass('d-none').html(`
                         <div class="py-4">
                             <div style="font-size:48px;">⚠️</div>
                             <h5 class="fw-bold text-dark mt-3 mb-2">Database Access Denied</h5>
                             <p class="text-secondary small">${msg}</p>
                             <p class="mt-3 xsmall text-muted">Possible fix: Run fix_all_rls.sql in Supabase.</p>
                         </div>`);
+                    }
                 }
             }
-        }
 
-        // Initialize Real-time subscription
-        function initRealtime() {
-            supabase
-                .channel('public:events')
-                .on('postgres_changes', { 
-                    event: '*', 
-                    schema: 'public', 
-                    table: 'events' 
-                }, payload => {
-                    loadEvents();
-                })
-                .subscribe();
-        }
-
-        await loadEvents();
-        initRealtime();
-
-
-        // ════════════════════════════════════════════
-        // EVENT STATUS HELPER
-        // ════════════════════════════════════════════
-        function getEventStatus(ev) {
-            const rem   = ev.seats_remaining ?? ev.seats_total;
-            const total = ev.seats_total || 0;
-            const pct   = total > 0 ? Math.round(((total - rem) / total) * 100) : 0;
-
-            let isEnded = false;
-            if (ev.event_date) {
-                const timeStr = ev.event_time ? convertTo24h(ev.event_time) : '23:59:00';
-                const eventEnd = new Date(ev.event_date + 'T' + timeStr);
-                isEnded = eventEnd < new Date();
+            // Initialize Real-time subscription
+            function initRealtime() {
+                supabase
+                    .channel('public:events')
+                    .on('postgres_changes', {
+                        event: '*',
+                        schema: 'public',
+                        table: 'events'
+                    }, payload => {
+                        loadEvents();
+                    })
+                    .subscribe();
             }
 
-            const isFull = rem <= 0;
-            const hasRegistered = registeredEvents.includes(ev.id);
+            await loadEvents();
+            initRealtime();
 
-            let fillColor = '#28a745'; 
-            if (pct >= 90)       fillColor = '#dc3545'; 
-            else if (pct >= 70)  fillColor = '#fd7e14'; 
-            else if (pct >= 50)  fillColor = '#ffc107'; 
 
-            return { rem, total, pct, isFull, isEnded, fillColor, hasRegistered };
-        }
+            // ════════════════════════════════════════════
+            // EVENT STATUS HELPER
+            // ════════════════════════════════════════════
+            function getEventStatus(ev) {
+                const rem = ev.seats_remaining ?? ev.seats_total;
+                const total = ev.seats_total || 0;
+                const pct = total > 0 ? Math.round(((total - rem) / total) * 100) : 0;
 
-        // ════════════════════════════════════════════
-        // FEATURED EVENT
-        // ════════════════════════════════════════════
-        async function renderFeatured() {
-            const feat = allEvents.find(e => e.is_featured);
-            if (!feat) return;
+                let isEnded = false;
+                if (ev.event_date) {
+                    const timeStr = ev.event_time ? convertTo24h(ev.event_time) : '23:59:00';
+                    const eventEnd = new Date(ev.event_date + 'T' + timeStr);
+                    isEnded = eventEnd < new Date();
+                }
 
-            $('#featured-event-wrapper').removeClass('d-none');
+                const isFull = rem <= 0;
+                const hasRegistered = registeredEvents.includes(ev.id);
 
-            const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(feat);
-            const role = await window.Utils.getUserRole();
+                let fillColor = '#28a745';
+                if (pct >= 90) fillColor = '#dc3545';
+                else if (pct >= 70) fillColor = '#fd7e14';
+                else if (pct >= 50) fillColor = '#ffc107';
 
-            // Populate text
-            const dateStr = feat.event_date
-                ? new Date(feat.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-                : '';
-            $('#feat-title').text(feat.title);
-            $('#feat-meta').html(`
+                return { rem, total, pct, isFull, isEnded, fillColor, hasRegistered };
+            }
+
+            // ════════════════════════════════════════════
+            // FEATURED EVENT
+            // ════════════════════════════════════════════
+            async function renderFeatured() {
+                const feat = allEvents.find(e => e.is_featured);
+                if (!feat) return;
+
+                $('#featured-event-wrapper').removeClass('d-none');
+
+                const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(feat);
+                const role = await window.Utils.getUserRole();
+
+                // Populate text
+                const dateStr = feat.event_date
+                    ? new Date(feat.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                    : '';
+                $('#feat-title').text(feat.title);
+                $('#feat-meta').html(`
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 ${dateStr}${feat.event_time ? ' · ' + feat.event_time : ''}
                 &nbsp;·&nbsp;
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 ${feat.location || 'TBD'}
             `);
-            $('#feat-desc').text(feat.description || '');
+                $('#feat-desc').text(feat.description || '');
 
-            // Seat bar
-            let seatLabel = '';
-            if (isEnded) {
-                seatLabel = '<span class="badge-ended">🔒 Event Ended</span>';
-            } else if (isFull) {
-                seatLabel = '<span class="badge-full">🚫 Seats Over</span>';
-            } else {
-                seatLabel = `<span class="fw-bold">${rem}</span> / ${total} seats remaining`;
-            }
-            $('#feat-seats-text').html(seatLabel);
-            $('#feat-seat-fill').css({ width: isFull || isEnded ? '100%' : pct + '%', background: isEnded ? '#6c757d' : fillColor });
-
-            // Register button state
-            const $btn = $('#feat-register-btn');
-            
-            if (role === 'guest') {
-                $btn.prop('disabled', false).text('Can not register')
-                    .addClass('btn-outline-primary border-primary-custom text-primary-custom')
-                    .removeClass('btn-primary-custom d-none')
-                    .off('click').on('click', function(e) {
-                        e.preventDefault();
-                        window.Utils.requireAuth();
-                    });
-            } else if (role === 'admin') {
-                $btn.addClass('d-none');
-            } else if (role === 'student') {
-                $btn.removeClass('d-none');
-                if (isEnded) {
-                    $btn.prop('disabled', true).text('Registration Closed').removeClass('btn-primary-custom').addClass('btn-secondary');
-                } else if (hasRegistered) {
-                    $btn.prop('disabled', true).text('Already Registered').removeClass('btn-primary-custom').addClass('btn-success');
-                } else if (isFull) {
-                    $btn.prop('disabled', true).text('Seats Over').removeClass('btn-primary-custom').addClass('btn-danger');
-                } else {
-                    $btn.prop('disabled', false).text('Register Now').addClass('btn-primary-custom').removeClass('btn-secondary btn-danger btn-success btn-outline-primary text-primary-custom')
-                        .attr('data-event-id', feat.id).attr('data-event-title', feat.title);
-                }
-            }
-
-            // Countdown (only if not ended)
-            if (!isEnded) {
-                startCountdown(feat.event_date, feat.event_time);
-            } else {
-                $('#countdown-wrapper').addClass('d-none');
-                $('#cd-ended').removeClass('d-none');
-            }
-        }
-
-        // ════════════════════════════════════════════
-        // COUNTDOWN TIMER
-        // ════════════════════════════════════════════
-        function startCountdown(eventDate, eventTime) {
-            if (!eventDate) return;
-            if (countdownInterval) clearInterval(countdownInterval);
-
-            const timeStr = eventTime || '00:00';
-            const targetStr = `${eventDate}T${convertTo24h(timeStr)}`;
-            const target = new Date(targetStr);
-
-            function tick() {
-                const now = new Date();
-                const diff = target - now;
-                if (diff <= 0) {
-                    clearInterval(countdownInterval);
-                    $('#countdown-wrapper').addClass('d-none');
-                    $('#cd-ended').removeClass('d-none');
-                    return;
-                }
-                const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs  = Math.floor((diff % (1000 * 60)) / 1000);
-                $('#cd-days').text(String(days).padStart(2, '0'));
-                $('#cd-hours').text(String(hours).padStart(2, '0'));
-                $('#cd-mins').text(String(mins).padStart(2, '0'));
-                $('#cd-secs').text(String(secs).padStart(2, '0'));
-            }
-            tick();
-            countdownInterval = setInterval(tick, 1000);
-        }
-
-        function convertTo24h(timeStr) {
-            if (!timeStr) return '00:00:00';
-            const m = timeStr.match(/^(\d+):(\d+)\s*(AM|PM)?$/i);
-            if (!m) return '00:00:00';
-            let [, h, min, period] = m;
-            h = parseInt(h);
-            if (period && period.toUpperCase() === 'PM' && h < 12) h += 12;
-            if (period && period.toUpperCase() === 'AM' && h === 12) h = 0;
-            return `${String(h).padStart(2, '0')}:${min}:00`;
-        }
-
-        // ════════════════════════════════════════════
-        // EVENTS GRID
-        // ════════════════════════════════════════════
-        async function renderGrid(filter) {
-            const $grid = $('#events-grid');
-            $grid.empty();
-
-            let filtered = filter === 'All' ? allEvents : allEvents.filter(e => e.type === filter);
-            filtered = filtered.filter(e => !e.is_featured);
-
-            if (filtered.length === 0) {
-                $('#events-empty').removeClass('d-none');
-                return;
-            }
-            $('#events-empty').addClass('d-none');
-
-            const role = await window.Utils.getUserRole();
-
-            filtered.forEach(ev => {
-                const dateStr = ev.event_date
-                    ? new Date(ev.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
-                    : '—';
-
-                const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(ev);
-
-                let statusBadge = '';
-                if (isEnded) {
-                    statusBadge = '<span class="badge-ended ms-2">Event Ended</span>';
-                } else if (hasRegistered && role === 'student') {
-                    statusBadge = '<span class="badge bg-success ms-2">Registered</span>';
-                } else if (isFull) {
-                    statusBadge = '<span class="badge-full ms-2">Seats Over</span>';
-                }
-
+                // Seat bar
                 let seatLabel = '';
                 if (isEnded) {
-                    seatLabel = `<span class="text-secondary">Event has ended</span>`;
+                    seatLabel = '<span class="badge-ended">🔒 Event Ended</span>';
                 } else if (isFull) {
-                    seatLabel = `<span class="text-danger fw-bold">All ${total} seats filled</span>`;
+                    seatLabel = '<span class="badge-full">🚫 Seats Over</span>';
                 } else {
-                    seatLabel = `<span class="fw-semibold">${rem}</span> / ${total} left`;
+                    seatLabel = `<span class="fw-bold">${rem}</span> / ${total} seats remaining`;
+                }
+                $('#feat-seats-text').html(seatLabel);
+                $('#feat-seat-fill').css({ width: isFull || isEnded ? '100%' : pct + '%', background: isEnded ? '#6c757d' : fillColor });
+
+                // Register button state
+                const $btn = $('#feat-register-btn');
+
+                if (role === 'guest') {
+                    $btn.prop('disabled', false).text('Can not register')
+                        .addClass('btn-outline-primary border-primary-custom text-primary-custom')
+                        .removeClass('btn-primary-custom d-none')
+                        .off('click').on('click', function (e) {
+                            e.preventDefault();
+                            window.Utils.requireAuth();
+                        });
+                } else if (role === 'admin') {
+                    $btn.addClass('d-none');
+                } else if (role === 'student') {
+                    $btn.removeClass('d-none');
+                    if (isEnded) {
+                        $btn.prop('disabled', true).text('Registration Closed').removeClass('btn-primary-custom').addClass('btn-secondary');
+                    } else if (hasRegistered) {
+                        $btn.prop('disabled', true).text('Already Registered').removeClass('btn-primary-custom').addClass('btn-success');
+                    } else if (isFull) {
+                        $btn.prop('disabled', true).text('Seats Over').removeClass('btn-primary-custom').addClass('btn-danger');
+                    } else {
+                        $btn.prop('disabled', false).text('Register Now').addClass('btn-primary-custom').removeClass('btn-secondary btn-danger btn-success btn-outline-primary text-primary-custom')
+                            .attr('data-event-id', feat.id).attr('data-event-title', feat.title);
+                    }
                 }
 
-                let btnHtml = '';
-                if (role === 'guest') {
-                    btnHtml = `
+                // Countdown (only if not ended)
+                if (!isEnded) {
+                    startCountdown(feat.event_date, feat.event_time);
+                } else {
+                    $('#countdown-wrapper').addClass('d-none');
+                    $('#cd-ended').removeClass('d-none');
+                }
+            }
+
+            // ════════════════════════════════════════════
+            // COUNTDOWN TIMER
+            // ════════════════════════════════════════════
+            function startCountdown(eventDate, eventTime) {
+                if (!eventDate) return;
+                if (countdownInterval) clearInterval(countdownInterval);
+
+                const timeStr = eventTime || '00:00';
+                const targetStr = `${eventDate}T${convertTo24h(timeStr)}`;
+                const target = new Date(targetStr);
+
+                function tick() {
+                    const now = new Date();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        clearInterval(countdownInterval);
+                        $('#countdown-wrapper').addClass('d-none');
+                        $('#cd-ended').removeClass('d-none');
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                    $('#cd-days').text(String(days).padStart(2, '0'));
+                    $('#cd-hours').text(String(hours).padStart(2, '0'));
+                    $('#cd-mins').text(String(mins).padStart(2, '0'));
+                    $('#cd-secs').text(String(secs).padStart(2, '0'));
+                }
+                tick();
+                countdownInterval = setInterval(tick, 1000);
+            }
+
+            function convertTo24h(timeStr) {
+                if (!timeStr) return '00:00:00';
+                const m = timeStr.match(/^(\d+):(\d+)\s*(AM|PM)?$/i);
+                if (!m) return '00:00:00';
+                let [, h, min, period] = m;
+                h = parseInt(h);
+                if (period && period.toUpperCase() === 'PM' && h < 12) h += 12;
+                if (period && period.toUpperCase() === 'AM' && h === 12) h = 0;
+                return `${String(h).padStart(2, '0')}:${min}:00`;
+            }
+
+            // ════════════════════════════════════════════
+            // EVENTS GRID
+            // ════════════════════════════════════════════
+            async function renderGrid(filter) {
+                const $grid = $('#events-grid');
+                $grid.empty();
+
+                let filtered = filter === 'All' ? allEvents : allEvents.filter(e => e.type === filter);
+                filtered = filtered.filter(e => !e.is_featured);
+
+                if (filtered.length === 0) {
+                    $('#events-empty').removeClass('d-none');
+                    return;
+                }
+                $('#events-empty').addClass('d-none');
+
+                const role = await window.Utils.getUserRole();
+
+                filtered.forEach(ev => {
+                    const dateStr = ev.event_date
+                        ? new Date(ev.event_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+                        : '—';
+
+                    const { rem, total, pct, isFull, isEnded, fillColor, hasRegistered } = getEventStatus(ev);
+
+                    let statusBadge = '';
+                    if (isEnded) {
+                        statusBadge = '<span class="badge-ended ms-2">Event Ended</span>';
+                    } else if (hasRegistered && role === 'student') {
+                        statusBadge = '<span class="badge bg-success ms-2">Registered</span>';
+                    } else if (isFull) {
+                        statusBadge = '<span class="badge-full ms-2">Seats Over</span>';
+                    }
+
+                    let seatLabel = '';
+                    if (isEnded) {
+                        seatLabel = `<span class="text-secondary">Event has ended</span>`;
+                    } else if (isFull) {
+                        seatLabel = `<span class="text-danger fw-bold">All ${total} seats filled</span>`;
+                    } else {
+                        seatLabel = `<span class="fw-semibold">${rem}</span> / ${total} left`;
+                    }
+
+                    let btnHtml = '';
+                    if (role === 'guest') {
+                        btnHtml = `
                     <button class="btn btn-outline-primary border-primary-custom text-primary-custom w-100 fw-semibold"
                         onclick="window.Utils.requireAuth();">
                         Can not register
                     </button>
                     `;
-                } else if (role === 'student') {
-                    let btnText = 'Register Now';
-                    let btnDisabled = '';
-                    let btnClass = 'btn-primary-custom';
+                    } else if (role === 'student') {
+                        let btnText = 'Register Now';
+                        let btnDisabled = '';
+                        let btnClass = 'btn-primary-custom';
 
-                    if (isEnded) {
-                        btnText = 'Registration Closed';
-                        btnDisabled = 'disabled';
-                        btnClass = 'btn-secondary';
-                    } else if (hasRegistered) {
-                        btnText = 'Already Registered';
-                        btnDisabled = 'disabled';
-                        btnClass = 'btn-success text-white border-0';
-                    } else if (isFull) {
-                        btnText = 'Seats Over';
-                        btnDisabled = 'disabled';
-                        btnClass = 'btn-danger';
-                    }
+                        if (isEnded) {
+                            btnText = 'Registration Closed';
+                            btnDisabled = 'disabled';
+                            btnClass = 'btn-secondary';
+                        } else if (hasRegistered) {
+                            btnText = 'Already Registered';
+                            btnDisabled = 'disabled';
+                            btnClass = 'btn-success text-white border-0';
+                        } else if (isFull) {
+                            btnText = 'Seats Over';
+                            btnDisabled = 'disabled';
+                            btnClass = 'btn-danger';
+                        }
 
-                    btnHtml = `
+                        btnHtml = `
                     <button class="btn ${btnClass} w-100 fw-semibold btn-open-register"
                         data-event-id="${ev.id}"
                         data-event-title="${ev.title.replace(/"/g, '&quot;')}"
@@ -608,9 +648,9 @@
                         ${btnText}
                     </button>
                     `;
-                }
+                    }
 
-                $grid.append(`
+                    $grid.append(`
                     <div class="col-lg-4 col-md-6 event-item" data-type="${ev.type}">
                         <div class="card event-card h-100 bg-white shadow-sm border border-light p-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -635,150 +675,151 @@
                             </div>
                         </div>
                     </div>`);
+                });
+            }
+
+
+            // ════════════════════════════════════════════
+            // FILTER PILLS
+            // ════════════════════════════════════════════
+            $(document).on('click', '.filter-pill', async function () {
+                $('.filter-pill').removeClass('active');
+                $(this).addClass('active');
+                await renderGrid($(this).data('filter'));
             });
-        }
 
-
-        // ════════════════════════════════════════════
-        // FILTER PILLS
-        // ════════════════════════════════════════════
-        $(document).on('click', '.filter-pill', async function () {
-            $('.filter-pill').removeClass('active');
-            $(this).addClass('active');
-            await renderGrid($(this).data('filter'));
-        });
-
-        // ════════════════════════════════════════════
-        // OPEN REGISTRATION MODAL
-        // ════════════════════════════════════════════
-        async function openRegisterModal(eventId, eventTitle) {
-            const role = await window.Utils.getUserRole();
-            if (role !== 'student') {
-                if (role === 'guest') window.Utils.requireAuth();
-                else alert('Only students can register for events.');
-                return;
-            }
-
-            const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
-
-            currentEventId = eventId;
-            currentEventTitle = eventTitle;
-            $('#registerModalLabel').text('Register for Event');
-            $('#registerModalSubtitle').text(currentEventTitle);
-            
-            // Pre-fill and lock fields for a professional experience
-            $('#regName').val(studentUser.name || '').prop('readonly', !!studentUser.name);
-            $('#regEmail').val(studentUser.email || '').prop('readonly', !!studentUser.email);
-            $('#regStudentId').val(studentUser.studentId || '').prop('readonly', !!studentUser.studentId);
-
-            $('#registerForm').show();
-            $('#register-success').addClass('d-none');
-            $('#register-error').addClass('d-none');
-            $('#btnSubmitRegister').show().prop('disabled', false).text('Confirm Registration');
-            $('#registerFooter .btn-ghost').text('Cancel');
-            const modal = new bootstrap.Modal(document.getElementById('registerModal'));
-            modal.show();
-        }
-
-        $('#feat-register-btn').on('click', async function () {
-            const id = $(this).attr('data-event-id');
-            const title = $(this).attr('data-event-title');
-            
-            const role = await window.Utils.getUserRole();
-            if (role !== 'student') {
-                if (role === 'guest') window.Utils.requireAuth();
-                return;
-            }
-            
-            if (id) openRegisterModal(id, title);
-        });
-
-        $(document).on('click', '.btn-open-register', async function () {
-            const id = $(this).attr('data-event-id');
-            const title = $(this).attr('data-event-title');
-
-            const role = await window.Utils.getUserRole();
-            if (role !== 'student') {
-                if (role === 'guest') window.Utils.requireAuth();
-                return;
-            }
-
-            openRegisterModal(id, title);
-        });
-
-        // ════════════════════════════════════════════
-        // SUBMIT REGISTRATION
-        // ════════════════════════════════════════════
-        $('#btnSubmitRegister').on('click', async function () {
-            const role = await window.Utils.getUserRole();
-            if (role !== 'student') {
-                $('#register-error').removeClass('d-none').text('⚠️ Only students can register. Please login with a student account.');
-                return;
-            }
-
-            const name = $('#regName').val().trim();
-            const email = $('#regEmail').val().trim();
-            const studentId = $('#regStudentId').val().trim();
-
-            $('#register-error').addClass('d-none');
-
-            if (!name || !email) {
-                $('#register-error').removeClass('d-none').text('⚠️ Name and Email are required.');
-                return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                $('#register-error').removeClass('d-none').text('⚠️ Please enter a valid email address.');
-                return;
-            }
-
-            $(this).prop('disabled', true).text('Submitting...');
-
-            try {
-                const { data: existing } = await supabase
-                    .from('event_registrations')
-                    .select('id')
-                    .eq('event_id', currentEventId)
-                    .eq('student_email', email)
-                    .maybeSingle();
-
-                if (existing) throw new Error('You have already registered for this event.');
-
-                const { error: regErr } = await supabase.from('event_registrations').insert([{
-                    event_id: currentEventId,
-                    event_title: currentEventTitle,
-                    student_name: name,
-                    student_email: email,
-                    student_id: studentId || null
-                }]);
-                if (regErr) throw regErr;
-
-                const ev = allEvents.find(e => e.id === currentEventId);
-                if (ev && (ev.seats_remaining ?? ev.seats_total) > 0) {
-                    const newRem = (ev.seats_remaining ?? ev.seats_total) - 1;
-                    await supabase.from('events').update({ seats_remaining: newRem }).eq('id', currentEventId);
-                    ev.seats_remaining = newRem; 
+            // ════════════════════════════════════════════
+            // OPEN REGISTRATION MODAL
+            // ════════════════════════════════════════════
+            async function openRegisterModal(eventId, eventTitle) {
+                const role = await window.Utils.getUserRole();
+                if (role !== 'student') {
+                    if (role === 'guest') window.Utils.requireAuth();
+                    else alert('Only students can register for events.');
+                    return;
                 }
 
-                if (!registeredEvents.includes(currentEventId)) {
-                    registeredEvents.push(currentEventId);
+                const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
+
+                currentEventId = eventId;
+                currentEventTitle = eventTitle;
+                $('#registerModalLabel').text('Register for Event');
+                $('#registerModalSubtitle').text(currentEventTitle);
+
+                // Pre-fill and lock fields for a professional experience
+                $('#regName').val(studentUser.name || '').prop('readonly', !!studentUser.name);
+                $('#regEmail').val(studentUser.email || '').prop('readonly', !!studentUser.email);
+                $('#regStudentId').val(studentUser.studentId || '').prop('readonly', !!studentUser.studentId);
+
+                $('#registerForm').show();
+                $('#register-success').addClass('d-none');
+                $('#register-error').addClass('d-none');
+                $('#btnSubmitRegister').show().prop('disabled', false).text('Confirm Registration');
+                $('#registerFooter .btn-ghost').text('Cancel');
+                const modal = new bootstrap.Modal(document.getElementById('registerModal'));
+                modal.show();
+            }
+
+            $('#feat-register-btn').on('click', async function () {
+                const id = $(this).attr('data-event-id');
+                const title = $(this).attr('data-event-title');
+
+                const role = await window.Utils.getUserRole();
+                if (role !== 'student') {
+                    if (role === 'guest') window.Utils.requireAuth();
+                    return;
                 }
 
-                $('#registerForm').hide();
-                $('#register-success').removeClass('d-none');
-                $('#btnSubmitRegister').hide();
-                $('#registerFooter .btn-ghost').text('Close');
+                if (id) openRegisterModal(id, title);
+            });
 
-                await renderFeatured();
-                await renderGrid($('.filter-pill.active').data('filter') || 'All');
-                await loadEvents();
+            $(document).on('click', '.btn-open-register', async function () {
+                const id = $(this).attr('data-event-id');
+                const title = $(this).attr('data-event-title');
 
-            } catch (e) {
-                $('#register-error').removeClass('d-none').text('⚠️ ' + (e.message || 'Registration failed. Please try again.'));
-                $(this).prop('disabled', false).text('Confirm Registration');
-            }
+                const role = await window.Utils.getUserRole();
+                if (role !== 'student') {
+                    if (role === 'guest') window.Utils.requireAuth();
+                    return;
+                }
+
+                openRegisterModal(id, title);
+            });
+
+            // ════════════════════════════════════════════
+            // SUBMIT REGISTRATION
+            // ════════════════════════════════════════════
+            $('#btnSubmitRegister').on('click', async function () {
+                const role = await window.Utils.getUserRole();
+                if (role !== 'student') {
+                    $('#register-error').removeClass('d-none').text('⚠️ Only students can register. Please login with a student account.');
+                    return;
+                }
+
+                const name = $('#regName').val().trim();
+                const email = $('#regEmail').val().trim();
+                const studentId = $('#regStudentId').val().trim();
+
+                $('#register-error').addClass('d-none');
+
+                if (!name || !email) {
+                    $('#register-error').removeClass('d-none').text('⚠️ Name and Email are required.');
+                    return;
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    $('#register-error').removeClass('d-none').text('⚠️ Please enter a valid email address.');
+                    return;
+                }
+
+                $(this).prop('disabled', true).text('Submitting...');
+
+                try {
+                    const { data: existing } = await supabase
+                        .from('event_registrations')
+                        .select('id')
+                        .eq('event_id', currentEventId)
+                        .eq('student_email', email)
+                        .maybeSingle();
+
+                    if (existing) throw new Error('You have already registered for this event.');
+
+                    const { error: regErr } = await supabase.from('event_registrations').insert([{
+                        event_id: currentEventId,
+                        event_title: currentEventTitle,
+                        student_name: name,
+                        student_email: email,
+                        student_id: studentId || null
+                    }]);
+                    if (regErr) throw regErr;
+
+                    const ev = allEvents.find(e => e.id === currentEventId);
+                    if (ev && (ev.seats_remaining ?? ev.seats_total) > 0) {
+                        const newRem = (ev.seats_remaining ?? ev.seats_total) - 1;
+                        await supabase.from('events').update({ seats_remaining: newRem }).eq('id', currentEventId);
+                        ev.seats_remaining = newRem;
+                    }
+
+                    if (!registeredEvents.includes(currentEventId)) {
+                        registeredEvents.push(currentEventId);
+                    }
+
+                    $('#registerForm').hide();
+                    $('#register-success').removeClass('d-none');
+                    $('#btnSubmitRegister').hide();
+                    $('#registerFooter .btn-ghost').text('Close');
+
+                    await renderFeatured();
+                    await renderGrid($('.filter-pill.active').data('filter') || 'All');
+                    await loadEvents();
+
+                } catch (e) {
+                    $('#register-error').removeClass('d-none').text('⚠️ ' + (e.message || 'Registration failed. Please try again.'));
+                    $(this).prop('disabled', false).text('Confirm Registration');
+                }
+            });
         });
-    });
     </script>
 
 </body>
+
 </html>

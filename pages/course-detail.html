@@ -1,7 +1,7 @@
 <!--
   Page: Course Detail
   File: course-detail.html
-  Made by: [Kriti] | ID: [1181]
+  Made by: [Aiman] | ID: [1197]
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/pages/course-detail.css">
-	<link rel='icon' type='image/png' href='../Images/favicon.png'>
+    <link rel='icon' type='image/png' href='../Images/favicon.png'>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-surface">
@@ -105,7 +105,9 @@
                                 description goes here.</p>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn d-none">Enroll Now</button>
+                                <button
+                                    class="btn btn-primary-custom px-5 py-2 fw-semibold fs-5 enroll-btn d-none">Enroll
+                                    Now</button>
                             </div>
                         </div>
 
@@ -145,7 +147,9 @@
                                     </li>
                                 </ul>
 
-                                <button class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0 d-none">Enroll Now</button>
+                                <button
+                                    class="btn btn-primary-custom w-100 py-3 fw-bold enroll-btn border-0 d-none">Enroll
+                                    Now</button>
                             </div>
                         </div>
 
@@ -277,14 +281,14 @@
                     if (!data) throw new Error('Course not found');
 
                     renderCourse(data);
-                    
+
                     supabase
                         .channel(`course-realtime-${id}`)
-                        .on('postgres_changes', { 
-                            event: 'UPDATE', 
-                            schema: 'public', 
-                            table: 'courses', 
-                            filter: `id=eq.${id}` 
+                        .on('postgres_changes', {
+                            event: 'UPDATE',
+                            schema: 'public',
+                            table: 'courses',
+                            filter: `id=eq.${id}`
                         }, payload => {
                             updateSeatsUI(payload.new);
                         })
@@ -299,9 +303,9 @@
 
             function updateSeatsUI(course) {
                 const seatsFilled = course.enrolled || 0;
-                const seatsTotal = course.seats || 50; 
+                const seatsTotal = course.seats || 50;
                 const remaining = Math.max(0, seatsTotal - seatsFilled);
-                
+
                 $('#seats-text').html(`
                     <span class="fw-bold text-dark">${seatsFilled}/${seatsTotal}</span> enrolled 
                     <span class="mx-2 text-muted">|</span> 
@@ -313,7 +317,7 @@
                 let perc = 0;
                 if (seatsTotal > 0) perc = (seatsFilled / seatsTotal) * 100;
                 $('#seats-progress').css('width', `${perc}%`);
-                
+
                 if (perc >= 90) $('#seats-progress').addClass('bg-danger').removeClass('bg-primary');
                 else $('#seats-progress').addClass('bg-primary').removeClass('bg-danger');
             }
@@ -380,7 +384,7 @@
                 $('#loading-container').addClass('d-none');
                 $('#course-content-container').removeClass('d-none');
                 applyAuthGuard();
-                
+
                 fetchInstructor(course.instructor, deptLower);
                 fetchRelated(course.department, course.id);
             }
@@ -442,23 +446,23 @@
 
                 if (role === 'guest') {
                     $btns.text('Can not enroll now')
-                         .removeClass('d-none btn-primary-custom')
-                         .addClass('btn-outline-primary border-primary-custom text-primary-custom')
-                         .removeAttr('data-bs-toggle')
-                         .removeAttr('data-bs-target')
-                         .on('click', function(e) {
-                             e.preventDefault();
-                             window.Utils.requireAuth();
-                         });
+                        .removeClass('d-none btn-primary-custom')
+                        .addClass('btn-outline-primary border-primary-custom text-primary-custom')
+                        .removeAttr('data-bs-toggle')
+                        .removeAttr('data-bs-target')
+                        .on('click', function (e) {
+                            e.preventDefault();
+                            window.Utils.requireAuth();
+                        });
                 } else if (role === 'admin') {
                     $btns.text('Manage Course')
-                         .removeClass('d-none')
-                         .removeAttr('data-bs-toggle')
-                         .removeAttr('data-bs-target')
-                         .on('click', function(e) {
-                             e.preventDefault();
-                             window.location.href = './admin.html';
-                         });
+                        .removeClass('d-none')
+                        .removeAttr('data-bs-toggle')
+                        .removeAttr('data-bs-target')
+                        .on('click', function (e) {
+                            e.preventDefault();
+                            window.location.href = './admin.html';
+                        });
                 } else if (role === 'student') {
                     const studentUser = JSON.parse(sessionStorage.getItem('omnivault_user') || '{}');
                     if (studentUser.name) {
@@ -467,8 +471,8 @@
                         $('#enrollStudentId').val(studentUser.studentId).prop('readonly', true);
                     }
                     $btns.removeClass('d-none')
-                         .attr('data-bs-toggle', 'modal')
-                         .attr('data-bs-target', '#enrollModal');
+                        .attr('data-bs-toggle', 'modal')
+                        .attr('data-bs-target', '#enrollModal');
                 }
             }
 
@@ -476,4 +480,5 @@
         });
     </script>
 </body>
+
 </html>

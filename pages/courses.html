@@ -1,7 +1,7 @@
 <!--
   Page: Courses
   File: courses.html
-  Made by: Kriti | ID: 1181
+  Made by: Aiman | ID: 1197
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <!-- Page Specific CSS -->
-    
+
     <style>
         .filter-sidebar {
             width: 260px;
@@ -111,17 +111,17 @@
             margin-bottom: 0;
         }
 
-        .pill-item input:checked + .pill-label {
+        .pill-item input:checked+.pill-label {
             background-color: var(--color-accent);
             color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .pill-label:hover:not(.pill-item input:checked + .pill-label) {
             background-color: rgba(255, 255, 255, 0.8);
         }
     </style>
-	<link rel='icon' type='image/png' href='../Images/favicon.png'>
+    <link rel='icon' type='image/png' href='../Images/favicon.png'>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-surface">
@@ -176,7 +176,8 @@
 
                     <div class="filter-item">
                         <span class="filter-label">Duration:</span>
-                        <select class="form-select form-select-sm shadow-none border bg-white" id="durationSelect" style="border-radius: 50px; padding-left: 15px; padding-right: 35px;">
+                        <select class="form-select form-select-sm shadow-none border bg-white" id="durationSelect"
+                            style="border-radius: 50px; padding-left: 15px; padding-right: 35px;">
                             <option value="Any">Any Duration</option>
                             <option value="Under 8">Under 8 Weeks</option>
                             <option value="8-16">8–16 Weeks</option>
@@ -185,7 +186,8 @@
                     </div>
 
                     <div class="filter-item">
-                        <a href="#" id="reset-filters" class="text-accent hover-primary text-decoration-none fw-semibold small">Reset Filters</a>
+                        <a href="#" id="reset-filters"
+                            class="text-accent hover-primary text-decoration-none fw-semibold small">Reset Filters</a>
                     </div>
                 </div>
             </div>
@@ -194,18 +196,18 @@
         <!-- SECTION 2 — FILTER + GRID LAYOUT -->
         <section style="background-color: var(--color-bg); margin-bottom: 40px;">
             <div class="container-fluid px-0">
-                    <!-- GRID AREA -->
-                    <div class="flex-grow-1 p-4 pt-0 w-100" style="max-width: 1400px; margin: 0 auto;">
+                <!-- GRID AREA -->
+                <div class="flex-grow-1 p-4 pt-0 w-100" style="max-width: 1400px; margin: 0 auto;">
 
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <p id="count-display" class="fw-semibold text-secondary mb-0">Showing 0 of 0 courses</p>
-                        </div>
-
-                        <div class="row g-4 justify-content-center" id="courses-grid">
-                            <!-- Cards will be rendered here dynamically via JS extension -->
-                        </div>
-
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <p id="count-display" class="fw-semibold text-secondary mb-0">Showing 0 of 0 courses</p>
                     </div>
+
+                    <div class="row g-4 justify-content-center" id="courses-grid">
+                        <!-- Cards will be rendered here dynamically via JS extension -->
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -230,7 +232,5 @@
 
 
 </body>
+
 </html>
-
-
-
