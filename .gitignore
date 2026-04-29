@@ -9,3 +9,4 @@ events_rls_fix.sql
 events_setup.sql
 specializations_setup.sql
 students_patch_v2.sql
+README.md
