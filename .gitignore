@@ -10,3 +10,10 @@ events_setup.sql
 specializations_setup.sql
 students_patch_v2.sql
 README.md
+sql files/contact_messages_setup.sql
+sql files/enrollment_system_sync.sql
+sql files/fix_all_rls.sql
+sql files/schema_patch_v4.sql
+sql files/stats_admin_setup.sql
+sql files/stats_patch_v2.sql
+sql files/stats_setup.sql
